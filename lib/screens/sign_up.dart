@@ -1,4 +1,8 @@
-import 'package:esgi_project/home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esgi_project/routes.dart';
+import 'package:esgi_project/utils/constant.dart';
+import 'package:esgi_project/utils/constant_color.dart';
+import 'package:esgi_project/utils/constant_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -9,42 +13,49 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final _auth = FirebaseAuth.instance;
-  String email, password, lastName, firstName;
+  String email, password, pseudo;
 
   Future<void> signUserIn() async {
     try {
-      final newUser =
-      await _auth.createUserWithEmailAndPassword(
+      final newUser = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       if (newUser != null) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Home()),
-        );
+        await _registerUser(newUser.user);
+        Navigator.pushNamed(context, Router.homeRoute);
       }
     } catch (e) {
       print(e);
     }
   }
 
+  _registerUser(FirebaseUser user) async {
+    await Firestore.instance
+        .collection(ConstantFirestore.collectionUser)
+        .document(user.uid)
+        .setData({
+      "userId": user.uid,
+      "pseudo": pseudo,
+      "mail": email,
+      "isOrganizer": false, //TODO: changer par valeur du checkbox
+    }, merge: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
+            child: GestureDetector(
+          onTap: () => FocusScope.of(context)
+              .unfocus(), // enleve clavier si clique ailleurs
           child: Container(
             padding: EdgeInsets.only(top: 0, left: 30.0, right: 30.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 0),
-                   child: Image.asset(
-                    'assets/logo.png',
-                  )
-                ),
+                    padding: const EdgeInsets.symmetric(vertical: 0),
+                    child: Image.asset(Constant.pathLogoImage)),
                 TextField(
                     style: TextStyle(fontWeight: FontWeight.w500),
                     keyboardType: TextInputType.emailAddress,
@@ -55,42 +66,19 @@ class _SignUpState extends State<SignUp> {
                         suffixIcon: Icon(Icons.email),
                         hintText: 'Votre Email',
                         labelText: 'Votre Email',
-                        labelStyle: TextStyle(fontWeight: FontWeight.w400)
-                    )
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400))),
+                SizedBox(height: 10.0),
                 TextField(
                     style: TextStyle(fontWeight: FontWeight.w500),
                     onChanged: (value) {
-                      lastName = value; //get the value entered by user.
+                      pseudo = value; //get the value entered by user.
                     },
                     decoration: InputDecoration(
                         suffixIcon: Icon(Icons.person),
-                        hintText: 'Nom',
-                        labelText: 'Nom',
-                        labelStyle: TextStyle(fontWeight: FontWeight.w400)
-                    )
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                TextField(
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                    onChanged: (value) {
-                      firstName = value; //get the value entered by user.
-                    },
-                    decoration: InputDecoration(
-                        suffixIcon: Icon(Icons.person),
-                        hintText: 'Prénom',
-                        labelText: 'Prénom',
-                        labelStyle: TextStyle(fontWeight: FontWeight.w400)
-                    )
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
+                        hintText: 'Pseudo',
+                        labelText: 'Pseudo',
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400))),
+                SizedBox(height: 10.0),
                 TextField(
                     obscureText: true,
                     style: TextStyle(fontWeight: FontWeight.w500),
@@ -101,12 +89,8 @@ class _SignUpState extends State<SignUp> {
                         suffixIcon: Icon(Icons.lock),
                         hintText: 'Mot de passe',
                         labelText: 'Mot de passe',
-                        labelStyle: TextStyle(fontWeight: FontWeight.w400)
-                    )
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400))),
+                SizedBox(height: 10.0),
                 Padding(
                   padding: const EdgeInsets.only(top: 30.0),
                   child: RawMaterialButton(
@@ -118,39 +102,36 @@ class _SignUpState extends State<SignUp> {
                       child: Text(
                         "S'inscrire",
                         style: TextStyle(
-                            color: Colors.white, 
-                            fontWeight: FontWeight.w400
-                        ),
+                            color: Colors.white, fontWeight: FontWeight.w400),
                       ),
                     ),
                     elevation: 6.0,
-                    fillColor: Colors.purple.shade300,
+                    fillColor: ConstantColor.primaryColor,
                     shape: StadiumBorder(),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 50),
-                  child: RawMaterialButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: Text(
-                        'Se Connecter',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w400),
+                  child: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      height: 50,
+                      child: Center(
+                        child: Text(
+                          "Se Connecter",
+                          style: TextStyle(
+                            color: ConstantColor.primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                    elevation: 6.0,
-                    fillColor: Colors.purple.shade300,
-                    shape: StadiumBorder(),
                   ),
                 ),
               ],
             ),
           ),
-        ),
+        )),
       ),
     );
   }
