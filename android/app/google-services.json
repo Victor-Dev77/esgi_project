@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "611764057156",
+    "firebase_url": "https://wemouvflutter.firebaseio.com",
+    "project_id": "wemouvflutter",
+    "storage_bucket": "wemouvflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611764057156:android:7fc02b627a0020ed9cb811",
+        "android_client_info": {
+          "package_name": "com.example.esgi_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611764057156-ld3kb3opg8aeauqr0lbafsu58gbrtlp4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD6Jo4reLPsO_88l6jvbV9DMVb8rGJc1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611764057156-ld3kb3opg8aeauqr0lbafsu58gbrtlp4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
