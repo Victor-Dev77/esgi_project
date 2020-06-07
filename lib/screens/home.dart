@@ -32,49 +32,16 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Future<void> logOut() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        backgroundColor: ConstantColor.primaryColor,
-        automaticallyImplyLeading: false, //Permet de 'cacher' le backButton.
-      ),
-      body: Center(
+    return Container(
+      child: Center(
         child: Column(
           children: <Widget>[
-
             Padding(
               padding: EdgeInsets.all(15),
               child: Text(_currentUser != null ? _currentUser.pseudo : "Chargement"),
-            ),
-
-            RawMaterialButton(
-              onPressed: () {
-                logOut();
-                Navigator.pushNamedAndRemoveUntil(context, Router.loginRoute,
-                    ModalRoute.withName(Router.homeRoute));
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Text(
-                  'Se Déconnecter',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w400),
-                ),
-              ),
-              elevation: 6.0,
-              fillColor: ConstantColor.primaryColor,
-              shape: StadiumBorder(),
-            ),
+            )
           ],
         ),
       ),

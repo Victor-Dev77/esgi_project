@@ -23,6 +23,7 @@ dependencies:
   cloud_firestore: ^0.13.6
   firebase_auth: ^0.16.1
   firebase_storage: ^3.1.6
+  curved_navigation_bar: ^0.3.2
 
   # Image - a ajouter plus tard
   #image_picker: ^0.6.6+1             # recup image gallery / camera

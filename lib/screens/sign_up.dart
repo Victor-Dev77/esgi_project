@@ -12,8 +12,10 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
   final _auth = FirebaseAuth.instance;
   String email, password, pseudo;
+  bool isChecked = false;
 
   Future<void> signUserIn() async {
     try {
@@ -21,7 +23,7 @@ class _SignUpState extends State<SignUp> {
           email: email, password: password);
       if (newUser != null) {
         await _registerUser(newUser.user);
-        Navigator.pushNamed(context, Router.homeRoute);
+        Navigator.pushNamed(context, Router.bottom_bar);
       }
     } catch (e) {
       print(e);
@@ -36,7 +38,7 @@ class _SignUpState extends State<SignUp> {
       "userId": user.uid,
       "pseudo": pseudo,
       "mail": email,
-      "isOrganizer": false, //TODO: changer par valeur du checkbox
+      "isOrganizer": isChecked,
     }, merge: true);
   }
 
@@ -66,7 +68,9 @@ class _SignUpState extends State<SignUp> {
                         suffixIcon: Icon(Icons.email),
                         hintText: 'Votre Email',
                         labelText: 'Votre Email',
-                        labelStyle: TextStyle(fontWeight: FontWeight.w400))),
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400)
+                    )
+                ),
                 SizedBox(height: 10.0),
                 TextField(
                     style: TextStyle(fontWeight: FontWeight.w500),
@@ -77,7 +81,9 @@ class _SignUpState extends State<SignUp> {
                         suffixIcon: Icon(Icons.person),
                         hintText: 'Pseudo',
                         labelText: 'Pseudo',
-                        labelStyle: TextStyle(fontWeight: FontWeight.w400))),
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400)
+                    )
+                ),
                 SizedBox(height: 10.0),
                 TextField(
                     obscureText: true,
@@ -89,8 +95,20 @@ class _SignUpState extends State<SignUp> {
                         suffixIcon: Icon(Icons.lock),
                         hintText: 'Mot de passe',
                         labelText: 'Mot de passe',
-                        labelStyle: TextStyle(fontWeight: FontWeight.w400))),
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400)
+                    )
+                ),
                 SizedBox(height: 10.0),
+                CheckboxListTile(
+                  title: Text("Vous êtes un organisateur ?"),
+                  value: isChecked,
+                  onChanged: (newValue) { 
+                    setState(() {
+                      isChecked = newValue;
+                    });},
+                  controlAffinity: ListTileControlAffinity.leading,
+                  activeColor: Colors.purple.shade300,  //  <-- leading Checkbox
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 30.0),
                   child: RawMaterialButton(

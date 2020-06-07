@@ -19,7 +19,7 @@ class _LoginState extends State<Login> {
           email: email, password: password);
       print(newUser.toString());
       if (newUser != null) {
-        Navigator.pushNamed(context, Router.homeRoute);
+        Navigator.pushNamed(context, Router.bottom_bar);
       }
     } catch (e) {
       print(e);
@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(), // enleve clavier si clique ailleurs
           child: Container(
@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   elevation: 7.0,
-                  fillColor: Colors.purple.shade300,
+                  fillColor: ConstantColor.primaryColor,
                   shape: StadiumBorder(),
                 ),
               ),

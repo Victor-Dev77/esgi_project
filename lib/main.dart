@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esgi_project/routes.dart';
-import 'package:esgi_project/screens/home.dart';
 import 'package:esgi_project/screens/login.dart';
 import 'package:esgi_project/screens/splashscreen.dart';
 import 'package:esgi_project/utils/constant_color.dart';
@@ -8,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:esgi_project/components/bottom_bar.dart';
 
 void main() async {
   //Assure que le moteur graphique Flutter est init
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
     if (_isLoading)
       return SplashScreen();
     if (_isAuth)
-      return Home();
+      return BottomBar();
     return Login();
   }
 
