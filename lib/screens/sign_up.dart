@@ -23,7 +23,7 @@ class _SignUpState extends State<SignUp> {
           email: email, password: password);
       if (newUser != null) {
         await _registerUser(newUser.user);
-        Navigator.pushReplacementNamed(context, Router.squeletonRoute,arguments: Constant.currentUser.isOrganizer);
+        Navigator.pushNamedAndRemoveUntil(context, Router.squeletonRoute, ModalRoute.withName(Router.signUpRoute), arguments: Constant.currentUser.isOrganizer);
       }
     } catch (e) {
       print(e);
