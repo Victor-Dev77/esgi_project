@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
@@ -12,7 +13,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-
   final _auth = FirebaseAuth.instance;
   String email, password, pseudo;
   bool isChecked = false;
@@ -23,7 +23,7 @@ class _SignUpState extends State<SignUp> {
           email: email, password: password);
       if (newUser != null) {
         await _registerUser(newUser.user);
-        Navigator.pushNamed(context, Router.bottom_bar);
+        Navigator.pushReplacementNamed(context, Router.squeletonRoute,arguments: Constant.currentUser.isOrganizer);
       }
     } catch (e) {
       print(e);
@@ -31,15 +31,24 @@ class _SignUpState extends State<SignUp> {
   }
 
   _registerUser(FirebaseUser user) async {
-    await Firestore.instance
-        .collection(ConstantFirestore.collectionUser)
-        .document(user.uid)
-        .setData({
+    Map<String, dynamic> data = {
       "userId": user.uid,
       "pseudo": pseudo,
       "mail": email,
       "isOrganizer": isChecked,
-    }, merge: true);
+    };
+    print("avant ");
+    await Firestore.instance
+        .collection(ConstantFirestore.collectionUser)
+        .document(user.uid)
+        .setData(data, merge: true);
+    print("apres");
+    Constant.currentUser = User(
+      id: data["userId"],
+      pseudo: data["pseudo"],
+      mail: data["mail"],
+      isOrganizer: data["isOrganizer"],
+    );
   }
 
   @override
@@ -68,9 +77,7 @@ class _SignUpState extends State<SignUp> {
                         suffixIcon: Icon(Icons.email),
                         hintText: 'Votre Email',
                         labelText: 'Votre Email',
-                        labelStyle: TextStyle(fontWeight: FontWeight.w400)
-                    )
-                ),
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400))),
                 SizedBox(height: 10.0),
                 TextField(
                     style: TextStyle(fontWeight: FontWeight.w500),
@@ -81,9 +88,7 @@ class _SignUpState extends State<SignUp> {
                         suffixIcon: Icon(Icons.person),
                         hintText: 'Pseudo',
                         labelText: 'Pseudo',
-                        labelStyle: TextStyle(fontWeight: FontWeight.w400)
-                    )
-                ),
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400))),
                 SizedBox(height: 10.0),
                 TextField(
                     obscureText: true,
@@ -95,19 +100,18 @@ class _SignUpState extends State<SignUp> {
                         suffixIcon: Icon(Icons.lock),
                         hintText: 'Mot de passe',
                         labelText: 'Mot de passe',
-                        labelStyle: TextStyle(fontWeight: FontWeight.w400)
-                    )
-                ),
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400))),
                 SizedBox(height: 10.0),
                 CheckboxListTile(
                   title: Text("Vous êtes un organisateur ?"),
                   value: isChecked,
-                  onChanged: (newValue) { 
+                  onChanged: (newValue) {
                     setState(() {
                       isChecked = newValue;
-                    });},
+                    });
+                  },
                   controlAffinity: ListTileControlAffinity.leading,
-                  activeColor: Colors.purple.shade300,  //  <-- leading Checkbox
+                  activeColor: Colors.purple.shade300, //  <-- leading Checkbox
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 30.0),

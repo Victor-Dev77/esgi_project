@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
+import 'package:esgi_project/utils/constant_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -17,9 +20,17 @@ class _LoginState extends State<Login> {
     try {
       final newUser = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      print(newUser.toString());
       if (newUser != null) {
-        Navigator.pushNamed(context, Router.bottom_bar);
+        await Firestore.instance
+            .collection(ConstantFirestore.collectionUser)
+            .document("${newUser.user.uid}")
+            .get()
+            .then((data) {
+              User user = User.fromDocument(data);
+              Constant.currentUser = user;
+              Navigator.pushReplacementNamed(context, Router.squeletonRoute, arguments: user.isOrganizer);
+              return;
+             });
       }
     } catch (e) {
       print(e);

@@ -2,9 +2,9 @@ import 'package:esgi_project/screens/home.dart';
 import 'package:esgi_project/screens/login.dart';
 import 'package:esgi_project/screens/sign_up.dart';
 import 'package:esgi_project/screens/splashscreen.dart';
+import 'package:esgi_project/screens/squeleton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:esgi_project/components/bottom_bar.dart';
 
 class Router {
 
@@ -12,7 +12,7 @@ class Router {
   static const String homeRoute = "/home";
   static const String loginRoute = "/login";
   static const String signUpRoute = "/signup";
-  static const String bottom_bar = "/bottombar";
+  static const String squeletonRoute = "/squeleton";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -24,8 +24,9 @@ class Router {
         return MaterialPageRoute(builder: (_) => Login());
       case signUpRoute:
         return MaterialPageRoute(builder: (_) => SignUp());
-      case bottom_bar:
-        return MaterialPageRoute(builder: (_) => BottomBar());
+      case squeletonRoute:
+        var data = settings.arguments as bool;
+        return MaterialPageRoute(builder: (_) => AppSqueleton(isOrganizer: data,));
 
       default:
         return MaterialPageRoute(

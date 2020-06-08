@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/screens/login.dart';
 import 'package:esgi_project/screens/splashscreen.dart';
+import 'package:esgi_project/screens/squeleton.dart';
+import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
+import 'package:esgi_project/utils/constant_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:esgi_project/components/bottom_bar.dart';
 
 void main() async {
   //Assure que le moteur graphique Flutter est init
@@ -34,20 +37,23 @@ class _MyAppState extends State<MyApp> {
 
   checkAuth() {
     final FirebaseAuth _auth = FirebaseAuth.instance;
+    final CollectionReference _docRef = Firestore.instance
+            .collection(ConstantFirestore.collectionUser);
     _auth.currentUser().then((FirebaseUser user) async {
       if (user != null) {
-        await Firestore.instance
-            .collection('users')
-            .where('userId', isEqualTo: user.uid)
-            .getDocuments()
-            .then((QuerySnapshot snapshot) async {
-          if (snapshot.documents.length > 0) {
-            setState(() {
-              _isAuth = true;
-            });
-            print("loggedin ${user.uid}");
-          }
-        });
+        _docRef
+            .document("${user.uid}")
+            .get()
+            .then((DocumentSnapshot doc) {
+              if (doc.data != null) {
+                Constant.currentUser = User.fromDocument(doc);
+                setState(() {
+                  _isAuth = true;
+                });
+                print("loggedin ${user.uid}");
+              }
+              return;
+             });
       }
       setState(() {
         _isLoading = false;
@@ -56,10 +62,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget _handleStartPage() {
-    if (_isLoading)
-      return SplashScreen();
-    if (_isAuth)
-      return BottomBar();
+    if (_isLoading) return SplashScreen();
+    if (_isAuth) return AppSqueleton(isOrganizer: Constant.currentUser.isOrganizer,);
     return Login();
   }
 

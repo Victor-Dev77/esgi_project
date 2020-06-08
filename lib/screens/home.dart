@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esgi_project/models/user.dart';
-import 'package:esgi_project/routes.dart';
-import 'package:esgi_project/utils/constant_color.dart';
 import 'package:esgi_project/utils/constant_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
