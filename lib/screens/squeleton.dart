@@ -40,13 +40,13 @@ class _AppSqueleton extends State<AppSqueleton> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: _tabController.index != 0 ? AppBar(
         backgroundColor: ConstantColor.primaryColor,
         title: Text(widget.isOrganizer
             ? _tabNameOrga[_tabController.index]
             : _tabNameNotOrga[_tabController.index]),
         automaticallyImplyLeading: false,
-      ),
+      ) : null,
       body: Container(
         color: ConstantColor.white,
         height: MediaQuery.of(context).size.height,
