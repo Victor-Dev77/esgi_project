@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esgi_project/controllers/login_controller.dart';
 import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
@@ -14,10 +15,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _auth = FirebaseAuth.instance;
+ // final _auth = FirebaseAuth.instance;
   String email, password;
 
-  Future<void> signUserIn() async {
+  /*Future<void> signUserIn() async {
     try {
       final newUser = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -37,7 +38,7 @@ class _LoginState extends State<Login> {
     } catch (e) {
       print(e);
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,8 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.only(top: 30.0),
                 child: RawMaterialButton(
                   onPressed: () {
-                    signUserIn();
+                    LoginController.to.signIn(email, password);
+                   // signUserIn();
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0),

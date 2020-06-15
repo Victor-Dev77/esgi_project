@@ -1,3 +1,4 @@
+import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/repositorys/firebase_auth_repository.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,12 +6,13 @@ import 'package:get/get.dart';
 
 class StartAppController extends GetController {
 
-  static StartAppController get to => Get.find();
-
   FirebaseAuthRepository _authRepo;
   FirebaseFirestoreRepository _bddRepo;
   FirebaseUser _currentUser;
   AuthStatus _authStatus;
+
+  FirebaseUser get currentUser => this._currentUser;
+  AuthStatus get authStatus => this._authStatus;
 
   @override
   void onInit() {
@@ -26,9 +28,11 @@ class StartAppController extends GetController {
   _initUser() async {
     _currentUser = await _authRepo.getCurrentUser();
     if (_currentUser != null) {
-      var user = await _bddRepo.getCurrentUser(_currentUser.uid);
-      if (user != null)
+      var user = await _bddRepo.getUser(_currentUser.uid);
+      if (user != null) {
         _authStatus = AuthStatus.connected;
+        UserController.to.user = user;
+      }
       else 
         _authStatus = AuthStatus.disconnected;
     }
@@ -36,9 +40,6 @@ class StartAppController extends GetController {
       _authStatus = AuthStatus.disconnected;
     update();
   }
-
-  FirebaseUser get currentUser => this._currentUser;
-  AuthStatus get authStatus => this._authStatus;
   
 }
 

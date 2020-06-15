@@ -1,19 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:esgi_project/controllers/start_app/start_app_controller.dart';
-import 'package:esgi_project/models/user.dart';
+import 'package:esgi_project/controllers/start_app_controller.dart';
+import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/screens/login.dart';
 import 'package:esgi_project/screens/splashscreen.dart';
 import 'package:esgi_project/screens/squeleton.dart';
-import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
-import 'package:esgi_project/utils/constant_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-
 import 'screens/squeleton.dart';
 
 void main() async {
@@ -39,9 +34,9 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fade,
+      initialBinding: InitialBinding(),
       namedRoutes: Router.routes,
      // initialRoute: '/',
-     // TODO: ajouter des etat (waiting, done, error)
       home: GetBuilder<StartAppController>( 
         init: StartAppController(),
         builder: (controller) {
@@ -55,7 +50,6 @@ class MyApp extends StatelessWidget {
           }
         },
       ),
-     // onGenerateRoute: Router.generateRoute,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -66,6 +60,14 @@ class MyApp extends StatelessWidget {
       ],
     );
   }
+}
+
+class InitialBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(UserController());
+  }
+  
 }
 
 /*

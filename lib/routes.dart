@@ -23,6 +23,7 @@ class Router {
     squeletonRoute : GetRoute(page: AppSqueleton()),
   };
 
+  //TODO: ne sera plus utilisé
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splashRoute:

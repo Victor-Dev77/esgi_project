@@ -8,8 +8,8 @@ class FirebaseFirestoreRepository {
 
   final FirebaseFirestoreAPI _firestoreAPI = FirebaseFirestoreAPI();
 
-  Future<User> getCurrentUser(String uid) async {
-    return await _firestoreAPI.getCurrentUser(uid);
+  Future<User> getUser(String uid) async {
+    return await _firestoreAPI.getUser(uid);
   }
 
 }

@@ -4,7 +4,7 @@ import 'package:esgi_project/models/user.dart';
 class FirebaseFirestoreAPI {
   static final String _collectionUser = "users";
 
-  Future<User> getCurrentUser(String uid) async {
+  Future<User> getUser(String uid) async {
     final CollectionReference _docRef =
         Firestore.instance.collection(_collectionUser);
     try {
@@ -14,7 +14,7 @@ class FirebaseFirestoreAPI {
       }
       return null;
     } catch (_) {
-      print("ERROR: Firebase Firestore API: GetCurrentUser()");
+      print("ERROR: Firebase Firestore API: GetUser()");
       return null;
     }
     return null;

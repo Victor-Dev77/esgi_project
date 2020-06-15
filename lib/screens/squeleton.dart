@@ -1,4 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:esgi_project/utils/constant_color.dart';
@@ -9,10 +10,6 @@ import 'package:esgi_project/screens/add_event.dart';
 import 'package:get/get.dart';
 
 class AppSqueleton extends StatefulWidget {
-  
- // bool isOrganizer = true;
- // AppSqueleton({this.isOrganizer: true});
-
   @override
   State<StatefulWidget> createState() {
     return _AppSqueleton();
@@ -33,6 +30,7 @@ class _AppSqueleton extends State<AppSqueleton> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    print("isOrganizer: ${UserController.to.user.isOrganizer}");
     _tabController = TabController(
       initialIndex: 0,
       length: isOrganizer ? _tabListOrga.length : _tabListNotOrga.length,
