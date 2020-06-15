@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esgi_project/controllers/auth_controller.dart';
 import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
@@ -14,11 +15,11 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final _auth = FirebaseAuth.instance;
+  //final _auth = FirebaseAuth.instance;
   String email, password, pseudo;
   bool isChecked = false;
 
-  Future<void> signUserIn() async {
+  /*Future<void> signUserIn() async {
     try {
       final newUser = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -30,9 +31,9 @@ class _SignUpState extends State<SignUp> {
     } catch (e) {
       print(e);
     }
-  }
+  }*/
 
-  _registerUser(FirebaseUser user) async {
+  /*_registerUser(FirebaseUser user) async {
     Map<String, dynamic> data = {
       "userId": user.uid,
       "pseudo": pseudo,
@@ -51,7 +52,7 @@ class _SignUpState extends State<SignUp> {
       mail: data["mail"],
       isOrganizer: data["isOrganizer"],
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +120,10 @@ class _SignUpState extends State<SignUp> {
                   padding: const EdgeInsets.only(top: 30.0),
                   child: RawMaterialButton(
                     onPressed: () {
-                      signUserIn();
+                      //TODO: gerer champs dans controller, ensuite pas envoyer en
+                    // param email, pwd etc.. car sera deja dans controller
+                      AuthController.to.signUp(email, pseudo, password, isChecked);
+                     // signUserIn();
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12.0),

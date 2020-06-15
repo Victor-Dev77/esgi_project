@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:esgi_project/controllers/login_controller.dart';
+import 'package:esgi_project/controllers/auth_controller.dart';
 import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
@@ -83,7 +83,9 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.only(top: 30.0),
                 child: RawMaterialButton(
                   onPressed: () {
-                    LoginController.to.signIn(email, password);
+                    //TODO: gerer champs dans controller, ensuite pas envoyer en
+                    // param email, pwd car sera deja dans controller
+                    AuthController.to.signIn(email, password);
                    // signUserIn();
                   },
                   child: Padding(

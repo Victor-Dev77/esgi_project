@@ -16,4 +16,8 @@ class FirebaseAuthRepository {
     return await _authAPI.signIn(email, password);
   }
 
+  Future<AuthResult> signUp(String email, String password) async {
+    return await _authAPI.signUp(email, password);
+  }
+
 }

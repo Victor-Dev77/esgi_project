@@ -31,6 +31,7 @@ class _AppSqueleton extends State<AppSqueleton> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     print("isOrganizer: ${UserController.to.user.isOrganizer}");
+    isOrganizer = UserController.to.user.isOrganizer;
     _tabController = TabController(
       initialIndex: 0,
       length: isOrganizer ? _tabListOrga.length : _tabListNotOrga.length,

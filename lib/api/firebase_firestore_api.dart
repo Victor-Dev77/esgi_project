@@ -19,4 +19,11 @@ class FirebaseFirestoreAPI {
     }
     return null;
   }
+
+  setUser(Map<String, dynamic> user) async {
+    await Firestore.instance
+        .collection(_collectionUser)
+        .document(user["userId"])
+        .setData(user, merge: true);
+  }
 }

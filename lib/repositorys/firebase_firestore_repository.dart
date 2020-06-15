@@ -12,4 +12,8 @@ class FirebaseFirestoreRepository {
     return await _firestoreAPI.getUser(uid);
   }
 
+  setUser(Map<String, dynamic> user) async {
+    await _firestoreAPI.setUser(user);
+  }
+
 }
