@@ -17,4 +17,8 @@ class FirebaseAuthAPI {
   Future<AuthResult> signUp(String email, String password) async {
     return await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
   }
+
+  signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }

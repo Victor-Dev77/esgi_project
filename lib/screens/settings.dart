@@ -1,10 +1,8 @@
-import 'package:esgi_project/utils/constant.dart';
+import 'package:esgi_project/controllers/auth_controller.dart';
+import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:esgi_project/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:esgi_project/components/card_settings.dart';
-import 'package:esgi_project/routes.dart';
-
 
 
 class Settings extends StatefulWidget {
@@ -19,16 +17,16 @@ class _SettingsState extends State<Settings> {
   @override
   void initState() {
     super.initState();
-    _currentUser = Constant.currentUser;
+    _currentUser = UserController.to.user;//Constant.currentUser;
   }
 
-  Future<void> logOut() async {
+  /*Future<void> logOut() async {
     try {
       await FirebaseAuth.instance.signOut();
     } catch (e) {
       print(e);
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +81,10 @@ class _SettingsState extends State<Settings> {
                   child: CardSettings(
                     text: 'Se déconnecter',
                     action: (){
-                      logOut();
-                      Navigator.pushNamedAndRemoveUntil(context, Router.loginRoute,
-                          ModalRoute.withName(Router.homeRoute));
+                      AuthController.to.signOut();
+                      //logOut();
+                     // Navigator.pushNamedAndRemoveUntil(context, Router.loginRoute,
+                      //    ModalRoute.withName(Router.homeRoute));
                     },
                   )
               )

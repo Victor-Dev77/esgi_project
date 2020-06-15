@@ -20,4 +20,8 @@ class FirebaseAuthRepository {
     return await _authAPI.signUp(email, password);
   }
 
+  signOut() async {
+    await _authAPI.signOut();
+  }
+
 }

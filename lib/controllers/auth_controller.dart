@@ -55,4 +55,9 @@ class AuthController extends GetController {
     await _bddRepo.setUser(data);
     return User(id: id, mail: email, pseudo: pseudo, isOrganizer: isOrganizer);
   }
+
+  signOut() async {
+    await _authRepo.signOut();
+    Get.offAllNamed(Router.loginRoute);
+  }
 }
