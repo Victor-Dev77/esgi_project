@@ -17,6 +17,9 @@ dependencies:
   # Internationalization
   flutter_localizations:
     sdk: flutter
+  
+  # State management / Dependancies injection / Work without context
+  get: ^2.13.0
 
   # Firebase
   firebase_core: ^0.4.5

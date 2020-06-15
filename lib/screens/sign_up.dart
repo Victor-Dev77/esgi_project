@@ -6,6 +6,7 @@ import 'package:esgi_project/utils/constant_color.dart';
 import 'package:esgi_project/utils/constant_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -23,7 +24,8 @@ class _SignUpState extends State<SignUp> {
           email: email, password: password);
       if (newUser != null) {
         await _registerUser(newUser.user);
-        Navigator.pushNamedAndRemoveUntil(context, Router.squeletonRoute, ModalRoute.withName(Router.signUpRoute), arguments: Constant.currentUser.isOrganizer);
+        Get.toNamed(Router.squeletonRoute, arguments: Constant.currentUser.isOrganizer);
+       // Navigator.pushNamedAndRemoveUntil(context, Router.squeletonRoute, ModalRoute.withName(Router.signUpRoute), arguments: Constant.currentUser.isOrganizer);
       }
     } catch (e) {
       print(e);
@@ -135,7 +137,7 @@ class _SignUpState extends State<SignUp> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 50),
                   child: GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => Get.back(),//Navigator.pop(context),
                     child: Container(
                       height: 50,
                       child: Center(

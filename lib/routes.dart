@@ -5,6 +5,7 @@ import 'package:esgi_project/screens/splashscreen.dart';
 import 'package:esgi_project/screens/squeleton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Router {
 
@@ -13,6 +14,14 @@ class Router {
   static const String loginRoute = "/login";
   static const String signUpRoute = "/signup";
   static const String squeletonRoute = "/squeleton";
+
+  static final routes = {
+    splashRoute : GetRoute(page: SplashScreen()),
+    homeRoute : GetRoute(page: Home()),
+    loginRoute : GetRoute(page: Login()),
+    signUpRoute : GetRoute(page: SignUp()),
+    squeletonRoute : GetRoute(page: AppSqueleton()),
+  };
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -26,7 +35,7 @@ class Router {
         return MaterialPageRoute(builder: (_) => SignUp());
       case squeletonRoute:
         var data = settings.arguments as bool;
-        return MaterialPageRoute(builder: (_) => AppSqueleton(isOrganizer: data,));
+        return MaterialPageRoute(builder: (_) => AppSqueleton());
 
       default:
         return MaterialPageRoute(

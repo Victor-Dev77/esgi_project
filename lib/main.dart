@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esgi_project/controllers/start_app/start_app_controller.dart';
 import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/screens/login.dart';
@@ -11,6 +12,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
+
+import 'screens/squeleton.dart';
 
 void main() async {
   //Assure que le moteur graphique Flutter est init
@@ -20,6 +24,51 @@ void main() async {
   runApp(MyApp());
 }
 
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      title: 'WeMoov',
+      theme: ThemeData(
+        primaryColor: ConstantColor.primaryColor,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        scaffoldBackgroundColor: ConstantColor.white,
+        //textTheme: TextTheme(
+
+        //)
+      ),
+      debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.fade,
+      namedRoutes: Router.routes,
+     // initialRoute: '/',
+     // TODO: ajouter des etat (waiting, done, error)
+      home: GetBuilder<StartAppController>( 
+        init: StartAppController(),
+        builder: (controller) {
+          switch (controller.authStatus) {
+            case AuthStatus.loading:
+              return SplashScreen();
+            case AuthStatus.connected:
+              return AppSqueleton();
+            case AuthStatus.disconnected:
+              return Login();
+          }
+        },
+      ),
+     // onGenerateRoute: Router.generateRoute,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate, // if it's a RTL language
+      ],
+      supportedLocales: [
+        const Locale('fr', 'FR'), // include country code too
+      ],
+    );
+  }
+}
+
+/*
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -32,7 +81,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    checkAuth();
+    //checkAuth();
   }
 
   checkAuth() {
@@ -69,7 +118,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'WeMoov',
       theme: ThemeData(
         primaryColor: ConstantColor.primaryColor,
@@ -80,8 +129,11 @@ class _MyAppState extends State<MyApp> {
         //)
       ),
       debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.fade,
+      namedRoutes: Router.routes,
+     // initialRoute: '/',
       home: _handleStartPage(),
-      onGenerateRoute: Router.generateRoute,
+     // onGenerateRoute: Router.generateRoute,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -93,3 +145,4 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+*/
