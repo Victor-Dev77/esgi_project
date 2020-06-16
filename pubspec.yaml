@@ -29,14 +29,18 @@ dependencies:
   curved_navigation_bar: ^0.3.2
 
   # Image - a ajouter plus tard
-  #image_picker: ^0.6.6+1             # recup image gallery / camera
-  #cached_network_image: ^2.2.0       # gestion cache image
-  #flutter_swiper: ^1.1.6             # Swipe image 
+  image_picker: ^0.6.6+1             # recup image gallery / camera
+  cached_network_image: ^2.2.0       # gestion cache image
+  flutter_swiper: ^1.1.6             # Swipe image
 
   # Utils - a ajouter plus tard
   #auto_size_text: ^2.1.0             # resize auto text
   #connectivity: ^0.4.8+2             # gestion connection internet
   #jiffy: ^3.0.1                      # gestion date
+
+  #google-maps
+  google_maps_flutter: ^0.5.27+3
+
 
   cupertino_icons: ^0.1.3
 
