@@ -1,6 +1,11 @@
 import 'package:esgi_project/components/card_add_image.dart';
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:esgi_project/utils/functions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
+
+import 'package:get/get.dart';
 
 class AddEvent extends StatefulWidget {
   @override
@@ -80,10 +85,18 @@ class _AddEventState extends State<AddEvent> {
                       child: TextField(
                           readOnly: true,
                           onTap: () async {
-                            String date = await _selectDate(context);
-                            if (date != null) {
-                              setState(() {
-                                _beginDateController.text = date;
+                            if (Platform.isAndroid) {
+                              String date = await _selectDateAndroid();
+                              if (date != null) {
+                                setState(() {
+                                  _beginDateController.text = date;
+                                });
+                              }
+                            } else if (Platform.isIOS) {
+                              _selectDateIOS(callback: (date) {
+                                setState(() {
+                                  _beginDateController.text = date;
+                                });
                               });
                             }
                           },
@@ -103,10 +116,18 @@ class _AddEventState extends State<AddEvent> {
                       child: TextField(
                           readOnly: true,
                           onTap: () async {
-                            String date = await _selectDate(context);
-                            if (date != null) {
-                              setState(() {
-                                _endDateController.text = date;
+                            if (Platform.isAndroid) {
+                              String date = await _selectDateAndroid();
+                              if (date != null) {
+                                setState(() {
+                                  _endDateController.text = date;
+                                });
+                              }
+                            } else if (Platform.isIOS) {
+                              _selectDateIOS(callback: (date) {
+                                setState(() {
+                                  _endDateController.text = date;
+                                });
                               });
                             }
                           },
@@ -128,23 +149,24 @@ class _AddEventState extends State<AddEvent> {
                   children: <Widget>[
                     Text("Prix: "),
                     SizedBox(width: 10),
-                    (price != 0) ? 
-                    Container(
-                      padding: EdgeInsets.only(right: 20),
-                      width: 100,
-                      child: TextField(
-                        controller: _priceController,
-                        onChanged: (value) {
-                          setState(() {
-                            price = int.parse(value);
-                          });
-                        },
-                        keyboardType: TextInputType.number,
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                        decoration: InputDecoration(
-                            suffixIcon: Icon(Icons.euro_symbol),)
-                      ),
-                    ) : Container(),
+                    (price != 0)
+                        ? Container(
+                            padding: EdgeInsets.only(right: 20),
+                            width: 100,
+                            child: TextField(
+                                controller: _priceController,
+                                onChanged: (value) {
+                                  setState(() {
+                                    price = int.parse(value);
+                                  });
+                                },
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                                decoration: InputDecoration(
+                                  suffixIcon: Icon(Icons.euro_symbol),
+                                )),
+                          )
+                        : Container(),
                     GestureDetector(
                       onTap: () {
                         setState(() {
@@ -214,7 +236,7 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
-  Future<String> _selectDate(BuildContext context) async {
+  Future<String> _selectDateAndroid() async {
     final now = DateTime.now();
     //TODO: checker plateform et faire datepicker pour IOS
     final DateTime picked = await showDatePicker(
@@ -239,6 +261,25 @@ class _AddEventState extends State<AddEvent> {
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
     if (t != null) return t;
     return TimeOfDay.now();
+  }
+
+  _selectDateIOS({@required Function(String) callback}) {
+    final now = DateTime.now();
+    Get.bottomSheet(
+        SizedBox(
+          height: 250,
+          child: CupertinoDatePicker(
+            initialDateTime: now,
+            minimumDate: now,
+            maximumDate: DateTime(now.year + 1, now.month, now.day),
+            use24hFormat: true,
+            backgroundColor: ConstantColor.white,
+            onDateTimeChanged: (date) {
+              callback(parseDateTime(date.toLocal(), 'dd/MM/yyyy HH:mm'));
+            },
+          ),
+        ),
+        isDismissible: true);
   }
 
   Widget _buildBtnAddEvent() {
