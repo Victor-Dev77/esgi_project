@@ -1,8 +1,6 @@
 import 'package:esgi_project/components/card_add_image.dart';
-import 'package:esgi_project/utils/constant_color.dart';
 import 'package:esgi_project/utils/functions.dart';
 import 'package:flutter/material.dart';
-import 'package:jiffy/jiffy.dart';
 
 class AddEvent extends StatefulWidget {
   @override

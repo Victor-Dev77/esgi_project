@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthAPI {
+
+  Stream<FirebaseUser> get onAuthStateChanged => FirebaseAuth.instance.onAuthStateChanged;
+
   Future<FirebaseUser> getCurrentUser() async {
     try {
       return await FirebaseAuth.instance.currentUser();

@@ -1,12 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esgi_project/controllers/auth_controller.dart';
-import 'package:esgi_project/models/user.dart';
-import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
-import 'package:esgi_project/utils/constant_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SignUp extends StatefulWidget {
@@ -15,44 +10,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  //final _auth = FirebaseAuth.instance;
   String email, password, pseudo;
   bool isChecked = false;
-
-  /*Future<void> signUserIn() async {
-    try {
-      final newUser = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      if (newUser != null) {
-        await _registerUser(newUser.user);
-        Get.toNamed(Router.squeletonRoute, arguments: Constant.currentUser.isOrganizer);
-       // Navigator.pushNamedAndRemoveUntil(context, Router.squeletonRoute, ModalRoute.withName(Router.signUpRoute), arguments: Constant.currentUser.isOrganizer);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }*/
-
-  /*_registerUser(FirebaseUser user) async {
-    Map<String, dynamic> data = {
-      "userId": user.uid,
-      "pseudo": pseudo,
-      "mail": email,
-      "isOrganizer": isChecked,
-    };
-    print("avant ");
-    await Firestore.instance
-        .collection(ConstantFirestore.collectionUser)
-        .document(user.uid)
-        .setData(data, merge: true);
-    print("apres");
-    Constant.currentUser = User(
-      id: data["userId"],
-      pseudo: data["pseudo"],
-      mail: data["mail"],
-      isOrganizer: data["isOrganizer"],
-    );
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +100,7 @@ class _SignUpState extends State<SignUp> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 50),
                   child: GestureDetector(
-                    onTap: () => Get.back(),//Navigator.pop(context),
+                    onTap: () => Get.back(),
                     child: Container(
                       height: 50,
                       child: Center(

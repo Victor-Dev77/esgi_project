@@ -2,7 +2,6 @@ import 'package:esgi_project/components/card_category.dart';
 import 'package:esgi_project/components/card_event_horizontal.dart';
 import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/utils/constant.dart';
-import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {

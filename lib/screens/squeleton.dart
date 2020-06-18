@@ -7,7 +7,6 @@ import 'package:esgi_project/screens/home.dart';
 import 'package:esgi_project/screens/settings.dart';
 import 'package:esgi_project/screens/map.dart';
 import 'package:esgi_project/screens/add_event.dart';
-import 'package:get/get.dart';
 
 class AppSqueleton extends StatefulWidget {
   @override

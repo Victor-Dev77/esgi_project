@@ -1,12 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esgi_project/controllers/auth_controller.dart';
-import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
-import 'package:esgi_project/utils/constant_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class Login extends StatefulWidget {
@@ -15,30 +11,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
- // final _auth = FirebaseAuth.instance;
   String email, password;
-
-  /*Future<void> signUserIn() async {
-    try {
-      final newUser = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      if (newUser != null) {
-        await Firestore.instance
-            .collection(ConstantFirestore.collectionUser)
-            .document("${newUser.user.uid}")
-            .get()
-            .then((data) {
-              User user = User.fromDocument(data);
-              Constant.currentUser = user;
-              Get.toNamed(Router.squeletonRoute, arguments: user.isOrganizer);
-            //  Navigator.pushReplacementNamed(context, Router.squeletonRoute, arguments: user.isOrganizer);
-              return;
-             });
-      }
-    } catch (e) {
-      print(e);
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {

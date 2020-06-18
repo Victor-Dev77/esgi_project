@@ -17,7 +17,6 @@ class FirebaseFirestoreAPI {
       print("ERROR: Firebase Firestore API: GetUser()");
       return null;
     }
-    return null;
   }
 
   setUser(Map<String, dynamic> user) async {

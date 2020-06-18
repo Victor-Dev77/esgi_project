@@ -8,6 +8,8 @@ class FirebaseAuthRepository {
 
   final FirebaseAuthAPI _authAPI = FirebaseAuthAPI();
 
+  Stream<FirebaseUser> get onAuthStateChanged => this._authAPI.onAuthStateChanged;
+
   Future<FirebaseUser> getCurrentUser() async {
     return await _authAPI.getCurrentUser();
   }
