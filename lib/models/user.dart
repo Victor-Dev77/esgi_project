@@ -16,10 +16,28 @@ class User {
 
   factory User.fromDocument(DocumentSnapshot doc) {
     return User(
-        id: doc['userId'],
-        mail: doc['mail'],
-        pseudo: doc['pseudo'],
-        isOrganizer: doc['isOrganizer'],
+      id: doc['userId'],
+      mail: doc['mail'],
+      pseudo: doc['pseudo'],
+      isOrganizer: doc['isOrganizer'],
     );
+  }
+
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
+      id: map['userId'],
+      mail: map['mail'],
+      pseudo: map['pseudo'],
+      isOrganizer: map['isOrganizer'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "id": id,
+      "pseudo": pseudo,
+      "mail": mail,
+      "isOrganizer": isOrganizer,
+    };
   }
 }

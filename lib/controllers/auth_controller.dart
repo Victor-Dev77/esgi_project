@@ -62,14 +62,9 @@ class AuthController extends RxController {
 
   Future<User> _registerUser(String id, String email, String pseudo,
       String password, bool isOrganizer) async {
-    Map<String, dynamic> data = {
-      "userId": id,
-      "pseudo": pseudo,
-      "mail": email,
-      "isOrganizer": isOrganizer,
-    };
-    await _bddRepo.setUser(data);
-    return User(id: id, mail: email, pseudo: pseudo, isOrganizer: isOrganizer);
+    User user = User(id: id, mail: email, pseudo: pseudo, isOrganizer: isOrganizer);
+    await _bddRepo.setUser(user.toMap());
+    return user;
   }
 
   signOut() async {

@@ -1,4 +1,7 @@
 import 'package:esgi_project/components/card_add_image.dart';
+import 'package:esgi_project/controllers/user_controller.dart';
+import 'package:esgi_project/models/event.dart';
+import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:esgi_project/utils/functions.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,6 +24,12 @@ class _AddEventState extends State<AddEvent> {
   TextEditingController _beginDateController = TextEditingController();
   TextEditingController _endDateController = TextEditingController();
   TextEditingController _priceController = TextEditingController();
+  //TODO: setter valeur formulaire dans event
+  Event event = Event(
+    userId: UserController.to.user.id,
+    userOrganizer: UserController.to.user,
+    price: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +39,20 @@ class _AddEventState extends State<AddEvent> {
         child: Container(
           child: Column(
             children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(top: 5, right: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.remove_red_eye),
+                        onPressed: () {
+                          //TODO: activer que quand au moins 1 champs ou 1 photo est rempli
+                          Get.toNamed(Router.eventDetailRoute, arguments: event);
+                        },
+                      ),
+                    ],
+                  )),
               Padding(
                 padding: EdgeInsets.all(25),
                 child: Text(
