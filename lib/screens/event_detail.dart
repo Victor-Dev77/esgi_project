@@ -49,137 +49,203 @@ class _EventDetailState extends State<EventDetail> {
     //TODO: rendre code propre - separer dans des fonction ou widget
     return Scaffold(
       body: SafeArea(
-        child: NestedScrollView(
-          physics: NeverScrollableScrollPhysics(),
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back, color: ConstantColor.white,),
-                  onPressed: () => Get.back(),
-                ),
-                expandedHeight: MediaQuery.of(context).size.height * 0.65,
-                floating: false,
-                pinned: true,
-                snap: false,
-                elevation: 50,
-                backgroundColor: ConstantColor.primaryColor,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(
-                    event.title == "" ? "Aucun titre" : event.title,
-                    style: TextStyle(
-                      fontWeight: event.title == ""
-                          ? FontWeight.normal
-                          : FontWeight.bold,
-                      fontStyle: event.title == ""
-                          ? FontStyle.italic
-                          : FontStyle.normal,
-                      fontSize: 16,
-                      color: ConstantColor.white
-                    ),
-                  ),
-                  background: _buildPictureBloc(),
-                ),
-              ),
-            ];
-          },
-          body: SingleChildScrollView(
+          child: Stack(
+        children: <Widget>[
+          NestedScrollView(
             physics: NeverScrollableScrollPhysics(),
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(15),
-                    child: Text(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  leading: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: ConstantColor.white,
+                    ),
+                    onPressed: () => Get.back(),
+                  ),
+                  expandedHeight: MediaQuery.of(context).size.height * 0.65,
+                  floating: false,
+                  pinned: true,
+                  snap: false,
+                  elevation: 50,
+                  backgroundColor: ConstantColor.primaryColor,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Text(
                       event.title == "" ? "Aucun titre" : event.title,
                       style: TextStyle(
-                        fontWeight: event.title == ""
-                            ? FontWeight.normal
-                            : FontWeight.bold,
-                        fontStyle: event.title == ""
-                            ? FontStyle.italic
-                            : FontStyle.normal,
-                        fontSize: 20,
-                      ),
+                          fontWeight: event.title == ""
+                              ? FontWeight.normal
+                              : FontWeight.bold,
+                          fontStyle: event.title == ""
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          fontSize: 16,
+                          color: ConstantColor.white),
                     ),
+                    background: _buildPictureBloc(),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Icon(Icons.date_range, color: Colors.orange),
-                            SizedBox(width: 5),
-                            Text(event.dateStart == ""
-                                ? "Aucune date de début"
-                                : event.dateStart),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Icon(Icons.date_range, color: Colors.orange),
-                            SizedBox(width: 5),
-                            Text(event.dateEnd == ""
-                                ? "Aucune date de fin"
-                                : event.dateEnd),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.place, color: Colors.blueAccent),
-                        SizedBox(width: 5),
-                        Text(event.address == ""
-                            ? "Aucune adresse"
-                            : event.address),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(15),
-                    child: Text(
-                      event.content == ""
-                          ? "Aucune description"
-                          : event.content,
-                      style: TextStyle(
-                        fontStyle: event.content == ""
-                            ? FontStyle.italic
-                            : FontStyle.normal,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    child: Row(
-                      children: <Widget>[
-                        Text("Prix: "),
-                        SizedBox(width: 10),
-                        Text(
-                          event.price == 0 ? "GRATUIT" : "${event.price}€",
-                          style: TextStyle(
-                            fontWeight: event.price == 0
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            fontSize: 16,
+                ),
+              ];
+            },
+            body: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Icon(Icons.date_range, color: Colors.orange),
+                                  SizedBox(width: 5),
+                                  Text(event.dateStart == ""
+                                      ? "Aucune date de début"
+                                      : event.dateStart),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                children: <Widget>[
+                                  Icon(Icons.date_range, color: Colors.orange),
+                                  SizedBox(width: 5),
+                                  Text(event.dateEnd == ""
+                                      ? "Aucune date de fin"
+                                      : event.dateEnd),
+                                ],
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
+                          Row(
+                            children: <Widget>[
+                              Icon(Icons.place, color: Colors.blueAccent),
+                              SizedBox(width: 2),
+                              Text("20km"),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                      child: Text(
+                        event.title == "" ? "Aucun titre" : event.title,
+                        style: TextStyle(
+                          fontWeight: event.title == ""
+                              ? FontWeight.normal
+                              : FontWeight.bold,
+                          fontStyle: event.title == ""
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                      child: Text(
+                        event.content == ""
+                            ? "Aucune description"
+                            : event.content,
+                        style: TextStyle(
+                          fontStyle: event.content == ""
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.place, color: Colors.blueAccent),
+                          SizedBox(width: 5),
+                          Text(event.address == ""
+                              ? "Aucune adresse"
+                              : event.address),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 100,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.redAccent,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(35),
+                      topRight: Radius.circular(35))),
+              padding: EdgeInsets.all(25),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        "Prix",
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        event.price == 0 ? "GRATUIT" : "${event.price}€",
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                          fontWeight: event.price == 0
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                  //TODO: remplacer par MaterialButton ou Material ou RawButton ou jsais pas...
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 125,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.85),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Réserver",
+                          style: TextStyle(
+                              color: Colors.redAccent,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      )),
     );
   }
 

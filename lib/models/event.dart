@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class Event {
   final String userId;
   final User userOrganizer;
-  String title, content, address, dateStart, dateEnd;
+  String title, content, category, address, dateStart, dateEnd;
   int price;
   List<String> pictures;
   final bool preview;
@@ -14,6 +14,7 @@ class Event {
     this.userId,
     this.title,
     this.content,
+    this.category,
     this.address,
     this.dateStart,
     this.dateEnd,
@@ -28,6 +29,7 @@ class Event {
       userId: doc['userId'],
       title: doc['title'],
       content: doc['content'],
+      category: doc['category'],
       address: doc['address'],
       dateStart: doc["dateStart"],
       dateEnd: doc["dateEnd"],
@@ -44,6 +46,7 @@ class Event {
       "userId": userId,
       "title": title,
       "content": content,
+      "category": category,
       "address": address,
       "dateStart": dateStart,
       "dateEnd": dateEnd,

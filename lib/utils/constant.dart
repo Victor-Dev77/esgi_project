@@ -1,10 +1,30 @@
-import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 
 class Constant {
-  // VARIABLE
-  static User currentUser;
+
+  static final List<Map<String, dynamic>> category = [
+      {
+        "title": "Bar",
+        "icon": Icons.local_drink,
+      },
+      {
+        "title": "Discothèque",
+        "icon": Icons.android,
+      },
+      {
+        "title": "Concert",
+        "icon": Icons.local_movies,
+      },
+      {
+        "title": "Festival",
+        "icon": Icons.android,
+      },
+      {
+        "title": "Musée",
+        "icon": Icons.local_movies,
+      },
+    ];
 
   // IMAGE
   static final String pathLogoImage = "assets/logo.png";

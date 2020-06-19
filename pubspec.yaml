@@ -37,6 +37,7 @@ dependencies:
   #auto_size_text: ^2.1.0             # resize auto text
   #connectivity: ^0.4.8+2             # gestion connection internet
   jiffy: ^3.0.1                      # gestion date
+  font_awesome_flutter: ^8.8.1
 
   #google-maps
   google_maps_flutter: ^0.5.27+3

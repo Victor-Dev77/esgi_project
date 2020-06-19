@@ -2,6 +2,7 @@ import 'package:esgi_project/components/card_add_image.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/routes.dart';
+import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:esgi_project/utils/functions.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,6 +22,9 @@ class _AddEventState extends State<AddEvent> {
   String content = "";
   String address = "";
   int price = 0;
+  bool categoryShow = false;
+  int category = -1;
+  TextEditingController _categoryController = TextEditingController();
   TextEditingController _beginDateController = TextEditingController();
   TextEditingController _endDateController = TextEditingController();
   TextEditingController _priceController = TextEditingController();
@@ -56,7 +60,9 @@ class _AddEventState extends State<AddEvent> {
                           event.dateStart = _beginDateController.text;
                           event.dateEnd = _endDateController.text;
                           event.pictures = _imageEvent;
-                          Get.toNamed(Router.eventDetailRoute, arguments: event);
+                          event.category = (category != -1) ? Constant.category[category]["title"] : "Aucune catégorie";
+                          Get.toNamed(Router.eventDetailRoute,
+                              arguments: event);
                         },
                       ),
                     ],
@@ -99,6 +105,45 @@ class _AddEventState extends State<AddEvent> {
               Padding(
                 padding: EdgeInsets.all(15),
                 child: TextField(
+                    onTap: () {
+                      setState(() {
+                        categoryShow = !categoryShow;
+                      });
+                    },
+                    controller: _categoryController,
+                    readOnly: true,
+                    onChanged: (value) => content = value,
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                    decoration: InputDecoration(
+                        suffixIcon: Icon(Icons.keyboard_arrow_down),
+                        hintText: "Type d'évènement",
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400))),
+              ),
+              (categoryShow)
+                  ? Container(
+                      color: Colors.grey[100],
+                      child: ListView.builder(
+                        itemCount: Constant.category.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return RadioListTile(
+                              value: index,
+                              groupValue: category,
+                              title: Text(Constant.category[index]["title"], style: TextStyle(fontSize: 16),),
+                              onChanged: (val) {
+                                setState(() {
+                                  category = val;
+                                  _categoryController.text = Constant.category[val]["title"];
+                                });
+                              });
+                        },
+                      ),
+                    )
+                  : Container(),
+              Padding(
+                padding: EdgeInsets.all(15),
+                child: TextField(
                     onChanged: (value) => address = value,
                     style: TextStyle(fontWeight: FontWeight.w500),
                     decoration: InputDecoration(
@@ -136,7 +181,6 @@ class _AddEventState extends State<AddEvent> {
                           decoration: InputDecoration(
                               suffixIcon: Icon(Icons.calendar_today),
                               hintText: "Date de début",
-                              labelText: "Date de début",
                               labelStyle:
                                   TextStyle(fontWeight: FontWeight.w400))),
                     ),
@@ -167,7 +211,6 @@ class _AddEventState extends State<AddEvent> {
                           decoration: InputDecoration(
                               suffixIcon: Icon(Icons.calendar_today),
                               hintText: "Date de fin",
-                              labelText: "Date de fin",
                               labelStyle:
                                   TextStyle(fontWeight: FontWeight.w400))),
                     ),
@@ -210,7 +253,7 @@ class _AddEventState extends State<AddEvent> {
                           Text(
                             "GRATUIT",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
+                                fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                           Checkbox(
                             value: price == 0,

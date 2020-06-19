@@ -1,8 +1,7 @@
 import 'package:esgi_project/components/card_category.dart';
 import 'package:esgi_project/components/card_event_horizontal.dart';
-import 'package:esgi_project/models/user.dart';
-import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,14 +9,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  User _currentUser;
   List<Map<String, dynamic>> _listPopularEvents;
   List<Map<String, dynamic>> _listCategoryEvents;
 
   @override
   void initState() {
     super.initState();
-    _currentUser = Constant.currentUser;
     _initData();
   }
 
@@ -88,18 +85,15 @@ class _HomeState extends State<Home> {
     _listCategoryEvents = [
       {
         "title": "Bar",
-        "icon": Icon(Icons.local_drink),
-        "color": Colors.orange,
+        "icon": Icons.local_drink,
       },
       {
         "title": "Discothèque",
-        "icon": Icon(Icons.android),
-        "color": Colors.lightBlue,
+        "icon": Icons.android,
       },
       {
         "title": "Concert",
-        "icon": Icon(Icons.local_movies),
-        "color": Colors.purple,
+        "icon": Icons.local_movies,
       },
     ];
   }
@@ -133,7 +127,7 @@ class _HomeState extends State<Home> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           IconButton(
-            icon: Icon(Icons.more_horiz),
+            icon: Icon(FontAwesomeIcons.slidersH),
             onPressed: () {},
           ),
         ],
@@ -180,7 +174,7 @@ class _HomeState extends State<Home> {
               itemCount: 3,
               itemBuilder: (context, index) {
                 Map data = _listCategoryEvents[index];
-                return CardCategory(data);
+                return CardCategory(iconData: data["icon"], title: data["title"]);
               },
             ),
           ),
@@ -191,11 +185,11 @@ class _HomeState extends State<Home> {
 
   Widget _buildPopularEvents() {
     return Padding(
-      padding: EdgeInsets.all(25),
+      padding: EdgeInsets.only(top: 10, left: 25, bottom: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Popular Events"),
+          Text("Popular Events", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
           SizedBox(height: 20),
           Container(
             height: 100,
@@ -219,7 +213,7 @@ class _HomeState extends State<Home> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Nearby Events"),
+          Text("Nearby Events", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
           SizedBox(height: 20),
           Container(
             height: 100,
