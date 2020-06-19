@@ -19,7 +19,7 @@ class _AddEventState extends State<AddEvent> {
   List<String> _imageEvent = [];
   String name = "";
   String content = "";
-  String place = "";
+  String address = "";
   int price = 0;
   TextEditingController _beginDateController = TextEditingController();
   TextEditingController _endDateController = TextEditingController();
@@ -29,6 +29,7 @@ class _AddEventState extends State<AddEvent> {
     userId: UserController.to.user.id,
     userOrganizer: UserController.to.user,
     price: 0,
+    preview: true,
   );
 
   @override
@@ -48,6 +49,13 @@ class _AddEventState extends State<AddEvent> {
                         icon: Icon(Icons.remove_red_eye),
                         onPressed: () {
                           //TODO: activer que quand au moins 1 champs ou 1 photo est rempli
+                          event.title = name;
+                          event.content = content;
+                          event.address = address;
+                          event.price = price;
+                          event.dateStart = _beginDateController.text;
+                          event.dateEnd = _endDateController.text;
+                          event.pictures = _imageEvent;
                           Get.toNamed(Router.eventDetailRoute, arguments: event);
                         },
                       ),
@@ -91,7 +99,7 @@ class _AddEventState extends State<AddEvent> {
               Padding(
                 padding: EdgeInsets.all(15),
                 child: TextField(
-                    onChanged: (value) => place = value,
+                    onChanged: (value) => address = value,
                     style: TextStyle(fontWeight: FontWeight.w500),
                     decoration: InputDecoration(
                         suffixIcon: Icon(Icons.pin_drop),

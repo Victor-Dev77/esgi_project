@@ -3,10 +3,12 @@ import 'package:esgi_project/models/user.dart';
 import 'package:flutter/material.dart';
 
 class Event {
-  final String userId, title, content, address, dateStart, dateEnd;
+  final String userId;
   final User userOrganizer;
-  final int price;
-  final List<String> pictures;
+  String title, content, address, dateStart, dateEnd;
+  int price;
+  List<String> pictures;
+  final bool preview;
 
   Event({
     this.userId,
@@ -18,6 +20,7 @@ class Event {
     this.userOrganizer,
     this.price,
     this.pictures,
+    this.preview: false,
   });
 
   factory Event.fromDocument(DocumentSnapshot doc) {
