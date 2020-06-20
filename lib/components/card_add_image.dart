@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CardAddImage extends StatefulWidget {
+  final String image;
   final Function(File) imageLoad;
   final Function(File) imageRemove;
-  CardAddImage({@required this.imageLoad, @required this.imageRemove});
+  CardAddImage({@required this.imageLoad, @required this.imageRemove, this.image});
 
   @override
   _CardAddImageState createState() => _CardAddImageState();
@@ -33,6 +34,14 @@ class _CardAddImageState extends State<CardAddImage> {
     setState(() {
       _image = null;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.image != null) {
+      _image = File(widget.image);
+    }
   }
 
   @override

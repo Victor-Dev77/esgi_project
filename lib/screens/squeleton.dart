@@ -1,4 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:esgi_project/controllers/add_event_controller.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:esgi_project/screens/home.dart';
 import 'package:esgi_project/screens/settings.dart';
 import 'package:esgi_project/screens/map.dart';
 import 'package:esgi_project/screens/add_event.dart';
+import 'package:get/get.dart';
 
 class AppSqueleton extends StatefulWidget {
   @override
@@ -31,6 +33,9 @@ class _AppSqueleton extends State<AppSqueleton> with TickerProviderStateMixin {
     super.initState();
     print("isOrganizer: ${UserController.to.user.isOrganizer}");
     isOrganizer = UserController.to.user.isOrganizer;
+    if (UserController.to.user.isOrganizer) {
+      Get.put(AddEventController());
+    }
     _tabController = TabController(
       initialIndex: 0,
       length: isOrganizer ? _tabListOrga.length : _tabListNotOrga.length,
