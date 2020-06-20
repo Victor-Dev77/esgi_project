@@ -32,6 +32,7 @@ dependencies:
   image_picker: ^0.6.7+2             # recup image gallery / camera
   cached_network_image: ^2.2.0       # gestion cache image
   flutter_swiper: ^1.1.6             # Swipe image
+  path_provider: ^1.6.8
 
   # Utils - a ajouter plus tard
   #auto_size_text: ^2.1.0             # resize auto text

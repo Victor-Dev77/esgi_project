@@ -3,6 +3,7 @@ import 'package:esgi_project/models/user.dart';
 
 class FirebaseFirestoreAPI {
   static final String _collectionUser = "users";
+  static final String _collectionEvent = "events";
 
   Future<User> getUser(String uid) async {
     final CollectionReference _docRef =
@@ -24,5 +25,12 @@ class FirebaseFirestoreAPI {
         .collection(_collectionUser)
         .document(user["userId"])
         .setData(user, merge: true);
+  }
+
+  addEvent(Map<String, dynamic> event) async {
+    await Firestore.instance
+        .collection(_collectionEvent)
+        .document(event["id"])
+        .setData(event);
   }
 }

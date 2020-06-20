@@ -16,4 +16,8 @@ class FirebaseFirestoreRepository {
     await _firestoreAPI.setUser(user);
   }
 
+  addEvent(Map<String, dynamic> event) async {
+    await _firestoreAPI.addEvent(event);
+  }
+
 }

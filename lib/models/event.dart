@@ -3,7 +3,7 @@ import 'package:esgi_project/models/user.dart';
 import 'package:flutter/material.dart';
 
 class Event {
-  final String userId;
+  final String id, userId;
   final User userOrganizer;
   String title, content, category, address, dateStart, dateEnd;
   int price;
@@ -11,6 +11,7 @@ class Event {
   final bool preview;
 
   Event({
+    this.id,
     this.userId,
     this.title,
     this.content,
@@ -26,6 +27,7 @@ class Event {
 
   factory Event.fromDocument(DocumentSnapshot doc) {
     return Event(
+      id: doc["id"],
       userId: doc['userId'],
       title: doc['title'],
       content: doc['content'],
@@ -43,6 +45,7 @@ class Event {
 
   Map<String, dynamic> toMap() {
     return {
+      "id": id,
       "userId": userId,
       "title": title,
       "content": content,

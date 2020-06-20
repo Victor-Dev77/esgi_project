@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/models/event.dart';
+import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
+import 'package:esgi_project/repositorys/firebase_storage_repository.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
@@ -12,8 +14,11 @@ import 'package:get/get.dart';
 class AddEventController extends GetController {
   static AddEventController get to => Get.find();
 
+  FirebaseFirestoreRepository _bddRepo = FirebaseFirestoreRepository.to;
+  FirebaseStorageRepository _storageRepo = FirebaseStorageRepository.to;
+
   Event _event;
-  //Event get event => this._event;
+  Event get event => this._event;
 
   bool _validForm = false;
   bool get validForm => this._validForm;
@@ -53,6 +58,7 @@ class AddEventController extends GetController {
   void onInit() {
     super.onInit();
     _event = Event(
+      id: "${UserController.to.user.id}-${DateTime.now().millisecondsSinceEpoch.toString()}",
       userId: UserController.to.user.id,
       userOrganizer: UserController.to.user,
       price: 0,
@@ -61,8 +67,19 @@ class AddEventController extends GetController {
     _pictureEvent = [];
   }
 
+  _validateForm() {
+    bool checked = _checkValidAllFields();
+    if (checked) {
+      _validForm = true;
+    } else {
+      _validForm = false;
+    }
+    update();
+  }
+
   bool _checkValidAllFields() {
-    return true;
+    //TODO: faire d'autre verifications
+    return _pictureEvent.length > 0;
   }
 
   String getPicture(int index) {
@@ -72,26 +89,32 @@ class AddEventController extends GetController {
 
   addPicture(File file) {
     _pictureEvent.add(file.path);
+    _validateForm();
   }
 
   deletePicture(File file) {
     _pictureEvent.remove(file.path);
+    _validateForm();
   }
 
   changeTitleEvent(String title) {
     _title = title;
+    _validateForm();
   }
 
   changeContentEvent(String content) {
     _content = content;
+    _validateForm();
   }
 
   changeAddressEvent(String address) {
     _address = address;
+    _validateForm();
   }
 
   changePriceEvent(String price) {
     _price = int.parse(price);
+    _validateForm();
   }
 
   setPriceFreeOrNotFree() {
@@ -111,6 +134,7 @@ class AddEventController extends GetController {
     _category = value;
     _categoryController.text = Constant.category[value]["title"];
     update(["category"]);
+    _validateForm();
   }
 
   selectDateEvent(TextEditingController editingController) async {
@@ -118,10 +142,12 @@ class AddEventController extends GetController {
       String date = await _selectDateAndroid();
       if (date != null) {
         editingController.text = date;
+        _validateForm();
       }
     } else if (GetPlatform.isIOS) {
       _selectDateIOS(callback: (date) {
         editingController.text = date;
+        _validateForm();
       });
     }
   }
@@ -171,7 +197,7 @@ class AddEventController extends GetController {
         isDismissible: true);
   }
 
-  goToPreview() {
+  _setFieldToEvent() {
     _event.title = _title;
     _event.content = _content;
     _event.address = _address;
@@ -179,9 +205,71 @@ class AddEventController extends GetController {
     _event.dateStart = _beginDateController.text;
     _event.dateEnd = _endDateController.text;
     _event.pictures = _pictureEvent;
-    /*_event.category = (category != -1)
+    _event.category = (category != -1)
         ? Constant.category[category]["title"]
-        : "Aucune catégorie";*/
+        : "Aucune catégorie";
+  }
+
+  goToPreview() {
+    _setFieldToEvent();
     Get.toNamed(Router.eventDetailRoute, arguments: _event);
+  }
+
+  addEvent() async {
+    _validForm = false;
+    update();
+    _setFieldToEvent();
+    _event.pictures = [];
+    await _uploadPictures();
+    await _bddRepo.addEvent(_event.toMap());
+    print("send to bdd");
+    //TODO: check si pas erreur firebase
+    _reinitFields();
+  }
+
+  _uploadPictures() async {
+    List<String> urlPictures = [];
+    for (int i = 0; i < _pictureEvent.length; i++) {
+      String urlPicture = await _storageRepo.uploadPicture(_pictureEvent[i]);
+      if (urlPicture != null) {
+        print("not null here");
+        urlPictures.add(urlPicture);
+      }
+    }
+    _event.pictures = urlPictures;
+  }
+
+  _reinitFields() {
+    _validForm = false;
+    //TODO: appeler aussi suppression de image controller (creer un controller pour la gestion des photos de add event)
+    List<String> listTmp = List()..addAll(_pictureEvent);
+    listTmp.forEach((pic) {
+      deletePicture(File(pic));
+    });
+    listTmp = [];
+    _pictureEvent = [];
+    update();
+    _event = Event(
+      id: _event.id,
+      userId: UserController.to.user.id,
+      userOrganizer: UserController.to.user,
+      price: 0,
+      preview: true,
+    );
+    _title = "";
+    _titleController.text = "";
+    _content = "";
+    _contentController.text = "";
+    _address = "";
+    _addressController.text = "";
+    _price = 0;
+    _priceController.text = "";
+    _beginDateController.text = "";
+    _endDateController.text = "";
+    _categoryShow = false;
+    _category = -1;
+    _categoryController.text = "";
+    update(["price"]);
+    update(["category"]);
   }
 }

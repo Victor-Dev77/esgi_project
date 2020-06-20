@@ -207,25 +207,29 @@ class AddEvent extends StatelessWidget {
   }
 
   Widget _buildImageGridEvent() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        CardAddImage(
-          image: AddEventController.to.getPicture(0),
-          imageLoad: (file) => AddEventController.to.addPicture(file),
-          imageRemove: (file) => AddEventController.to.deletePicture(file),
-        ),
-        CardAddImage(
-          image: AddEventController.to.getPicture(1),
-          imageLoad: (file) => AddEventController.to.addPicture(file),
-          imageRemove: (file) => AddEventController.to.deletePicture(file),
-        ),
-        CardAddImage(
-          image: AddEventController.to.getPicture(2),
-          imageLoad: (file) => AddEventController.to.addPicture(file),
-          imageRemove: (file) => AddEventController.to.deletePicture(file),
-        ),
-      ],
+    return GetBuilder<AddEventController>(
+      builder: (controller) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            CardAddImage(
+              image: controller.getPicture(0),
+              imageLoad: (file) => controller.addPicture(file),
+              imageRemove: (file) => controller.deletePicture(file),
+            ),
+            CardAddImage(
+              image: controller.getPicture(1),
+              imageLoad: (file) => controller.addPicture(file),
+              imageRemove: (file) => controller.deletePicture(file),
+            ),
+            CardAddImage(
+              image: controller.getPicture(2),
+              imageLoad: (file) => controller.addPicture(file),
+              imageRemove: (file) => controller.deletePicture(file),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -235,7 +239,7 @@ class AddEvent extends StatelessWidget {
       child: GetBuilder<AddEventController>(
         builder: (controller) {
           return InkWell(
-            onTap: () => controller.validForm ? print("ADD EVENT") : null,
+            onTap: () => controller.validForm ? controller.addEvent() : null,
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
