@@ -230,9 +230,8 @@ class AddEventController extends GetController {
   _uploadPictures() async {
     List<String> urlPictures = [];
     for (int i = 0; i < _pictureEvent.length; i++) {
-      String urlPicture = await _storageRepo.uploadPicture(_pictureEvent[i]);
+      String urlPicture = await _storageRepo.uploadPicture(UserController.to.user.id, _event.id, _pictureEvent[i]);
       if (urlPicture != null) {
-        print("not null here");
         urlPictures.add(urlPicture);
       }
     }

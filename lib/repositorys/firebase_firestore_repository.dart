@@ -1,4 +1,5 @@
 import 'package:esgi_project/api/firebase_firestore_api.dart';
+import 'package:esgi_project/models/event.dart';
 import 'package:get/get.dart';
 import 'package:esgi_project/models/user.dart';
 
@@ -18,6 +19,14 @@ class FirebaseFirestoreRepository {
 
   addEvent(Map<String, dynamic> event) async {
     await _firestoreAPI.addEvent(event);
+  }
+
+  deleteEvent(String id) async {
+    await _firestoreAPI.deleteEvent(id);
+  }
+
+  Future<List<Event>> getMyEvents(String uid) async {
+    return await _firestoreAPI.getMyEvents(uid);
   }
 
 }
