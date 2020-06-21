@@ -29,4 +29,20 @@ class FirebaseFirestoreRepository {
     return await _firestoreAPI.getMyEvents(uid);
   }
 
+  Future<List<Event>> getPopularEvents() async {
+    return await _firestoreAPI.getPopularEvents();
+  }
+
+  Future<List<Event>> getMyFavoritesEvents(String uid) async {
+    return await _firestoreAPI.getMyFavoritesEvents(uid);
+  }
+
+  addFavoriteEvent(String idUser, Map<String, dynamic> event) async {
+    await _firestoreAPI.addFavoriteEvent(idUser, event);
+  }
+
+  deleteFavoriteEvent(String idUser, String idEvent) async {
+    await _firestoreAPI.deleteFavoriteEvent(idUser, idEvent);
+  }
+
 }

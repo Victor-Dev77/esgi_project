@@ -27,7 +27,7 @@ class AuthController extends RxController {
         _currentUser.value = await _authRepo.getCurrentUser();
         var user = await _bddRepo.getUser(_currentUser.value.uid);
         if (user != null) {
-          UserController.to.user = user;
+          UserController.to.initUser(user);
           Get.offAllNamed(Router.squeletonRoute);
         } else {
           Get.offAllNamed(Router.loginRoute);

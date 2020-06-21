@@ -28,7 +28,7 @@ class Settings extends StatelessWidget {
           ),
           SizedBox(height: 20.0),
           CardSettings(
-            text: "Mes favoris",
+            text: "Mes favoris - ${UserController.to.favorites.length}",
             onTap: () {
               print("Salut 2");
             },

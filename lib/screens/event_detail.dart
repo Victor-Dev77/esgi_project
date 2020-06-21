@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 //TODO: remove glow scroll sur android ??
@@ -94,6 +96,28 @@ class _EventDetailState extends State<EventDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          GetBuilder<UserController>(
+                            //id: "favorite",
+                            builder: (controller) {
+                              return InkWell(
+                                onTap: () => controller.addFavorite(event),
+                                child: Icon(
+                                    controller.isFavorite(event)
+                                        ? FontAwesomeIcons.solidHeart
+                                        : FontAwesomeIcons.heart,
+                                    size: 20),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 25),

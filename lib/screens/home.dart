@@ -1,7 +1,10 @@
 import 'package:esgi_project/components/card_category.dart';
 import 'package:esgi_project/components/card_event_horizontal.dart';
+import 'package:esgi_project/controllers/search_event_controller.dart';
+import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,95 +12,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Map<String, dynamic>> _listPopularEvents;
-  List<Map<String, dynamic>> _listCategoryEvents;
-
-  @override
-  void initState() {
-    super.initState();
-    _initData();
-  }
-
-  _initData() {
-    _listPopularEvents = [
-      {
-        "id": "1",
-        "title": "Club Night",
-        "date": "15 Jun. 2020 01:00",
-        "images": [],
-        "location": {
-          "latitude": 42.01214,
-          "longitude": 8.014421,
-        },
-        "content": "Party Night at ESGI ! Coming Soon...",
-        "price": 0,
-      },
-      {
-        "id": "2",
-        "title": "Bar ESGI",
-        "date": "17 Jul. 2020 16:30",
-        "images": [],
-        "location": {
-          "latitude": 42.01214,
-          "longitude": 8.014421,
-        },
-        "content": "Bar at ESGI ! So coool",
-        "price": 10,
-      },
-      {
-        "id": "3",
-        "title": "Afterwork ESGI",
-        "date": "12 Jun. 2020 20:15",
-        "images": [],
-        "location": {
-          "latitude": 42.01214,
-          "longitude": 8.014421,
-        },
-        "content": "Come on at the best afterwork of Paname !",
-        "price": 5,
-      },
-      {
-        "id": "4",
-        "title": "A Fucking Boom",
-        "date": "15 Jun. 2020 01:00",
-        "images": [],
-        "location": {
-          "latitude": 42.01214,
-          "longitude": 8.014421,
-        },
-        "content": "Full Alcohol, full girls, no sleep !",
-        "price": 100,
-      },
-      {
-        "id": "5",
-        "title": "New Year 2021",
-        "date": "31 Dec. 2020 01:00",
-        "images": [],
-        "location": {
-          "latitude": 42.01214,
-          "longitude": 8.014421,
-        },
-        "content": "Celebrate the new year at ESGI !",
-        "price": 0,
-      },
-    ];
-
-    _listCategoryEvents = [
-      {
-        "title": "Bar",
-        "icon": Icons.local_drink,
-      },
-      {
-        "title": "Discothèque",
-        "icon": Icons.android,
-      },
-      {
-        "title": "Concert",
-        "icon": Icons.local_movies,
-      },
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -112,7 +26,9 @@ class _HomeState extends State<Home> {
               _buildAllEventCategory(),
               _buildPopularEvents(),
               _buildNearbyEvents(),
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
             ],
           ),
         ),
@@ -173,8 +89,9 @@ class _HomeState extends State<Home> {
               scrollDirection: Axis.horizontal,
               itemCount: 3,
               itemBuilder: (context, index) {
-                Map data = _listCategoryEvents[index];
-                return CardCategory(iconData: data["icon"], title: data["title"]);
+                Map data = Constant.category[index];
+                return CardCategory(
+                    iconData: data["icon"], title: data["title"]);
               },
             ),
           ),
@@ -189,16 +106,26 @@ class _HomeState extends State<Home> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Popular Events", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+          Text(
+            "Popular Events",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          ),
           SizedBox(height: 20),
           Container(
             height: 100,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                Map data = _listPopularEvents[index];
-                return EventCardHorizontal(data);
+            child: GetBuilder<SearchEventController>(
+              builder: (controller) {
+                if (controller.popularEvent == null)
+                  return Center(child: CircularProgressIndicator());
+                if (controller.popularEvent.length == 0)
+                  return Center(child: Text("Aucun événements !"));
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.popularEvent.length,
+                  itemBuilder: (context, index) {
+                    return EventCardHorizontal(controller.popularEvent[index]);
+                  },
+                );
               },
             ),
           ),
@@ -209,20 +136,30 @@ class _HomeState extends State<Home> {
 
   Widget _buildNearbyEvents() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 25),
+      padding: EdgeInsets.only(top: 5, left: 25, bottom: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Nearby Events", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+          Text(
+            "Nearby Events",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          ),
           SizedBox(height: 20),
           Container(
             height: 100,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                Map data = _listPopularEvents[index];
-                return EventCardHorizontal(data);
+            child: GetBuilder<SearchEventController>(
+              builder: (controller) {
+                if (controller.popularEvent == null)
+                  return Center(child: CircularProgressIndicator());
+                if (controller.popularEvent.length == 0)
+                  return Center(child: Text("Aucun événements !"));
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.popularEvent.length,
+                  itemBuilder: (context, index) {
+                    return EventCardHorizontal(controller.popularEvent[index]);
+                  },
+                );
               },
             ),
           ),

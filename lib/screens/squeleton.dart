@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:esgi_project/controllers/add_event_controller.dart';
+import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class _AppSqueleton extends State<AppSqueleton> with TickerProviderStateMixin {
     if (UserController.to.user.isOrganizer) {
       Get.put(AddEventController());
     }
+    Get.put(SearchEventController());
     _tabController = TabController(
       initialIndex: 0,
       length: isOrganizer ? _tabListOrga.length : _tabListNotOrga.length,
