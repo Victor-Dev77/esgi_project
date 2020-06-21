@@ -27,10 +27,12 @@ class Settings extends StatelessWidget {
             },
           ),
           SizedBox(height: 20.0),
-          CardSettings(
-            text: "Mes favoris - ${UserController.to.favorites.length}",
-            onTap: () {
-              print("Salut 2");
+          GetBuilder<UserController>(
+            builder: (controller) {
+              return CardSettings(
+                text: "Mes favoris - ${controller.favorites.length}",
+                onTap: () => Get.toNamed(Router.myFavoriteRoute),
+              );
             },
           ),
           if (UserController.to.user.isOrganizer)

@@ -1,6 +1,7 @@
 import 'package:esgi_project/screens/event_detail.dart';
 import 'package:esgi_project/screens/login.dart';
 import 'package:esgi_project/screens/my_events.dart';
+import 'package:esgi_project/screens/my_favorite_events.dart';
 import 'package:esgi_project/screens/sign_up.dart';
 import 'package:esgi_project/screens/splashscreen.dart';
 import 'package:esgi_project/screens/squeleton.dart';
@@ -15,6 +16,7 @@ class Router {
   static const String squeletonRoute = "/squeleton";
   static const String eventDetailRoute = "/eventdetail";
   static const String myEventsRoute = "/settings/my_events";
+  static const String myFavoriteRoute = "/settings/my_favorite";
 
   static final routes = {
     splashRoute : GetRoute(page: SplashScreen()),
@@ -23,5 +25,6 @@ class Router {
     squeletonRoute : GetRoute(page: AppSqueleton()),
     eventDetailRoute : GetRoute(page: EventDetail()),
     myEventsRoute : GetRoute(page: MyEvents()),
+    myFavoriteRoute : GetRoute(page: MyFavoriteEvents()),
   };
 }

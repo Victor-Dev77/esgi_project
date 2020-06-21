@@ -1,15 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:esgi_project/controllers/my_event_controller.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class MyEventCard extends StatelessWidget {
   final Event event;
-  MyEventCard(this.event);
+  final Widget trailingWidget;
+  final VoidCallback trailingAction;
+  MyEventCard({
+    @required this.event,
+    @required this.trailingWidget,
+    @required this.trailingAction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -102,16 +106,8 @@ class MyEventCard extends StatelessWidget {
         ),
         Positioned(
           child: GestureDetector(
-            onTap: () => MyEventController.to.deleteEvent(event),
-            child: CircleAvatar(
-              backgroundColor: Colors.redAccent,
-              child: Center(
-                child: Icon(
-                  FontAwesomeIcons.minus,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            onTap: () => trailingAction(),
+            child: trailingWidget,
           ),
           right: 15,
           top: 0,

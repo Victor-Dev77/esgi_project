@@ -32,14 +32,11 @@ class UserController extends GetController {
   }
 
   _addFavoriteEvent(Event event) async {
-    print("event add favorite: ${event.userOrganizer.id}");
-    _favorites.add(event);
     await _bddRepo.addFavoriteEvent(_user.id, event.toMap());
     update();
   }
 
   _deleteFavoriteEvent(int index, Event event) async {
-    print("delete at $index");
     _favorites.removeAt(index);
     await _bddRepo.deleteFavoriteEvent(_user.id, event.id);
     update();

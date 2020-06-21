@@ -1,51 +1,53 @@
 import 'package:esgi_project/components/card_my_event.dart';
-import 'package:esgi_project/controllers/my_event_controller.dart';
+import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class MyEvents extends StatelessWidget {
+class MyFavoriteEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mes événements'),
+        title: Text('Favoris'),
       ),
-      body: GetBuilder<MyEventController>(
-        init: MyEventController(),
+      body: GetBuilder<UserController>(
         builder: (controller) {
-          return _buildListEvent(controller);
+          return _buildListFavoriteEvent(controller);
         },
       ),
     );
   }
 
-  Widget _buildListEvent(MyEventController controller) {
-    if (controller.myEvents == null)
+  Widget _buildListFavoriteEvent(UserController controller) {
+    if (controller.favorites == null)
       return Center(
         child: CircularProgressIndicator(),
       );
-    if (controller.myEvents.length == 0)
+    if (controller.favorites.length == 0)
       return Center(
-        child: Text("Aucun événements"),
+        child: Text("Aucun favoris"),
       );
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20),
       child: ListView.builder(
-        itemCount: controller.myEvents.length,
+        itemCount: controller.favorites.length,
         itemBuilder: (context, index) {
           return MyEventCard(
-            event: controller.myEvents[index],
+            event: controller.favorites[index],
             trailingWidget: CircleAvatar(
-              backgroundColor: Colors.redAccent,
+              backgroundColor: Colors.black,
               child: Center(
                 child: Icon(
-                  FontAwesomeIcons.minus,
+                  controller.isFavorite(controller.favorites[index])
+                      ? FontAwesomeIcons.solidHeart
+                      : FontAwesomeIcons.heart,
                   color: Colors.white,
                 ),
               ),
             ),
-            trailingAction: () => controller.deleteEvent(controller.myEvents[index]),
+            trailingAction: () =>
+                controller.addFavorite(controller.favorites[index]),
           );
         },
       ),
