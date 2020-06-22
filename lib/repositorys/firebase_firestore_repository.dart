@@ -37,6 +37,9 @@ class FirebaseFirestoreRepository {
     return await _firestoreAPI.getEventsWithCategory(category);
   }
 
+  Future<List<Event>> searchQueryEvent(Map<String, dynamic> search) async {
+    return await _firestoreAPI.searchQueryEvent(search);
+  }
 
 
 

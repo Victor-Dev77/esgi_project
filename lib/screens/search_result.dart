@@ -11,7 +11,6 @@ class SearchResult extends StatelessWidget {
         title: Text("Événements"),
       ),
       body: GetBuilder<SearchEventController>(
-        init: SearchEventController(),
         builder: (controller) {
           return _buildListEvent(controller);
         },

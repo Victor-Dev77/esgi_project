@@ -29,11 +29,14 @@ class SearchEventController extends GetController {
   }
 
   searchQueryEvent(Map<String, dynamic> search) async {
+    // {date: 27/06/2020 21:16, category: [Concert, Festival], distance: 43}
     print(search);
-    //TODO: faire query composé
-    _searchEvent = await _bddRepo.getEventsWithCategory("Bar");
     Get.back();
+    print(_searchEvent);
     Get.toNamed(Router.searchResultRoute);
+    _searchEvent = await _bddRepo.searchQueryEvent(search);
+    update();
+    print(_searchEvent);
   }
 
 }

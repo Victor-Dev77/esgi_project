@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/models/user.dart';
+import 'package:esgi_project/utils/functions.dart';
 
 class FirebaseFirestoreAPI {
   static final String _collectionUser = "users";
@@ -91,10 +92,54 @@ class FirebaseFirestoreAPI {
     }
   }
 
+  Future<List<Event>> searchQueryEvent(Map<String, dynamic> search) async {
+    final CollectionReference _docRef =
+        Firestore.instance.collection(_collectionEvent);
+    try {
+      List<Event> _listEvent = [];
+      await _query(search).snapshots().listen((data) {
+        data.documents.forEach((doc) {
+          Event event = Event.fromDocument(doc);
+          _listEvent.add(event);
+          print("in boucle: $_listEvent");
+        });
+      });
+      print("after query: $_listEvent");
+      return _listEvent;
+    } catch (error) {
+      print("ERROR: Firebase Firestore API: searchQueryEvent() => $error");
+      return null;
+    }
+  }
 
-
-
-
+  _query(Map<String, dynamic> search) {
+    final CollectionReference _docRef =
+        Firestore.instance.collection(_collectionEvent);
+    if (search["category"].length > 0) {
+      return _docRef.where('category', whereIn: search["category"]);
+      //  .where('age', isLessThanOrEqualTo: int.parse(me.ageRange['max']))
+      //  .orderBy('age', descending: false);
+    }
+    if (search["date"] != null) {
+      print("timestamp: ${parseDateStringToTimestamp(search["date"], "dd/MM/yyyy HH:mm")}");
+      return _docRef.where('dateEnd',
+          isGreaterThan:
+              parseDateStringToTimestamp(search["date"], "dd/MM/yyyy HH:mm"));
+    }
+    /*else {
+      return docRef
+          .where('sex', isEqualTo: me.searchSex)
+          .where(
+            'age',
+            isGreaterThanOrEqualTo: int.parse(me.ageRange['min']),
+          )
+          .where('age', isLessThanOrEqualTo: int.parse(me.ageRange['max']))
+          //FOR FETCH USER WHO MATCH WITH USER SEXUAL ORIENTAION
+          // .where('sexualOrientation.orientation',
+          //     arrayContainsAny: currentUser.sexualOrientation)
+          .orderBy('age', descending: false);
+    }*/
+  }
 
   Future<List<Event>> getMyFavoritesEvents(String idUser) async {
     final CollectionReference _docRef = Firestore.instance

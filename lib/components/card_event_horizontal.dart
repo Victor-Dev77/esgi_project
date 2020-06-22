@@ -30,15 +30,20 @@ class EventCardHorizontal extends StatelessWidget {
                 margin: EdgeInsets.all(7),
                 width: 85,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: CachedNetworkImage(
-                  imageUrl: event.pictures[0],
-                  fit: BoxFit.cover,
-                  useOldImageOnUrlChange: true,
-                  placeholder: (context, url) => CupertinoActivityIndicator(
-                    radius: 20,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10)),
+                    child: CachedNetworkImage(
+                      imageUrl: event.pictures[0],
+                      fit: BoxFit.cover,
+                      useOldImageOnUrlChange: true,
+                      placeholder: (context, url) => CupertinoActivityIndicator(
+                        radius: 20,
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
               ),
               Expanded(
                 child: Container(
