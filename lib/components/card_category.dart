@@ -1,3 +1,4 @@
+import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:flutter/material.dart';
 
 class CardCategory extends StatelessWidget {
@@ -10,30 +11,32 @@ class CardCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(right: 20),
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.pink[50],
-            ),
-            child: IconButton(
-              icon: Icon(
-                iconData,
-                size: 30,
-                color: Colors.pink[400],
+      child: GestureDetector(
+        onTap: () => SearchEventController.to.searchByCategory(title),
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 60,
+                width: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.pink[50],
+                ),
+                child: Icon(
+                  iconData,
+                  size: 30,
+                  color: Colors.pink[400],
+                ),
               ),
-              onPressed: () {},
-            ),
+              SizedBox(height: 5),
+              Text(
+                title,
+                style: TextStyle(fontSize: 14),
+              )
+            ],
           ),
-          SizedBox(height: 5),
-          Text(
-            title,
-            style: TextStyle(fontSize: 14),
-          )
-        ],
+        ),
       ),
     );
   }

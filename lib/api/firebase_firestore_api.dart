@@ -74,6 +74,28 @@ class FirebaseFirestoreAPI {
     }
   }
 
+  Future<List<Event>> getEventsWithCategory(String category) async {
+    final CollectionReference _docRef =
+        Firestore.instance.collection(_collectionEvent);
+    try {
+      List<Event> _listEvent = [];
+      _docRef.where("category", isEqualTo: category).snapshots().listen((data) {
+        data.documents.forEach((event) {
+          _listEvent.add(Event.fromDocument(event));
+        });
+      });
+      return _listEvent;
+    } catch (_) {
+      print("ERROR: Firebase Firestore API: getEventsWithCategory()");
+      return null;
+    }
+  }
+
+
+
+
+
+
   Future<List<Event>> getMyFavoritesEvents(String idUser) async {
     final CollectionReference _docRef = Firestore.instance
         .collection(_collectionFavorite)

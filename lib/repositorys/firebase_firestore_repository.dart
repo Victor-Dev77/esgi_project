@@ -33,6 +33,14 @@ class FirebaseFirestoreRepository {
     return await _firestoreAPI.getPopularEvents();
   }
 
+  Future<List<Event>> getEventsWithCategory(String category) async {
+    return await _firestoreAPI.getEventsWithCategory(category);
+  }
+
+
+
+
+
   Future<List<Event>> getMyFavoritesEvents(String uid) async {
     return await _firestoreAPI.getMyFavoritesEvents(uid);
   }

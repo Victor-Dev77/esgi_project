@@ -28,6 +28,12 @@ class MyApp extends StatelessWidget {
 
         //)
       ),
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: child,
+        );
+      },
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fade,
       initialBinding: InitialBinding(),
@@ -42,6 +48,15 @@ class MyApp extends StatelessWidget {
         const Locale('fr', 'FR'), // include country code too
       ],
     );
+  }
+}
+
+// Remove Scroll Overlay / Glow in List / Grid
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }
 

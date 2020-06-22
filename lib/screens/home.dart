@@ -73,21 +73,14 @@ class _HomeState extends State<Home> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text("All Events"),
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: () {},
-              ),
-            ],
-          ),
+          SizedBox(height: 10),
+          Text("All Events", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+          SizedBox(height: 15),
           Container(
             height: 100,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 3,
+              itemCount: Constant.category.length,
               itemBuilder: (context, index) {
                 Map data = Constant.category[index];
                 return CardCategory(
