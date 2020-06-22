@@ -137,19 +137,25 @@ class AddEventController extends GetController {
     _validateForm();
   }
 
-  selectDateEvent(TextEditingController editingController) async {
+  Future<String> selectDateEvent(TextEditingController editingController) async {
     if (GetPlatform.isAndroid) {
       String date = await _selectDateAndroid();
       if (date != null) {
         editingController.text = date;
         _validateForm();
+        return date;
       }
     } else if (GetPlatform.isIOS) {
-      _selectDateIOS(callback: (date) {
+      String date = await _selectDateIOS(callback: (date) {
         editingController.text = date;
         _validateForm();
+        return date;
       });
+      editingController.text = date;
+        _validateForm();
+        return date;
     }
+    return null; 
   }
 
   Future<String> _selectDateAndroid() async {
@@ -178,7 +184,7 @@ class AddEventController extends GetController {
     return TimeOfDay.now();
   }
 
-  _selectDateIOS({@required Function(String) callback}) {
+  Future<String> _selectDateIOS({@required Function(String) callback}) async {
     final now = DateTime.now();
     Get.bottomSheet(
         SizedBox(
@@ -190,11 +196,13 @@ class AddEventController extends GetController {
             use24hFormat: true,
             backgroundColor: ConstantColor.white,
             onDateTimeChanged: (date) {
-              callback(parseDateTime(date.toLocal(), 'dd/MM/yyyy HH:mm'));
+             // callback();
+             return parseDateTime(date.toLocal(), 'dd/MM/yyyy HH:mm');
             },
           ),
         ),
         isDismissible: true);
+    return parseDateTime(now.toLocal(), 'dd/MM/yyyy HH:mm');
   }
 
   _setFieldToEvent() {

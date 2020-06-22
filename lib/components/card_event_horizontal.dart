@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/routes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -27,10 +29,15 @@ class EventCardHorizontal extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(7),
                 width: 85,
-                decoration: BoxDecoration(
-                    color: Colors.red, borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                  child: Text("Image"),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: CachedNetworkImage(
+                  imageUrl: event.pictures[0],
+                  fit: BoxFit.cover,
+                  useOldImageOnUrlChange: true,
+                  placeholder: (context, url) => CupertinoActivityIndicator(
+                    radius: 20,
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
               Expanded(
@@ -56,7 +63,11 @@ class EventCardHorizontal extends StatelessWidget {
                               builder: (controller) {
                                 return InkWell(
                                   onTap: () => controller.addFavorite(event),
-                                  child: Icon( controller.isFavorite(event) ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart, size: 20),
+                                  child: Icon(
+                                      controller.isFavorite(event)
+                                          ? FontAwesomeIcons.solidHeart
+                                          : FontAwesomeIcons.heart,
+                                      size: 20),
                                 );
                               },
                             ),
