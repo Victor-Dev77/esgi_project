@@ -46,10 +46,10 @@ class FirebaseFirestoreAPI {
         Firestore.instance.collection(_collectionEvent);
     try {
       List<Event> _listEvent = [];
-      _docRef.where("userId", isEqualTo: uid).snapshots().listen((data) {
-        data.documents.forEach((event) {
-          _listEvent.add(Event.fromDocument(event));
-        });
+      QuerySnapshot snap =
+          await _docRef.where("userId", isEqualTo: uid).getDocuments();
+      snap.documents.forEach((event) {
+        _listEvent.add(Event.fromDocument(event));
       });
       return _listEvent;
     } catch (_) {
@@ -63,10 +63,9 @@ class FirebaseFirestoreAPI {
         Firestore.instance.collection(_collectionEvent);
     try {
       List<Event> _listEvent = [];
-      _docRef.limit(25).snapshots().listen((data) {
-        data.documents.forEach((event) {
-          _listEvent.add(Event.fromDocument(event));
-        });
+      QuerySnapshot snap = await _docRef.limit(25).getDocuments();
+      snap.documents.forEach((event) {
+        _listEvent.add(Event.fromDocument(event));
       });
       return _listEvent;
     } catch (_) {
@@ -80,10 +79,10 @@ class FirebaseFirestoreAPI {
         Firestore.instance.collection(_collectionEvent);
     try {
       List<Event> _listEvent = [];
-      _docRef.where("category", isEqualTo: category).snapshots().listen((data) {
-        data.documents.forEach((event) {
-          _listEvent.add(Event.fromDocument(event));
-        });
+      QuerySnapshot snap =
+          await _docRef.where("category", isEqualTo: category).getDocuments();
+      snap.documents.forEach((event) {
+        _listEvent.add(Event.fromDocument(event));
       });
       return _listEvent;
     } catch (_) {
@@ -97,14 +96,11 @@ class FirebaseFirestoreAPI {
         Firestore.instance.collection(_collectionEvent);
     try {
       List<Event> _listEvent = [];
-      await _query(search).snapshots().listen((data) {
-        data.documents.forEach((doc) {
-          Event event = Event.fromDocument(doc);
-          _listEvent.add(event);
-          print("in boucle: $_listEvent");
-        });
+      QuerySnapshot snap = await _query(search).getDocuments();
+      snap.documents.forEach((doc) {
+        Event event = Event.fromDocument(doc);
+        _listEvent.add(event);
       });
-      print("after query: $_listEvent");
       return _listEvent;
     } catch (error) {
       print("ERROR: Firebase Firestore API: searchQueryEvent() => $error");
@@ -115,17 +111,27 @@ class FirebaseFirestoreAPI {
   _query(Map<String, dynamic> search) {
     final CollectionReference _docRef =
         Firestore.instance.collection(_collectionEvent);
-    if (search["category"].length > 0) {
-      return _docRef.where('category', whereIn: search["category"]);
-      //  .where('age', isLessThanOrEqualTo: int.parse(me.ageRange['max']))
-      //  .orderBy('age', descending: false);
-    }
+        Query query;
     if (search["date"] != null) {
       print("timestamp: ${parseDateStringToTimestamp(search["date"], "dd/MM/yyyy HH:mm")}");
-      return _docRef.where('dateEnd',
+      query = _docRef.where('dateEnd',
           isGreaterThan:
               parseDateStringToTimestamp(search["date"], "dd/MM/yyyy HH:mm"));
     }
+    if (search["category"].length > 0) {
+      if (query == null)
+        query = _docRef.where('category', whereIn: search["category"]);
+      else
+        query = query..where('category', whereIn: search["category"]);
+      //  .where('age', isLessThanOrEqualTo: int.parse(me.ageRange['max']))
+      //  .orderBy('age', descending: false);
+    }
+    if (query == null) {
+      // recup event avec date du jour par defaut 
+      query = _docRef.where('dateEnd',
+          isGreaterThan: parseDateTimeToTimestamp(DateTime.now()));
+    }
+    return query;
     /*else {
       return docRef
           .where('sex', isEqualTo: me.searchSex)
@@ -148,10 +154,9 @@ class FirebaseFirestoreAPI {
         .collection("events");
     try {
       List<Event> _listEvent = [];
-      _docRef.snapshots().listen((doc) {
-        doc.documents.forEach((event) {
-          _listEvent.add(Event.fromDocument(event));
-        });
+      QuerySnapshot snap = await _docRef.getDocuments();
+      snap.documents.forEach((event) {
+        _listEvent.add(Event.fromDocument(event));
       });
       print("list fav: ${_listEvent.length}");
       return _listEvent;

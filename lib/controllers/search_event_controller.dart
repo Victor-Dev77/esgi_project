@@ -32,6 +32,7 @@ class SearchEventController extends GetController {
     // {date: 27/06/2020 21:16, category: [Concert, Festival], distance: 43}
     print(search);
     Get.back();
+    _searchEvent = [];
     print(_searchEvent);
     Get.toNamed(Router.searchResultRoute);
     _searchEvent = await _bddRepo.searchQueryEvent(search);

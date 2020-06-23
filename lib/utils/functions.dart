@@ -13,3 +13,6 @@ Timestamp parseDateStringToTimestamp(String date, String regex) {
   return Timestamp.fromMillisecondsSinceEpoch(parseDateString(date, regex).millisecondsSinceEpoch);
 }
 
+Timestamp parseDateTimeToTimestamp(DateTime date) {
+  return Timestamp.fromDate(date);
+}
