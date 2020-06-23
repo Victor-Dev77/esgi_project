@@ -30,6 +30,13 @@ class FirebaseFirestoreAPI {
         .setData(user, merge: true);
   }
 
+  updateUserLocation(String idUser, Map<String, dynamic> location) async {
+    Firestore.instance
+        .collection(_collectionUser)
+        .document(idUser)
+        .setData(location, merge: true);
+  }
+
   addEvent(Map<String, dynamic> event) async {
     await Firestore.instance
         .collection(_collectionEvent)
@@ -97,6 +104,7 @@ class FirebaseFirestoreAPI {
     try {
       List<Event> _listEvent = [];
       QuerySnapshot snap = await _query(search).getDocuments();
+      //TODO: pas filter par distance si = 0
       snap.documents.forEach((doc) {
         Event event = Event.fromDocument(doc);
         _listEvent.add(event);

@@ -17,6 +17,10 @@ class FirebaseFirestoreRepository {
     await _firestoreAPI.setUser(user);
   }
 
+  updateUserLocation(String idUser, Map<String, dynamic> location) {
+    _firestoreAPI.updateUserLocation(idUser, location);
+  }
+
   addEvent(Map<String, dynamic> event) async {
     await _firestoreAPI.addEvent(event);
   }

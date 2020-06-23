@@ -46,7 +46,6 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 //TODO: Transformer fonction en widget stateless / statefull SI UTILISER AUTRE PART DANS APP
-                _buildSearchBar(),
                 _buildAllEventCategory(),
                 _buildPopularEvents(),
                 _buildNearbyEvents(),
@@ -59,22 +58,6 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  }
-
-  Widget _buildSearchBar() {
-    return Padding(
-        padding: EdgeInsets.only(bottom: 10, left: 25, right: 25),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Color(0xfff4f6f5),
-          ),
-          height: 50,
-          child: ListTile(
-            leading: Icon(Icons.search),
-            title: Text("Search"),
-          ),
-        ));
   }
 
   Widget _buildAllEventCategory() {

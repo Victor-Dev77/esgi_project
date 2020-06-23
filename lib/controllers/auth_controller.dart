@@ -1,6 +1,7 @@
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/repositorys/firebase_auth_repository.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
+import 'package:esgi_project/services/location_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:esgi_project/routes.dart';
@@ -25,6 +26,7 @@ class AuthController extends RxController {
         Get.offAllNamed(Router.loginRoute);
       } else {
         _currentUser.value = await _authRepo.getCurrentUser();
+        await LocationService.updateLocation(_currentUser.value.uid);
         var user = await _bddRepo.getUser(_currentUser.value.uid);
         if (user != null) {
           UserController.to.initUser(user);
@@ -62,13 +64,13 @@ class AuthController extends RxController {
 
   Future<User> _registerUser(String id, String email, String pseudo,
       String password, bool isOrganizer) async {
-    User user = User(id: id, mail: email, pseudo: pseudo, isOrganizer: isOrganizer);
+    var location = await LocationService.getLocation();
+    User user = User(id: id, mail: email, pseudo: pseudo, isOrganizer: isOrganizer, coordinates: location);
     await _bddRepo.setUser(user.toMap());
     return user;
   }
 
   signOut() async {
     await _authRepo.signOut();
-    //Get.offAllNamed(Router.loginRoute);
   }
 }

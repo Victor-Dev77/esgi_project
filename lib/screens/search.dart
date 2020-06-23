@@ -2,7 +2,6 @@ import 'package:esgi_project/components/chip_category.dart';
 import 'package:esgi_project/components/dialog_list_category.dart';
 import 'package:esgi_project/controllers/add_event_controller.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
-import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +14,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   Map<String, dynamic> changeValues = {};
-  int _distance = 20;
+  int _distance = 0;
   List<String> _listCategory = [];
   TextEditingController _dateController = TextEditingController();
 
@@ -190,15 +189,16 @@ class _SearchState extends State<Search> {
                 'Distance',
                 style: TextStyle(fontSize: 16),
               ),
-              Text(
-                "$_distance km",
-                style: TextStyle(fontSize: 16),
-              ),
+              if (_distance > 0)
+                Text(
+                  "$_distance km",
+                  style: TextStyle(fontSize: 16),
+                ),
             ],
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 5, right: 5, bottom: 10),
+          padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
           child: Slider(
             onChanged: (value) {
               setState(() {
@@ -207,7 +207,7 @@ class _SearchState extends State<Search> {
             },
             value: _distance.toDouble(),
             max: 100.0,
-            min: 1.0,
+            min: 0.0,
             inactiveColor: Colors.grey,
             activeColor: Colors.redAccent,
           ),
