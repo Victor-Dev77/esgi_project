@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
             "Popular Events",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 15),
           Container(
             height: 100,
             child: GetBuilder<SearchEventController>(
@@ -133,7 +133,7 @@ class _HomeState extends State<Home> {
             "Nearby Events",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 15),
           Container(
             height: 100,
             child: GetBuilder<SearchEventController>(

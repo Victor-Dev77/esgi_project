@@ -1,6 +1,7 @@
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 
@@ -78,8 +79,8 @@ class LocationService {
         ),
       ),
     );
-    Future.delayed(Duration(seconds: 1), () {
-      Get.back();
+    Future.delayed(Duration(seconds: 2), () {
+      if (Get.isDialogOpen) Get.back();
     });
   }
 
@@ -89,6 +90,20 @@ class LocationService {
       await _bddRepo.updateUserLocation(idUser, _location);
     } else {
       //TODO: snackbar pour afficher erreur refuser get location
+    }
+  }
+
+  static Future<Coordinates> convertAddressToLocation(String address) async {
+    // n° rue, codePostal ville
+    //String addr = "36 rue de la manevrette, 77580 Guerard";
+    try {
+      var addresses = await Geocoder.local.findAddressesFromQuery(address);
+      var first = addresses.first;
+      print(
+          "lat: ${first.coordinates.latitude} - lon: ${first.coordinates.longitude}");
+      return first.coordinates;
+    } catch (error) {
+      return null;
     }
   }
 }

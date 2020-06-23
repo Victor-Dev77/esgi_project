@@ -4,6 +4,7 @@ import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:esgi_project/repositorys/firebase_storage_repository.dart';
 import 'package:esgi_project/routes.dart';
+import 'package:esgi_project/services/location_service.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:esgi_project/utils/functions.dart';
@@ -79,6 +80,9 @@ class AddEventController extends GetController {
 
   bool _checkValidAllFields() {
     //TODO: faire d'autre verifications
+    // checker adresse en convertissant en coord gps => si pas possible alors addresse incorrect
+    if (_address != "")
+      LocationService.convertAddressToLocation(_address).then((value) => print(value));
     return _pictureEvent.length > 0;
   }
 
@@ -107,9 +111,8 @@ class AddEventController extends GetController {
     _validateForm();
   }
 
-  changeAddressEvent(String address) {
+  changeAddressEvent(String address) async {
     _address = address;
-    _validateForm();
   }
 
   changePriceEvent(String price) {
@@ -224,7 +227,8 @@ class AddEventController extends GetController {
   }
 
   addEvent() async {
-    _validForm = false;
+    _checkValidAllFields();
+    /*_validForm = false;
     update();
     _setFieldToEvent();
     _event.pictures = [];
@@ -232,7 +236,7 @@ class AddEventController extends GetController {
     await _bddRepo.addEvent(_event.toMap());
     print("send to bdd");
     //TODO: check si pas erreur firebase
-    _reinitFields();
+    _reinitFields();*/
   }
 
   _uploadPictures() async {
