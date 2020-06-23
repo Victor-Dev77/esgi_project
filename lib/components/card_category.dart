@@ -41,25 +41,3 @@ class CardCategory extends StatelessWidget {
     );
   }
 }
-
-/*
-
-
-Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.pink[50],
-        ),
-        height: 80,
-      //  width: 100,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            data["icon"],
-            SizedBox(height: 10),
-            Text(data["title"]),
-          ],
-        ),
-      ),
-
-      */

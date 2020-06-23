@@ -6,14 +6,14 @@ class User {
   final String pseudo;
   final String mail;
   final bool isOrganizer;
-  final Map coordinates;
+  final Map location;
 
   User({
     @required this.id,
     @required this.pseudo,
     @required this.mail,
     @required this.isOrganizer,
-    this.coordinates,
+    this.location,
   });
 
   factory User.fromDocument(DocumentSnapshot doc) {
@@ -22,7 +22,7 @@ class User {
       mail: doc['mail'],
       pseudo: doc['pseudo'],
       isOrganizer: doc['isOrganizer'],
-      coordinates: doc['location'],
+      location: doc['location'],
     );
   }
 
@@ -32,7 +32,7 @@ class User {
       mail: map['mail'],
       pseudo: map['pseudo'],
       isOrganizer: map['isOrganizer'],
-      coordinates: map['location'],
+      location: map['location'],
     );
   }
 
@@ -42,7 +42,7 @@ class User {
       "pseudo": pseudo,
       "mail": mail,
       "isOrganizer": isOrganizer,
-      "location": coordinates,
+      "location": location,
     };
   }
 }

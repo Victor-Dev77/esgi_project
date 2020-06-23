@@ -78,7 +78,7 @@ class LocationService {
         ),
       ),
     );
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 1), () {
       Get.back();
     });
   }

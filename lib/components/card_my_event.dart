@@ -93,7 +93,7 @@ class MyEventCard extends StatelessWidget {
                             SizedBox(
                               width: 5,
                             ),
-                            Text(event.address),
+                            Text("${event.distanceBW}km"),
                           ],
                         ),
                       ],

@@ -65,7 +65,7 @@ class AuthController extends RxController {
   Future<User> _registerUser(String id, String email, String pseudo,
       String password, bool isOrganizer) async {
     var location = await LocationService.getLocation();
-    User user = User(id: id, mail: email, pseudo: pseudo, isOrganizer: isOrganizer, coordinates: location);
+    User user = User(id: id, mail: email, pseudo: pseudo, isOrganizer: isOrganizer, location: location);
     await _bddRepo.setUser(user.toMap());
     return user;
   }

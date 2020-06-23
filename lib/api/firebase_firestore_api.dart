@@ -104,10 +104,12 @@ class FirebaseFirestoreAPI {
     try {
       List<Event> _listEvent = [];
       QuerySnapshot snap = await _query(search).getDocuments();
-      //TODO: pas filter par distance si = 0
       snap.documents.forEach((doc) {
         Event event = Event.fromDocument(doc);
-        _listEvent.add(event);
+        if (search["distance"] == 0)
+          _listEvent.add(event);
+        else if (event.distanceBW <= search["distance"])
+          _listEvent.add(event);
       });
       return _listEvent;
     } catch (error) {

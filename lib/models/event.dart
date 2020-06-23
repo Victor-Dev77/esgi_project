@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/models/user.dart';
 import 'package:esgi_project/utils/functions.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ class Event {
   int price;
   List<String> pictures;
   final bool preview;
+  final Map location;
+  final int distanceBW;
 
   Event({
     this.id,
@@ -24,6 +27,8 @@ class Event {
     this.price,
     this.pictures,
     this.preview: false,
+    this.location,
+    this.distanceBW,
   });
 
   factory Event.fromDocument(DocumentSnapshot doc) {
@@ -35,6 +40,13 @@ class Event {
       content: doc['content'],
       category: doc['category'],
       address: doc['address'],
+      location: doc['location'],
+      distanceBW: calculateDistance(
+              UserController.to.user.location['latitude'],
+              UserController.to.user.location['longitude'],
+              doc['location']['latitude'],
+              doc['location']['longitude'])
+          .round(),
       dateStart: parseDateTime(doc["dateStart"].toDate(), "dd/MM/yyyy HH:mm"),
       dateEnd: parseDateTime(doc["dateEnd"].toDate(), "dd/MM/yyyy HH:mm"),
       price: doc["price"],
@@ -57,7 +69,8 @@ class Event {
       "dateEnd": parseDateString(dateEnd, "dd/MM/yyyy HH:mm"),
       "price": price,
       "userOrganizer": userOrganizer.toMap(),
-      "pictures": pictures
+      "pictures": pictures,
+      "location": location,
     };
   }
 }

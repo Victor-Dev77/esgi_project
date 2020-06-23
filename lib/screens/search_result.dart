@@ -29,12 +29,50 @@ class SearchResult extends StatelessWidget {
       );
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20),
-      child: ListView.builder(
-        itemCount: controller.searchEvent.length,
-        itemBuilder: (context, index) {
-          return CardSearchEvent(controller.searchEvent[index]);
-        },
+      child: Column(
+        children: <Widget>[
+          _buildFilter(controller),
+          SizedBox(height: 10),
+          Expanded(
+            child: ListView.builder(
+              itemCount: controller.searchEvent.length,
+              itemBuilder: (context, index) {
+                return CardSearchEvent(controller.searchEvent[index]);
+              },
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildFilter(SearchEventController controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(right: 25),
+          child: DropdownButton<String>(
+            value: controller.filter,
+            icon: Icon(Icons.filter_list),
+            iconSize: 24,
+            elevation: 16,
+            style: TextStyle(color: Colors.deepPurple),
+            underline: Container(
+              height: 2,
+              color: Colors.deepPurpleAccent,
+            ),
+            onChanged: (String filter) => controller.changeFilter(filter),
+            items: controller.listFilter
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
     );
   }
 }

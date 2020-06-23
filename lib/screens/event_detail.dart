@@ -149,13 +149,14 @@ class _EventDetailState extends State<EventDetail> {
                               ),
                             ],
                           ),
-                          Row(
-                            children: <Widget>[
-                              Icon(Icons.place, color: Colors.blueAccent),
-                              SizedBox(width: 2),
-                              Text("20km"),
-                            ],
-                          ),
+                          if (event.distanceBW != null)
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.place, color: Colors.blueAccent),
+                                SizedBox(width: 2),
+                                Text("${event.distanceBW}km"),
+                              ],
+                            ),
                         ],
                       ),
                     ),

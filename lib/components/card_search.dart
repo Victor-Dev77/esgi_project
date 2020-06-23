@@ -17,7 +17,7 @@ class CardSearchEvent extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.toNamed(Router.eventDetailRoute, arguments: event),
       child: Container(
-        margin: EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 20),
+        margin: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.blueGrey,
@@ -107,7 +107,7 @@ class CardSearchEvent extends StatelessWidget {
                         SizedBox(
                           width: 5,
                         ),
-                        Text(event.address),
+                        Text("${event.distanceBW}km"),
                       ],
                     ),
                   ],

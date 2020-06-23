@@ -1,6 +1,7 @@
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:esgi_project/routes.dart';
+import 'package:esgi_project/utils/functions.dart';
 import 'package:get/get.dart';
 
 class SearchEventController extends GetController {
@@ -15,17 +16,46 @@ class SearchEventController extends GetController {
   List<Event> _searchEvent;
   List<Event> get searchEvent => this._searchEvent;
 
+  RESULT_FILTER _filter;
+  String get filter {
+    if (_filter == RESULT_FILTER.DATE)
+      return "Date";
+    return "Distance";
+  }
+
+  List<String> get listFilter => ["Date", "Distance"];
+
   @override
   void onInit() async {
     super.onInit();
+    _filter = RESULT_FILTER.DATE;
     _popularEvent = await _bddRepo.getPopularEvents();
     update();
   }
 
+  changeFilter(String filter) {
+    if (filter == "Date") {
+      _filter = RESULT_FILTER.DATE;
+      _filterByDate();
+    }
+    else {
+      _filter = RESULT_FILTER.DISTANCE;
+      _filterByDistance();
+    }
+    update();
+  }
+
+  // DATE END CROISSANT
+  _filterByDate() =>  _searchEvent.sort((a, b) => differenceBWDateString(a.dateEnd, b.dateEnd, "dd/MM/yyyy HH:mm"));
+
+  // DISTANCE CROISSANT
+  _filterByDistance() => _searchEvent.sort((a, b) => a.distanceBW - b.distanceBW);
+  
+
   searchByCategory(String category) async {
     Get.toNamed(Router.searchResultRoute);
     _searchEvent = await _bddRepo.getEventsWithCategory(category);
-    update();
+    changeFilter(filter); //TRIE LIST FONCTION DU FILTRE ACTUEL + REBUILD (UPDATE)
   }
 
   searchQueryEvent(Map<String, dynamic> search) async {
@@ -36,8 +66,13 @@ class SearchEventController extends GetController {
     print(_searchEvent);
     Get.toNamed(Router.searchResultRoute);
     _searchEvent = await _bddRepo.searchQueryEvent(search);
-    update();
+    changeFilter(filter); //TRIE LIST FONCTION DU FILTRE ACTUEL + REBUILD (UPDATE)
     print(_searchEvent);
   }
 
+}
+
+enum RESULT_FILTER {
+  DATE,
+  DISTANCE,
 }
