@@ -45,4 +45,14 @@ class User {
       "location": location,
     };
   }
+
+  Map<String, dynamic> toMapOrganizer() {
+    return {
+      "userId": id,
+      "pseudo": pseudo,
+      "mail": mail,
+      "isOrganizer": isOrganizer,
+    };
+  }
+
 }

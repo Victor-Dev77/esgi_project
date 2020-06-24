@@ -11,7 +11,7 @@ class Event {
   int price;
   List<String> pictures;
   final bool preview;
-  final Map location;
+  Map location;
   final int distanceBW;
 
   Event({
@@ -68,7 +68,7 @@ class Event {
       "dateStart": parseDateString(dateStart, "dd/MM/yyyy HH:mm"),
       "dateEnd": parseDateString(dateEnd, "dd/MM/yyyy HH:mm"),
       "price": price,
-      "userOrganizer": userOrganizer.toMap(),
+      "userOrganizer": userOrganizer.toMapOrganizer(),
       "pictures": pictures,
       "location": location,
     };

@@ -8,6 +8,7 @@ import 'package:esgi_project/services/location_service.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:esgi_project/utils/functions.dart';
+import 'package:esgi_project/utils/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,6 +34,7 @@ class AddEventController extends GetController {
   TextEditingController get contentController => this._contentController;
 
   String _address = "";
+  Map _location = {};
   final TextEditingController _addressController = TextEditingController();
   TextEditingController get addressController => this._addressController;
 
@@ -80,10 +82,7 @@ class AddEventController extends GetController {
 
   bool _checkValidAllFields() {
     //TODO: faire d'autre verifications
-    // checker adresse en convertissant en coord gps => si pas possible alors addresse incorrect
-    if (_address != "")
-      LocationService.convertAddressToLocation(_address).then((value) => print(value));
-    return _pictureEvent.length > 0;
+    return _pictureEvent.length > 0 && _address != "";
   }
 
   String getPicture(int index) {
@@ -113,6 +112,7 @@ class AddEventController extends GetController {
 
   changeAddressEvent(String address) async {
     _address = address;
+    _validateForm();
   }
 
   changePriceEvent(String price) {
@@ -140,7 +140,8 @@ class AddEventController extends GetController {
     _validateForm();
   }
 
-  Future<String> selectDateEvent(TextEditingController editingController) async {
+  Future<String> selectDateEvent(
+      TextEditingController editingController) async {
     if (GetPlatform.isAndroid) {
       String date = await _selectDateAndroid();
       if (date != null) {
@@ -155,10 +156,10 @@ class AddEventController extends GetController {
         return date;
       });
       editingController.text = date;
-        _validateForm();
-        return date;
+      _validateForm();
+      return date;
     }
-    return null; 
+    return null;
   }
 
   Future<String> _selectDateAndroid() async {
@@ -199,8 +200,8 @@ class AddEventController extends GetController {
             use24hFormat: true,
             backgroundColor: ConstantColor.white,
             onDateTimeChanged: (date) {
-             // callback();
-             return parseDateTime(date.toLocal(), 'dd/MM/yyyy HH:mm');
+              // callback();
+              return parseDateTime(date.toLocal(), 'dd/MM/yyyy HH:mm');
             },
           ),
         ),
@@ -219,6 +220,7 @@ class AddEventController extends GetController {
     _event.category = (category != -1)
         ? Constant.category[category]["title"]
         : "Aucune catégorie";
+    _event.location = _location;
   }
 
   goToPreview() {
@@ -226,9 +228,56 @@ class AddEventController extends GetController {
     Get.toNamed(Router.eventDetailRoute, arguments: _event);
   }
 
+  Future<bool> _checkAddress() async {
+    // checker adresse en convertissant en coord gps => si pas possible alors addresse incorrect
+    print("addresse: $_address");
+    if (_address != "") {
+      var location = await LocationService.convertAddressToLocation(_address);
+      if (location == null) {
+        //show snackbar
+        CustomSnackbar.snackbar("Addresse invalide: N° Rue, Code postal Ville");
+        return false;
+      }
+      print("valid address");
+      Get.dialog(
+        AlertDialog(
+          title: Text("Confirmer l'adresse"),
+          content:
+              Text("Confirmez-vous cette adresse:\n${location['address']}"),
+          actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Get.back();
+                    return false;
+                  },
+                  child: Text('Non'),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    Get.back();
+                    _address = location['address'];
+                    _location = {
+                      "latitude": location['location'].latitude,
+                      "longitude": location['location'].longitude,
+                    };
+                    return true;
+                  },
+                  child: Text('Oui'),
+                ),
+              ],
+        ),
+        barrierDismissible: false,
+      );
+    }
+    else
+      return false;
+  }
+
   addEvent() async {
-    _checkValidAllFields();
-    /*_validForm = false;
+    await _checkAddress();
+    if (_location.isEmpty)
+      return;
+    _validForm = false;
     update();
     _setFieldToEvent();
     _event.pictures = [];
@@ -236,13 +285,14 @@ class AddEventController extends GetController {
     await _bddRepo.addEvent(_event.toMap());
     print("send to bdd");
     //TODO: check si pas erreur firebase
-    _reinitFields();*/
+    _reinitFields();
   }
 
   _uploadPictures() async {
     List<String> urlPictures = [];
     for (int i = 0; i < _pictureEvent.length; i++) {
-      String urlPicture = await _storageRepo.uploadPicture(UserController.to.user.id, _event.id, _pictureEvent[i]);
+      String urlPicture = await _storageRepo.uploadPicture(
+          UserController.to.user.id, _event.id, _pictureEvent[i]);
       if (urlPicture != null) {
         urlPictures.add(urlPicture);
       }
@@ -273,6 +323,7 @@ class AddEventController extends GetController {
     _contentController.text = "";
     _address = "";
     _addressController.text = "";
+    _location = {};
     _price = 0;
     _priceController.text = "";
     _beginDateController.text = "";

@@ -93,15 +93,21 @@ class LocationService {
     }
   }
 
-  static Future<Coordinates> convertAddressToLocation(String address) async {
+  static Future<Map<String, dynamic>> convertAddressToLocation(String address) async {
     // n° rue, codePostal ville
-    //String addr = "36 rue de la manevrette, 77580 Guerard";
+    String addr = "36 rue de la manevrette, 77580 Guerard";
     try {
       var addresses = await Geocoder.local.findAddressesFromQuery(address);
       var first = addresses.first;
+      print("add: ${first.addressLine} - ${first.adminArea} - ${first.countryCode} - ${first.countryName} - ${first.featureName} - ${first.locality} - ${first.postalCode} - ${first.thoroughfare}");
       print(
           "lat: ${first.coordinates.latitude} - lon: ${first.coordinates.longitude}");
-      return first.coordinates;
+      if (first.locality == null || first.postalCode == null || first.thoroughfare == null)
+        return null;
+      return {
+        "address": "${first.featureName} ${first.thoroughfare}, ${first.postalCode} ${first.locality}",
+        "location": first.coordinates,
+      };
     } catch (error) {
       return null;
     }

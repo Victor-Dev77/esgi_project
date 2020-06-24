@@ -61,11 +61,13 @@ class MyEventCard extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           event.title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         Row(
                           children: <Widget>[

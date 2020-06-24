@@ -29,21 +29,22 @@ class EventCardHorizontal extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(7),
                 width: 85,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
                 child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10)),
-                    child: CachedNetworkImage(
-                      imageUrl: event.pictures[0],
-                      fit: BoxFit.cover,
-                      useOldImageOnUrlChange: true,
-                      placeholder: (context, url) => CupertinoActivityIndicator(
-                        radius: 20,
-                      ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)),
+                  child: CachedNetworkImage(
+                    imageUrl: event.pictures[0],
+                    fit: BoxFit.cover,
+                    useOldImageOnUrlChange: true,
+                    placeholder: (context, url) => CupertinoActivityIndicator(
+                      radius: 20,
                     ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
+                ),
               ),
               Expanded(
                 child: Container(
@@ -56,31 +57,38 @@ class EventCardHorizontal extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(
-                            event.title,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
+                          Expanded(
+                            flex: 4,
+                            child: Text(
+                              event.title,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 5),
-                            child: GetBuilder<UserController>(
-                              //id: "favorite",
-                              builder: (controller) {
-                                return InkWell(
-                                  onTap: () => controller.addFavorite(event),
-                                  child: Icon(
-                                      controller.isFavorite(event)
-                                          ? FontAwesomeIcons.solidHeart
-                                          : FontAwesomeIcons.heart,
-                                      size: 20),
-                                );
-                              },
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 5),
+                              child: GetBuilder<UserController>(
+                                //id: "favorite",
+                                builder: (controller) {
+                                  return InkWell(
+                                    onTap: () => controller.addFavorite(event),
+                                    child: Icon(
+                                        controller.isFavorite(event)
+                                            ? FontAwesomeIcons.solidHeart
+                                            : FontAwesomeIcons.heart,
+                                        size: 20),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 15,
+                        height: 10,
                       ),
                       Row(
                         children: <Widget>[

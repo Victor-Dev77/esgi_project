@@ -11,7 +11,6 @@ class CardSearchEvent extends StatelessWidget {
   final Event event;
   CardSearchEvent(this.event);
 
-  
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -53,33 +52,37 @@ class CardSearchEvent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
                             event.title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 5),
-                            child: GetBuilder<UserController>(
-                              //id: "favorite",
-                              builder: (controller) {
-                                return InkWell(
-                                  onTap: () => controller.addFavorite(event),
-                                  child: Icon(
-                                      controller.isFavorite(event)
-                                          ? FontAwesomeIcons.solidHeart
-                                          : FontAwesomeIcons.heart,
-                                      size: 20),
-                                );
-                              },
-                            ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: GetBuilder<UserController>(
+                            //id: "favorite",
+                            builder: (controller) {
+                              return InkWell(
+                                onTap: () => controller.addFavorite(event),
+                                child: Icon(
+                                    controller.isFavorite(event)
+                                        ? FontAwesomeIcons.solidHeart
+                                        : FontAwesomeIcons.heart,
+                                    size: 20),
+                              );
+                            },
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
                     SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     Row(
                       children: <Widget>[
