@@ -32,6 +32,7 @@ class UserController extends GetController {
   }
 
   _addFavoriteEvent(Event event) async {
+    _favorites.add(event);
     await _bddRepo.addFavoriteEvent(_user.id, event.toMap());
     update();
   }

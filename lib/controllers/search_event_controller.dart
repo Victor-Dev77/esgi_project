@@ -25,11 +25,20 @@ class SearchEventController extends GetController {
 
   List<String> get listFilter => ["Date", "Distance"];
 
+  bool _showMapResult;
+  bool get showMapResult => this._showMapResult;
+
   @override
   void onInit() async {
     super.onInit();
     _filter = RESULT_FILTER.DATE;
+    _showMapResult = false;
     _popularEvent = await _bddRepo.getPopularEvents();
+    update();
+  }
+
+  changeModeResult() {
+    _showMapResult = !_showMapResult;
     update();
   }
 

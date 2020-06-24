@@ -2,6 +2,7 @@ import 'package:esgi_project/components/card_search.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:esgi_project/components/map_event.dart';
 
 class SearchResult extends StatelessWidget {
   @override
@@ -9,16 +10,29 @@ class SearchResult extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Événements"),
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 5),
+            child: GetBuilder<SearchEventController>(
+              builder: (controller) {
+                return IconButton(
+                  icon: Icon(controller.showMapResult ? Icons.list : Icons.map),
+                  onPressed: () => controller.changeModeResult(),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       body: GetBuilder<SearchEventController>(
         builder: (controller) {
-          return _buildListEvent(controller);
+          return _buildResult(controller);
         },
       ),
     );
   }
 
-  Widget _buildListEvent(SearchEventController controller) {
+  Widget _buildResult(SearchEventController controller) {
     if (controller.searchEvent == null)
       return Center(
         child: CircularProgressIndicator(),
@@ -28,20 +42,32 @@ class SearchResult extends StatelessWidget {
         child: Text("Aucun événements"),
       );
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.symmetric(vertical: 5),
       child: Column(
         children: <Widget>[
           _buildFilter(controller),
           SizedBox(height: 10),
-          Expanded(
-            child: ListView.builder(
-              itemCount: controller.searchEvent.length,
-              itemBuilder: (context, index) {
-                return CardSearchEvent(controller.searchEvent[index]);
-              },
-            ),
-          ),
+          controller.showMapResult
+              ? _buildMapEvent(controller)
+              : _buildListEvent(controller),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMapEvent(SearchEventController controller) {
+    return Expanded(
+      child: MapEvent(controller.searchEvent),
+    );
+  }
+
+  Widget _buildListEvent(SearchEventController controller) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: controller.searchEvent.length,
+        itemBuilder: (context, index) {
+          return CardSearchEvent(controller.searchEvent[index]);
+        },
       ),
     );
   }

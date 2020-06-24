@@ -9,14 +9,15 @@ import 'package:get/get.dart';
 
 class EventCardHorizontal extends StatelessWidget {
   final Event event;
-  EventCardHorizontal(this.event);
+  final VoidCallback onTap;
+  EventCardHorizontal(this.event, {this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(right: 20),
       child: GestureDetector(
-        onTap: () => Get.toNamed(Router.eventDetailRoute, arguments: event),
+        onTap: () => (onTap == null) ? Get.toNamed(Router.eventDetailRoute, arguments: event) : onTap(),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
