@@ -63,22 +63,23 @@ class CardSearchEvent extends StatelessWidget {
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: GetBuilder<UserController>(
-                            //id: "favorite",
-                            builder: (controller) {
-                              return InkWell(
-                                onTap: () => controller.addFavorite(event),
-                                child: Icon(
-                                    controller.isFavorite(event)
-                                        ? FontAwesomeIcons.solidHeart
-                                        : FontAwesomeIcons.heart,
-                                    size: 20),
-                              );
-                            },
+                        if (event.userId != UserController.to.user.id)
+                          Padding(
+                            padding: EdgeInsets.only(right: 5),
+                            child: GetBuilder<UserController>(
+                              //id: "favorite",
+                              builder: (controller) {
+                                return InkWell(
+                                  onTap: () => controller.addFavorite(event),
+                                  child: Icon(
+                                      controller.isFavorite(event)
+                                          ? FontAwesomeIcons.solidHeart
+                                          : FontAwesomeIcons.heart,
+                                      size: 20),
+                                );
+                              },
+                            ),
                           ),
-                        ),
                       ],
                     ),
                     SizedBox(

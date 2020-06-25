@@ -96,28 +96,29 @@ class _EventDetailState extends State<EventDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          GetBuilder<UserController>(
-                            //id: "favorite",
-                            builder: (controller) {
-                              return InkWell(
-                                onTap: () => controller.addFavorite(event),
-                                child: Icon(
-                                    controller.isFavorite(event)
-                                        ? FontAwesomeIcons.solidHeart
-                                        : FontAwesomeIcons.heart,
-                                    size: 20),
-                              );
-                            },
-                          ),
-                        ],
+                    if (event.userId != UserController.to.user.id)
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            GetBuilder<UserController>(
+                              //id: "favorite",
+                              builder: (controller) {
+                                return InkWell(
+                                  onTap: () => controller.addFavorite(event),
+                                  child: Icon(
+                                      controller.isFavorite(event)
+                                          ? FontAwesomeIcons.solidHeart
+                                          : FontAwesomeIcons.heart,
+                                      size: 20),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 25),

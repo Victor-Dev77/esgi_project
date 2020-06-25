@@ -68,24 +68,25 @@ class EventCardHorizontal extends StatelessWidget {
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 5),
-                              child: GetBuilder<UserController>(
-                                //id: "favorite",
-                                builder: (controller) {
-                                  return InkWell(
-                                    onTap: () => controller.addFavorite(event),
-                                    child: Icon(
-                                        controller.isFavorite(event)
-                                            ? FontAwesomeIcons.solidHeart
-                                            : FontAwesomeIcons.heart,
-                                        size: 20),
-                                  );
-                                },
+                          if (event.userId != UserController.to.user.id)
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 5),
+                                child: GetBuilder<UserController>(
+                                  //id: "favorite",
+                                  builder: (controller) {
+                                    return InkWell(
+                                      onTap: () => controller.addFavorite(event),
+                                      child: Icon(
+                                          controller.isFavorite(event)
+                                              ? FontAwesomeIcons.solidHeart
+                                              : FontAwesomeIcons.heart,
+                                          size: 20),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                          ),
                         ],
                       ),
                       SizedBox(
