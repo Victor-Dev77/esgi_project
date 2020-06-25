@@ -7,17 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class EventCardHorizontal extends StatelessWidget {
+class CardEventMap extends StatelessWidget {
   final Event event;
   final VoidCallback onTap;
-  EventCardHorizontal(this.event, {this.onTap});
+  CardEventMap(this.event, {this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(right: 20),
       child: GestureDetector(
-        onTap: () => (onTap == null) ? Get.toNamed(Router.eventDetailRoute, arguments: event) : onTap(),
+        onTap: () => (onTap == null)
+            ? Get.toNamed(Router.eventDetailRoute, arguments: event)
+            : onTap(),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -36,14 +38,17 @@ class EventCardHorizontal extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10)),
-                  child: CachedNetworkImage(
-                    imageUrl: event.pictures[0],
-                    fit: BoxFit.cover,
-                    useOldImageOnUrlChange: true,
-                    placeholder: (context, url) => CupertinoActivityIndicator(
-                      radius: 20,
+                  child: Hero(
+                    tag: "picture-${event.id}",
+                    child: CachedNetworkImage(
+                      imageUrl: event.pictures[0],
+                      fit: BoxFit.cover,
+                      useOldImageOnUrlChange: true,
+                      placeholder: (context, url) => CupertinoActivityIndicator(
+                        radius: 20,
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
               ),
@@ -76,7 +81,8 @@ class EventCardHorizontal extends StatelessWidget {
                                   //id: "favorite",
                                   builder: (controller) {
                                     return InkWell(
-                                      onTap: () => controller.addFavorite(event),
+                                      onTap: () =>
+                                          controller.addFavorite(event),
                                       child: Icon(
                                           controller.isFavorite(event)
                                               ? FontAwesomeIcons.solidHeart

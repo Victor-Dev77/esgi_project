@@ -1,4 +1,4 @@
-import 'package:esgi_project/components/card_event_horizontal.dart';
+import 'package:esgi_project/components/card_event_map.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/routes.dart';
@@ -198,7 +198,7 @@ class _MapEventState extends State<MapEvent> {
           itemCount: widget.listEvent.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return EventCardHorizontal(
+            return CardEventMap(
               widget.listEvent[index],
               onTap: () {
                 print("tap $index");

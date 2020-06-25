@@ -9,19 +9,25 @@ import 'package:get/get.dart';
 
 class CardSearchEvent extends StatelessWidget {
   final Event event;
-  CardSearchEvent(this.event);
+  final double width, height;
+  final VoidCallback onTap;
+  CardSearchEvent(this.event,
+      {this.width: double.infinity, this.height: 100, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Router.eventDetailRoute, arguments: event),
+      onTap: () => (onTap == null)
+          ? Get.toNamed(Router.eventDetailRoute, arguments: event)
+          : onTap(),
       child: Container(
         margin: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.blueGrey,
         ),
-        height: 100,
+        height: height,
+        width: width,
         child: Row(
           children: <Widget>[
             Container(
@@ -33,14 +39,17 @@ class CardSearchEvent extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     bottomLeft: Radius.circular(10)),
-                child: CachedNetworkImage(
-                  imageUrl: event.pictures[0],
-                  fit: BoxFit.cover,
-                  useOldImageOnUrlChange: true,
-                  placeholder: (context, url) => CupertinoActivityIndicator(
-                    radius: 20,
+                child: Hero(
+                  tag: "picture-${event.id}",
+                  child: CachedNetworkImage(
+                    imageUrl: event.pictures[0],
+                    fit: BoxFit.cover,
+                    useOldImageOnUrlChange: true,
+                    placeholder: (context, url) => CupertinoActivityIndicator(
+                      radius: 20,
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
             ),

@@ -304,14 +304,17 @@ class _EventDetailState extends State<EventDetail> {
       File file = File(event.pictures[index]);
       return Image.file(file, fit: BoxFit.cover);
     }
-    return CachedNetworkImage(
-      imageUrl: event.pictures[index],
-      fit: BoxFit.cover,
-      useOldImageOnUrlChange: true,
-      placeholder: (context, url) => CupertinoActivityIndicator(
-        radius: 20,
+    return Hero(
+      tag: "picture-${event.id}",
+      child: CachedNetworkImage(
+        imageUrl: event.pictures[index],
+        fit: BoxFit.cover,
+        useOldImageOnUrlChange: true,
+        placeholder: (context, url) => CupertinoActivityIndicator(
+          radius: 20,
+        ),
+        errorWidget: (context, url, error) => Icon(Icons.error),
       ),
-      errorWidget: (context, url, error) => Icon(Icons.error),
     );
   }
 
