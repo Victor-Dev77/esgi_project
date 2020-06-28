@@ -1,10 +1,10 @@
 import 'package:esgi_project/controllers/auth_controller.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
 void main() async {
@@ -37,16 +37,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fade,
       initialBinding: InitialBinding(),
-      namedRoutes: Router.routes,
+      getPages: Router.routes,
       initialRoute: Router.splashRoute,
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate, // if it's a RTL language
-      ],
-      supportedLocales: [
-        const Locale('fr', 'FR'), // include country code too
-      ],
+      locale: Locale('fr', 'FR'),
+      translationsKeys: Localization.translation,
     );
   }
 }

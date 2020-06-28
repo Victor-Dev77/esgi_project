@@ -1,6 +1,7 @@
 import 'package:esgi_project/components/card_category.dart';
 import 'package:esgi_project/components/card_search.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/screens/search.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           SizedBox(height: 10),
           Text(
-            "All Events",
+            Localization.allEventTitle.tr,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
           SizedBox(height: 15),
@@ -94,7 +95,7 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.only(left: 25),
               child: Text(
-                "Popular Events",
+                Localization.popularEventTitle.tr,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
@@ -106,7 +107,7 @@ class _HomeState extends State<Home> {
                     if (controller.popularEvent == null)
                       return Center(child: CircularProgressIndicator());
                     if (controller.popularEvent.length == 0)
-                      return Center(child: Text("Aucun événements !"));
+                      return Center(child: Text(Localization.noEventTitle.tr));
                     return ListView.builder(
                       itemCount: controller.popularEvent.length,
                       itemBuilder: (context, index) {

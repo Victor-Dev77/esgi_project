@@ -1,4 +1,5 @@
 import 'package:esgi_project/controllers/auth_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
@@ -37,8 +38,8 @@ class _LoginState extends State<Login> {
                   style: TextStyle(fontWeight: FontWeight.w500),
                   decoration: InputDecoration(
                       suffixIcon: Icon(Icons.email),
-                      hintText: 'Votre Email',
-                      labelText: 'Votre Email',
+                      hintText: Localization.yourEmail.tr,
+                      labelText: Localization.yourEmail.tr,
                       labelStyle: TextStyle(fontWeight: FontWeight.w400))),
               SizedBox(height: 20.0),
               TextField(
@@ -49,8 +50,8 @@ class _LoginState extends State<Login> {
                   },
                   decoration: InputDecoration(
                       suffixIcon: Icon(Icons.lock),
-                      hintText: 'Mot de passe',
-                      labelText: 'Mot de passe',
+                      hintText: Localization.yourPassword.tr,
+                      labelText: Localization.yourPassword.tr,
                       labelStyle: TextStyle(fontWeight: FontWeight.w400))),
               Padding(
                 padding: const EdgeInsets.only(top: 30.0),
@@ -64,7 +65,7 @@ class _LoginState extends State<Login> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0),
                     child: Text(
-                      'Se Connecter',
+                      Localization.signInTitle.tr,
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.w400),
                     ),
@@ -82,7 +83,7 @@ class _LoginState extends State<Login> {
                     height: 50,
                     child: Center(
                       child: Text(
-                        "S'inscrire",
+                        Localization.signUpTitle.tr,
                         style: TextStyle(
                           color: ConstantColor.primaryColor,
                           fontWeight: FontWeight.bold,

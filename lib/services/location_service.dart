@@ -1,3 +1,4 @@
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -67,7 +68,7 @@ class LocationService {
               ),
               SizedBox(height: 20),
               Text(
-                "Location Check",
+                Localization.locationCheckTitle.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     decoration: TextDecoration.none,

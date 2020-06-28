@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,7 +42,7 @@ class _EventDetailState extends State<EventDetail> {
     return Scaffold(
       body: Container(
         child: Center(
-          child: Text("ERREUR: manque parametre event"),
+          child: Text(Localization.errorMissingParam.tr),
         ),
       ),
     );
@@ -74,7 +75,7 @@ class _EventDetailState extends State<EventDetail> {
                   backgroundColor: ConstantColor.primaryColor,
                   flexibleSpace: FlexibleSpaceBar(
                     title: Text(
-                      event.title == "" ? "Aucun titre" : event.title,
+                      event.title == "" ? Localization.noTitleEvent.tr : event.title,
                       style: TextStyle(
                           fontWeight: event.title == ""
                               ? FontWeight.normal
@@ -134,7 +135,7 @@ class _EventDetailState extends State<EventDetail> {
                                   Icon(Icons.date_range, color: Colors.orange),
                                   SizedBox(width: 5),
                                   Text(event.dateStart == ""
-                                      ? "Aucune date de début"
+                                      ? Localization.noBeginDateEvent.tr
                                       : event.dateStart),
                                 ],
                               ),
@@ -144,7 +145,7 @@ class _EventDetailState extends State<EventDetail> {
                                   Icon(Icons.date_range, color: Colors.orange),
                                   SizedBox(width: 5),
                                   Text(event.dateEnd == ""
-                                      ? "Aucune date de fin"
+                                      ? Localization.noEndDateEvent.tr
                                       : event.dateEnd),
                                 ],
                               ),
@@ -165,7 +166,7 @@ class _EventDetailState extends State<EventDetail> {
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 25),
                       child: Text(
-                        event.title == "" ? "Aucun titre" : event.title,
+                        event.title == "" ? Localization.noTitleEvent.tr : event.title,
                         style: TextStyle(
                           fontWeight: event.title == ""
                               ? FontWeight.normal
@@ -182,7 +183,7 @@ class _EventDetailState extends State<EventDetail> {
                           EdgeInsets.symmetric(vertical: 15, horizontal: 25),
                       child: Text(
                         event.content == ""
-                            ? "Aucune description"
+                            ? Localization.noDescriptionEvent.tr
                             : event.content,
                         style: TextStyle(
                           fontStyle: event.content == ""
@@ -200,7 +201,7 @@ class _EventDetailState extends State<EventDetail> {
                           Icon(Icons.place, color: Colors.blueAccent),
                           SizedBox(width: 5),
                           Text(event.address == ""
-                              ? "Aucune adresse"
+                              ? Localization.noAddressEvent.tr
                               : event.address),
                         ],
                       ),
@@ -228,14 +229,14 @@ class _EventDetailState extends State<EventDetail> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Prix",
+                        Localization.priceTitle.tr,
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.9),
                         ),
                       ),
                       SizedBox(height: 5),
                       Text(
-                        event.price == 0 ? "GRATUIT" : "${event.price}€",
+                        event.price == 0 ? Localization.freeTitle.tr : "${event.price}€",
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.9),
                           fontWeight: event.price == 0
@@ -257,7 +258,7 @@ class _EventDetailState extends State<EventDetail> {
                       ),
                       child: Center(
                         child: Text(
-                          "Réserver",
+                          Localization.bookingTitle.tr,
                           style: TextStyle(
                               color: Colors.redAccent,
                               fontWeight: FontWeight.bold,
@@ -278,7 +279,7 @@ class _EventDetailState extends State<EventDetail> {
   Widget _buildPictureBloc() {
     if (event.pictures.length == 0) {
       return Center(
-        child: Text("Il n'y a aucune photo !"),
+        child: Text(Localization.noPicturesTitle.tr),
       );
     }
     return Swiper(

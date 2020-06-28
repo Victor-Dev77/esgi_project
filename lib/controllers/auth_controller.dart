@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/models/user.dart';
 
-class AuthController extends RxController {
+class AuthController extends GetxController {
   // sert a acceder a ce controller partout
   static AuthController get to => Get.find();
 

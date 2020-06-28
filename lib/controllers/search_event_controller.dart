@@ -1,10 +1,11 @@
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/functions.dart';
 import 'package:get/get.dart';
 
-class SearchEventController extends GetController {
+class SearchEventController extends GetxController {
 
   static SearchEventController get to => Get.find();
 
@@ -19,11 +20,11 @@ class SearchEventController extends GetController {
   RESULT_FILTER _filter;
   String get filter {
     if (_filter == RESULT_FILTER.DATE)
-      return "Date";
-    return "Distance";
+      return Localization.dateTitle.tr;
+    return Localization.distanceTitle.tr;
   }
 
-  List<String> get listFilter => ["Date", "Distance"];
+  List<String> get listFilter => [Localization.dateTitle.tr, Localization.distanceTitle.tr];
 
   bool _showMapResult;
   bool get showMapResult => this._showMapResult;
@@ -43,7 +44,7 @@ class SearchEventController extends GetController {
   }
 
   changeFilter(String filter) {
-    if (filter == "Date") {
+    if (filter == Localization.dateTitle.tr) {
       _filter = RESULT_FILTER.DATE;
       _filterByDate();
     }

@@ -2,6 +2,7 @@ import 'package:esgi_project/components/chip_category.dart';
 import 'package:esgi_project/components/dialog_list_category.dart';
 import 'package:esgi_project/controllers/add_event_controller.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -77,7 +78,7 @@ class _SearchState extends State<Search> {
           Padding(
             padding: EdgeInsets.only(top: 15),
             child: Text(
-              "Filtres",
+              Localization.filterTitle.tr,
               style: TextStyle(
                 fontFamily: 'AvenirNextDemiBold',
                 fontSize: 18,
@@ -108,7 +109,7 @@ class _SearchState extends State<Search> {
           style: TextStyle(fontWeight: FontWeight.w500),
           decoration: InputDecoration(
               suffixIcon: Icon(Icons.calendar_today),
-              hintText: "Date de l'événement",
+              hintText: Localization.dateEvent.tr,
               labelStyle: TextStyle(fontWeight: FontWeight.w400))),
     );
   }
@@ -123,7 +124,7 @@ class _SearchState extends State<Search> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("Type d'événement", style: TextStyle(fontSize: 16),),
+                  Text(Localization.typeEvent.tr, style: TextStyle(fontSize: 16),),
                   IconButton(
                     icon: Icon(
                       FontAwesomeIcons.plusCircle,
@@ -186,7 +187,7 @@ class _SearchState extends State<Search> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Distance',
+                Localization.distanceEvent.tr,
                 style: TextStyle(fontSize: 16),
               ),
               if (_distance > 0)

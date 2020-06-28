@@ -20,14 +20,14 @@ class Router {
   static const String myEventsRoute = "/settings/my_events";
   static const String myFavoriteRoute = "/settings/my_favorite";
 
-  static final routes = {
-    splashRoute : GetRoute(page: SplashScreen()),
-    loginRoute : GetRoute(page: Login()),
-    signUpRoute : GetRoute(page: SignUp()),
-    squeletonRoute : GetRoute(page: AppSqueleton()),
-    eventDetailRoute : GetRoute(page: EventDetail()),
-    myEventsRoute : GetRoute(page: MyEvents()),
-    myFavoriteRoute : GetRoute(page: MyFavoriteEvents()),
-    searchResultRoute : GetRoute(page: SearchResult()),
-  };
+  static final routes = [
+    GetPage(name: splashRoute, page: () => SplashScreen()),
+    GetPage(name: loginRoute, page: () => Login()),
+    GetPage(name: signUpRoute, page: () => SignUp()),
+    GetPage(name: squeletonRoute, page: () => AppSqueleton()),
+    GetPage(name: eventDetailRoute, page: () => EventDetail()),
+    GetPage(name: myEventsRoute, page: () => MyEvents()),
+    GetPage(name: myFavoriteRoute, page: () => MyFavoriteEvents()),
+    GetPage(name: searchResultRoute, page: () => SearchResult()),
+  ];
 }

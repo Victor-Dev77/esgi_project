@@ -1,5 +1,6 @@
 import 'package:esgi_project/components/card_search.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:esgi_project/components/map_event.dart';
@@ -9,7 +10,7 @@ class SearchResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Événements"),
+        title: Text(Localization.eventTitle.tr),
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 5),
@@ -39,7 +40,7 @@ class SearchResult extends StatelessWidget {
       );
     if (controller.searchEvent.length == 0)
       return Center(
-        child: Text("Aucun événements"),
+        child: Text(Localization.noEventTitle.tr),
       );
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 5),

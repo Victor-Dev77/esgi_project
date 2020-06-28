@@ -3,7 +3,7 @@ import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:get/get.dart';
 import 'package:esgi_project/models/user.dart';
 
-class UserController extends GetController {
+class UserController extends GetxController {
 
   static UserController get to => Get.find();
 

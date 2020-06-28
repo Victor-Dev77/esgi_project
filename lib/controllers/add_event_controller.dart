@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:esgi_project/controllers/user_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:esgi_project/repositorys/firebase_storage_repository.dart';
@@ -13,7 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddEventController extends GetController {
+class AddEventController extends GetxController {
   static AddEventController get to => Get.find();
 
   FirebaseFirestoreRepository _bddRepo = FirebaseFirestoreRepository.to;
@@ -219,7 +220,7 @@ class AddEventController extends GetController {
     _event.pictures = _pictureEvent;
     _event.category = (category != -1)
         ? Constant.category[category]["title"]
-        : "Aucune catégorie";
+        : Localization.noCategory.tr;
     _event.location = _location;
   }
 
@@ -235,22 +236,22 @@ class AddEventController extends GetController {
       var location = await LocationService.convertAddressToLocation(_address);
       if (location == null) {
         //show snackbar
-        CustomSnackbar.snackbar("Addresse invalide: N° Rue, Code postal Ville");
+        CustomSnackbar.snackbar(Localization.errorAddress.tr);
         return false;
       }
       print("valid address");
       Get.dialog(
         AlertDialog(
-          title: Text("Confirmer l'adresse"),
+          title: Text(Localization.confirmAddressEvent.tr),
           content:
-              Text("Confirmez-vous cette adresse:\n${location['address']}"),
+              Text(Localization.confirmAddressNameEvent.trArgs([location['address']])),
           actions: <Widget>[
                 FlatButton(
                   onPressed: () {
                     Get.back();
                     return false;
                   },
-                  child: Text('Non'),
+                  child: Text(Localization.no.tr),
                 ),
                 FlatButton(
                   onPressed: () {
@@ -262,7 +263,7 @@ class AddEventController extends GetController {
                     };
                     return true;
                   },
-                  child: Text('Oui'),
+                  child: Text(Localization.yes.tr),
                 ),
               ],
         ),

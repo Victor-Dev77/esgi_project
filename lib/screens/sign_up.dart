@@ -1,4 +1,5 @@
 import 'package:esgi_project/controllers/auth_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +38,8 @@ class _SignUpState extends State<SignUp> {
                     },
                     decoration: InputDecoration(
                         suffixIcon: Icon(Icons.email),
-                        hintText: 'Votre Email',
-                        labelText: 'Votre Email',
+                        hintText: Localization.yourEmail.tr,
+                        labelText: Localization.yourEmail.tr,
                         labelStyle: TextStyle(fontWeight: FontWeight.w400))),
                 SizedBox(height: 10.0),
                 TextField(
@@ -48,8 +49,8 @@ class _SignUpState extends State<SignUp> {
                     },
                     decoration: InputDecoration(
                         suffixIcon: Icon(Icons.person),
-                        hintText: 'Pseudo',
-                        labelText: 'Pseudo',
+                        hintText: Localization.yourNickname.tr,
+                        labelText: Localization.yourNickname.tr,
                         labelStyle: TextStyle(fontWeight: FontWeight.w400))),
                 SizedBox(height: 10.0),
                 TextField(
@@ -60,12 +61,12 @@ class _SignUpState extends State<SignUp> {
                     },
                     decoration: InputDecoration(
                         suffixIcon: Icon(Icons.lock),
-                        hintText: 'Mot de passe',
-                        labelText: 'Mot de passe',
+                        hintText: Localization.yourPassword.tr,
+                        labelText: Localization.yourPassword.tr,
                         labelStyle: TextStyle(fontWeight: FontWeight.w400))),
                 SizedBox(height: 10.0),
                 CheckboxListTile(
-                  title: Text("Vous êtes un organisateur ?"),
+                  title: Text(Localization.isOrganizerTitle.tr),
                   value: isChecked,
                   onChanged: (newValue) {
                     setState(() {
@@ -87,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12.0),
                       child: Text(
-                        "S'inscrire",
+                        Localization.signUpTitle.tr,
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.w400),
                       ),
@@ -105,7 +106,7 @@ class _SignUpState extends State<SignUp> {
                       height: 50,
                       child: Center(
                         child: Text(
-                          "Se Connecter",
+                          Localization.signInTitle.tr,
                           style: TextStyle(
                             color: ConstantColor.primaryColor,
                             fontWeight: FontWeight.bold,

@@ -1,28 +1,30 @@
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class Constant {
 
   static final List<Map<String, dynamic>> category = [
       {
-        "title": "Bar",
+        "title": Localization.barCategory.tr,
         "icon": FontAwesomeIcons.glassMartiniAlt,
       },
       {
-        "title": "Discothèque",
+        "title": Localization.nightClubCategory.tr,
         "icon": FontAwesomeIcons.compactDisc,
       },
       {
-        "title": "Concert",
+        "title": Localization.concertCategory.tr,
         "icon": FontAwesomeIcons.microphoneAlt,
       },
       {
-        "title": "Festival",
+        "title": Localization.festivalCategory.tr,
         "icon": FontAwesomeIcons.music,
       },
       {
-        "title": "Musée",
+        "title": Localization.museumCategory.tr,
         "icon": FontAwesomeIcons.university,
       },
     ];

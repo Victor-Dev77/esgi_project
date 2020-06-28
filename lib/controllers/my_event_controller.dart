@@ -1,11 +1,12 @@
 import 'package:esgi_project/controllers/user_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:esgi_project/repositorys/firebase_storage_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MyEventController extends GetController {
+class MyEventController extends GetxController {
   static MyEventController get to => Get.find();
 
   FirebaseFirestoreRepository _bddRepo = FirebaseFirestoreRepository.to;
@@ -28,16 +29,16 @@ class MyEventController extends GetController {
   Widget _showDialogDeleteEvent(Event event) {
     //TODO check platform
     return AlertDialog(
-      title: Text("Supprimer l'événement"),
-      content: Text("Confirmes-tu la suppression ?"),
+      title: Text(Localization.deleteEventTitle.tr),
+      content: Text(Localization.confirmDeleteEvent.tr),
       actions: <Widget>[
         FlatButton(
           onPressed: () => Get.back(),
-          child: Text('Non'),
+          child: Text(Localization.no.tr),
         ),
         FlatButton(
           onPressed: () => _confirmDeleteEvent(event),
-          child: Text('Oui'),
+          child: Text(Localization.yes.tr),
         ),
       ],
     );

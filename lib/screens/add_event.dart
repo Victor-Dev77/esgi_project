@@ -1,5 +1,6 @@
 import 'package:esgi_project/components/card_add_image.dart';
 import 'package:esgi_project/controllers/add_event_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class AddEvent extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(25),
                   child: Text(
-                    "Rejoignez nous en ajoutant votre Event ! Il sera visible auprès de tous ! ",
+                    Localization.explainAddEventForm.tr,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
@@ -48,8 +49,8 @@ class AddEvent extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.w500),
                       decoration: InputDecoration(
                           suffixIcon: Icon(Icons.event_note),
-                          hintText: "Nom de l'évènement",
-                          labelText: "Nom de l'évènement",
+                          hintText: Localization.nameEvent.tr,
+                          labelText: Localization.nameEvent.tr,
                           labelStyle: TextStyle(fontWeight: FontWeight.w400))),
                 ),
                 Padding(
@@ -61,8 +62,8 @@ class AddEvent extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.w500),
                       decoration: InputDecoration(
                           suffixIcon: Icon(Icons.event_note),
-                          hintText: "Description de l'évènement",
-                          labelText: "Description de l'évènement",
+                          hintText: Localization.descriptionEvent.tr,
+                          labelText: Localization.descriptionEvent.tr,
                           labelStyle: TextStyle(fontWeight: FontWeight.w400))),
                 ),
                 Padding(
@@ -74,7 +75,7 @@ class AddEvent extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.w500),
                       decoration: InputDecoration(
                           suffixIcon: Icon(Icons.keyboard_arrow_down),
-                          hintText: "Type d'évènement",
+                          hintText: Localization.typeEvent.tr,
                           labelStyle: TextStyle(fontWeight: FontWeight.w400))),
                 ),
                 GetBuilder<AddEventController>(
@@ -112,8 +113,8 @@ class AddEvent extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.w500),
                       decoration: InputDecoration(
                           suffixIcon: Icon(Icons.pin_drop),
-                          hintText: "Adresse l'évènement",
-                          labelText: "Adresse de l'évènement",
+                          hintText: Localization.addressEvent.tr,
+                          labelText: Localization.addressEvent.tr,
                           labelStyle: TextStyle(fontWeight: FontWeight.w400))),
                 ),
                 Row(
@@ -131,7 +132,7 @@ class AddEvent extends StatelessWidget {
                             style: TextStyle(fontWeight: FontWeight.w500),
                             decoration: InputDecoration(
                                 suffixIcon: Icon(Icons.calendar_today),
-                                hintText: "Date de début",
+                                hintText: Localization.beginDateEvent.tr,
                                 labelStyle:
                                     TextStyle(fontWeight: FontWeight.w400))),
                       ),
@@ -147,7 +148,7 @@ class AddEvent extends StatelessWidget {
                             style: TextStyle(fontWeight: FontWeight.w500),
                             decoration: InputDecoration(
                                 suffixIcon: Icon(Icons.calendar_today),
-                                hintText: "Date de fin",
+                                hintText: Localization.endDateEvent.tr,
                                 labelStyle:
                                     TextStyle(fontWeight: FontWeight.w400))),
                       ),
@@ -162,7 +163,7 @@ class AddEvent extends StatelessWidget {
                     builder: (controller) {
                       return Row(
                         children: <Widget>[
-                          Text("Prix: "),
+                          Text(Localization.priceTitle.tr),
                           SizedBox(width: 10),
                           if (controller.price != 0)
                             Container(
@@ -184,7 +185,7 @@ class AddEvent extends StatelessWidget {
                             child: Row(
                               children: <Widget>[
                                 Text(
-                                  "GRATUIT",
+                                  Localization.freeTitle.tr,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
@@ -259,7 +260,7 @@ class AddEvent extends StatelessWidget {
               height: 50,
               child: Center(
                 child: Text(
-                  "AJOUTER",
+                  Localization.addEvent.tr,
                   style: TextStyle(
                       color: controller.validForm
                           ? Colors.white

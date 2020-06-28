@@ -1,5 +1,6 @@
 import 'package:esgi_project/components/card_my_event.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,7 @@ class MyFavoriteEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favoris'),
+        title: Text(Localization.favoriteTitle.tr),
       ),
       body: GetBuilder<UserController>(
         builder: (controller) {
@@ -26,7 +27,7 @@ class MyFavoriteEvents extends StatelessWidget {
       );
     if (controller.favorites.length == 0)
       return Center(
-        child: Text("Aucun favoris"),
+        child: Text(Localization.noFavoriteTitle.tr),
       );
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20),

@@ -1,5 +1,6 @@
 import 'package:esgi_project/controllers/auth_controller.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
+import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:esgi_project/components/card_settings.dart';
@@ -16,13 +17,13 @@ class Settings extends StatelessWidget {
               alignment: Alignment.topLeft,
               padding: EdgeInsets.all(25),
               child: Text(
-                "Vous-revoilà, " + UserController.to.user.pseudo + " 😉",
+                Localization.welcomeTitle.trArgs([UserController.to.user.pseudo]),
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(height: 20.0),
             CardSettings(
-              text: "Mes réservations",
+              text: Localization.myBookingsTitle.tr,
               onTap: () {
                 print("Salut");
               },
@@ -31,7 +32,7 @@ class Settings extends StatelessWidget {
             GetBuilder<UserController>(
               builder: (controller) {
                 return CardSettings(
-                  text: "Mes favoris - ${controller.favorites.length}",
+                  text: Localization.myFavoriteTitle.trArgs([controller.favorites.length.toString()]),
                   onTap: () => Get.toNamed(Router.myFavoriteRoute),
                 );
               },
@@ -40,13 +41,13 @@ class Settings extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: CardSettings(
-                  text: "Mes événements",
+                  text: Localization.myEventsTitle.tr,
                   onTap: () => Get.toNamed(Router.myEventsRoute),
                 ),
               ),
             Spacer(),
             CardSettings(
-              text: "déconnexion",
+              text: Localization.logout.tr,
               onTap: () {
                 AuthController.to.signOut();
               },
