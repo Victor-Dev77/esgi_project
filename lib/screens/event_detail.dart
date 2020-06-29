@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:esgi_project/components/favorite_btn.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/models/event.dart';
@@ -75,7 +76,9 @@ class _EventDetailState extends State<EventDetail> {
                   backgroundColor: ConstantColor.primaryColor,
                   flexibleSpace: FlexibleSpaceBar(
                     title: Text(
-                      event.title == "" ? Localization.noTitleEvent.tr : event.title,
+                      event.title == ""
+                          ? Localization.noTitleEvent.tr
+                          : event.title,
                       style: TextStyle(
                           fontWeight: event.title == ""
                               ? FontWeight.normal
@@ -97,29 +100,7 @@ class _EventDetailState extends State<EventDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    if (event.userId != UserController.to.user.id)
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            GetBuilder<UserController>(
-                              //id: "favorite",
-                              builder: (controller) {
-                                return InkWell(
-                                  onTap: () => controller.addFavorite(event),
-                                  child: Icon(
-                                      controller.isFavorite(event)
-                                          ? FontAwesomeIcons.solidHeart
-                                          : FontAwesomeIcons.heart,
-                                      size: 20),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                    SizedBox(height: 30),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 25),
@@ -166,7 +147,9 @@ class _EventDetailState extends State<EventDetail> {
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 25),
                       child: Text(
-                        event.title == "" ? Localization.noTitleEvent.tr : event.title,
+                        event.title == ""
+                            ? Localization.noTitleEvent.tr
+                            : event.title,
                         style: TextStyle(
                           fontWeight: event.title == ""
                               ? FontWeight.normal
@@ -236,7 +219,9 @@ class _EventDetailState extends State<EventDetail> {
                       ),
                       SizedBox(height: 5),
                       Text(
-                        event.price == 0 ? Localization.freeTitle.tr : "${event.price}€",
+                        event.price == 0
+                            ? Localization.freeTitle.tr
+                            : "${event.price}€",
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.9),
                           fontWeight: event.price == 0
@@ -248,25 +233,7 @@ class _EventDetailState extends State<EventDetail> {
                     ],
                   ),
                   //TODO: remplacer par MaterialButton ou Material ou RawButton ou jsais pas...
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      width: 125,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.85),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          Localization.bookingTitle.tr,
-                          style: TextStyle(
-                              color: Colors.redAccent,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  )
+                  _buildBtnFavorite(),
                 ],
               ),
             ),
@@ -286,11 +253,7 @@ class _EventDetailState extends State<EventDetail> {
       key: UniqueKey(),
       physics: ScrollPhysics(),
       loop: false,
-      //index: indexPicture,
       itemCount: event.pictures.length,
-      /* onIndexChanged: (index) {
-                    indexPicture = index;
-                  },*/
       itemBuilder: (BuildContext context, int index) {
         return _buildPictureImage(index);
       },
@@ -343,5 +306,14 @@ class _EventDetailState extends State<EventDetail> {
         ),
       ),
     );
+  }
+
+  Widget _buildBtnFavorite() {
+    if (event.userId != UserController.to.user.id)
+      return FavoriteBtn(
+        event: event,
+        enabled: UserController.to.isFavorite(event),
+      );
+    return Container();
   }
 }

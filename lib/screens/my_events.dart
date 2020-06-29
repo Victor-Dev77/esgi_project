@@ -10,7 +10,7 @@ class MyEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Localization.myEventsTitle.tr),
+        title: Text(Localization.myEventsTitle.trArgs([MyEventController.to.myEvents.length.toString()])),
       ),
       body: GetBuilder<MyEventController>(
         init: MyEventController(),

@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 
 class DialogListLanguage extends StatefulWidget {
   final List<Locale> listLanguages;
-  final Function(String) onCategorySelected;
   DialogListLanguage({
     @required this.listLanguages,
-    @required this.onCategorySelected,
   });
 
   @override

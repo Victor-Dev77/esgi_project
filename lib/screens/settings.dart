@@ -1,5 +1,6 @@
 import 'package:esgi_project/components/dialog_list_language.dart';
 import 'package:esgi_project/controllers/auth_controller.dart';
+import 'package:esgi_project/controllers/my_event_controller.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/routes.dart';
@@ -19,22 +20,17 @@ class Settings extends StatelessWidget {
               alignment: Alignment.topLeft,
               padding: EdgeInsets.all(25),
               child: Text(
-                Localization.welcomeTitle.trArgs([UserController.to.user.pseudo]),
+                Localization.welcomeTitle
+                    .trArgs([UserController.to.user.pseudo]),
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
-            ),
-            SizedBox(height: 20.0),
-            CardSettings(
-              text: Localization.myBookingsTitle.tr,
-              onTap: () {
-                print("Salut");
-              },
             ),
             SizedBox(height: 20.0),
             GetBuilder<UserController>(
               builder: (controller) {
                 return CardSettings(
-                  text: Localization.myFavoriteTitle.trArgs([controller.favorites.length.toString()]),
+                  text: Localization.myFavoriteTitle
+                      .trArgs([controller.favorites.length.toString()]),
                   onTap: () => Get.toNamed(Router.myFavoriteRoute),
                 );
               },
@@ -42,9 +38,14 @@ class Settings extends StatelessWidget {
             if (UserController.to.user.isOrganizer)
               Padding(
                 padding: EdgeInsets.only(top: 20),
-                child: CardSettings(
-                  text: Localization.myEventsTitle.tr,
-                  onTap: () => Get.toNamed(Router.myEventsRoute),
+                child: GetBuilder<MyEventController>(
+                  init: MyEventController(),
+                  builder: (controller) {
+                    return CardSettings(
+                      text: Localization.myEventsTitle.trArgs([controller.myEvents == null ? "0" : controller.myEvents.length.toString()]),
+                      onTap: () => Get.toNamed(Router.myEventsRoute),
+                    );
+                  },
                 ),
               ),
             Spacer(),
@@ -67,15 +68,12 @@ class Settings extends StatelessWidget {
   }
 
   _showDialogLanguage() {
-    Get.dialog(Dialog(
+    Get.dialog(
+      Dialog(
         child: DialogListLanguage(
-      listLanguages: Constant.languages,
-      onCategorySelected: (language) {
-        print(language);
-       /* setState(() {
-          _listCategory.add(category);
-        });*/
-      },
-    )));
+          listLanguages: Constant.languages,
+        ),
+      ),
+    );
   }
 }

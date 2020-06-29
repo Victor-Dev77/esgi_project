@@ -45,7 +45,6 @@ class Localization {
   static const String confirmAddressNameEvent = "confirm_address_name";
   static const String priceTitle = "price";
   static const String freeTitle = "free";
-  static const String bookingTitle = "booking";
   static const String noPicturesTitle = "no_pictures";
   static const String addEvent = "add_event";
   static const String explainAddEventForm = "explain_add_form";
