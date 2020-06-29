@@ -1,7 +1,9 @@
+import 'package:esgi_project/components/dialog_list_language.dart';
 import 'package:esgi_project/controllers/auth_controller.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/routes.dart';
+import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:esgi_project/components/card_settings.dart';
 import 'package:get/get.dart';
@@ -47,6 +49,11 @@ class Settings extends StatelessWidget {
               ),
             Spacer(),
             CardSettings(
+              text: Localization.languageTitle.tr,
+              onTap: _showDialogLanguage,
+            ),
+            SizedBox(height: 20.0),
+            CardSettings(
               text: Localization.logout.tr,
               onTap: () {
                 AuthController.to.signOut();
@@ -57,5 +64,18 @@ class Settings extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _showDialogLanguage() {
+    Get.dialog(Dialog(
+        child: DialogListLanguage(
+      listLanguages: Constant.languages,
+      onCategorySelected: (language) {
+        print(language);
+       /* setState(() {
+          _listCategory.add(category);
+        });*/
+      },
+    )));
   }
 }

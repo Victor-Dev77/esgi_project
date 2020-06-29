@@ -55,6 +55,7 @@ class FrenchLanguage {
     Localization.distanceTitle: "Distance",
     Localization.deleteEventTitle: "Supprimer l'événement",
     Localization.confirmDeleteEvent: "Confirmes-tu la suppression ?",
+    Localization.languageTitle: "Langue",
 
     Localization.errorMissingParam: "ERREUR: manque paramètre de l'événement",
     Localization.errorAddress: "Addresse invalide: N° Rue, Code postal Ville",

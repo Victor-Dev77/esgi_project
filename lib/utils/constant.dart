@@ -29,6 +29,11 @@ class Constant {
       },
     ];
 
+  static final List<Locale> languages = [
+    Locale("fr", "FR"),
+    Locale("en", "US"),
+  ];
+
   // IMAGE
   static final String pathLogoImage = "assets/logo.png";
 

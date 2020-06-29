@@ -55,6 +55,7 @@ class EnglishLanguage {
     Localization.distanceTitle: "Distance",
     Localization.deleteEventTitle: "Delete Event",
     Localization.confirmDeleteEvent: "Do you confirm deletion ?",
+    Localization.languageTitle: "Language",
 
     Localization.errorMissingParam: "ERROR: Event parameter missing",
     Localization.errorAddress: "Wrong Address: N° Street, City Postal Code",
