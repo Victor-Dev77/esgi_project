@@ -1,10 +1,11 @@
-import 'package:esgi_project/controllers/auth_controller.dart';
-import 'package:esgi_project/controllers/user_controller.dart';
+import 'package:esgi_project/controllers/bindings/main_binding.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/routes.dart';
+import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
 void main() async {
@@ -24,9 +25,6 @@ class MyApp extends StatelessWidget {
         primaryColor: ConstantColor.primaryColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: ConstantColor.white,
-        //textTheme: TextTheme(
-
-        //)
       ),
       builder: (context, child) {
         return ScrollConfiguration(
@@ -36,9 +34,15 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fade,
-      initialBinding: InitialBinding(),
+      initialBinding: MainBinding(),
       getPages: Router.routes,
       initialRoute: Router.splashRoute,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: Constant.languages,
       locale: Locale('fr', 'FR'),
       translationsKeys: Localization.translation,
     );
@@ -51,13 +55,5 @@ class MyBehavior extends ScrollBehavior {
   Widget buildViewportChrome(
       BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
-  }
-}
-
-class InitialBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.put(UserController());
-    Get.put(AuthController());
   }
 }

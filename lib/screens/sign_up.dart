@@ -23,13 +23,11 @@ class _SignUpState extends State<SignUp> {
           onTap: () => FocusScope.of(context)
               .unfocus(), // enleve clavier si clique ailleurs
           child: Container(
-            padding: EdgeInsets.only(top: 0, left: 30.0, right: 30.0),
+            padding: EdgeInsets.only(left: 30.0, right: 30.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 0),
-                    child: Image.asset(Constant.pathLogoImage)),
+                Image.asset(Constant.pathLogoImage),
                 TextField(
                     style: TextStyle(fontWeight: FontWeight.w500),
                     keyboardType: TextInputType.emailAddress,

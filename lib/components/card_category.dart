@@ -5,7 +5,10 @@ class CardCategory extends StatelessWidget {
   final IconData iconData;
   final String title;
 
-  CardCategory({this.iconData, this.title});
+  CardCategory({Key key, @required this.iconData, @required this.title})
+      : assert(title != null),
+        assert(iconData != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -8,12 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
+class Home extends StatelessWidget {
 
-class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -45,7 +41,6 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              //TODO: Transformer fonction en widget stateless / statefull SI UTILISER AUTRE PART DANS APP
               _buildAllEventCategory(),
               _buildPopularEvents(),
               SizedBox(height: 15),
@@ -123,4 +118,5 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
 }

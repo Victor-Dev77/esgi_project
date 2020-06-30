@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DialogListLanguage extends StatefulWidget {
+class DialogListLanguage extends StatelessWidget {
   final List<Locale> listLanguages;
   DialogListLanguage({
+    Key key,
     @required this.listLanguages,
-  });
+  })  : assert(listLanguages != null),
+        super(key: key);
 
-  @override
-  _DialogListLanguageState createState() => _DialogListLanguageState();
-}
-
-class _DialogListLanguageState extends State<DialogListLanguage> {
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey[100],
       child: ListView.builder(
-        itemCount: widget.listLanguages.length,
+        itemCount: listLanguages.length,
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          String language = widget.listLanguages[index].countryCode;
+          String language = listLanguages[index].countryCode;
           return InkWell(
-            onTap: () => _setLanguage(widget.listLanguages[index]),
+            onTap: () => _setLanguage(listLanguages[index]),
             child: ListTile(
               title: Text(
                 language,

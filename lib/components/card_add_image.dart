@@ -6,7 +6,14 @@ class CardAddImage extends StatefulWidget {
   final String image;
   final Function(File) imageLoad;
   final Function(File) imageRemove;
-  CardAddImage({@required this.imageLoad, @required this.imageRemove, this.image});
+  CardAddImage({
+    Key key,
+    @required this.imageLoad,
+    @required this.imageRemove,
+    this.image,
+  })  : assert(imageLoad != null),
+        assert(imageRemove != null),
+        super(key: key);
 
   @override
   _CardAddImageState createState() => _CardAddImageState();
@@ -82,13 +89,10 @@ class _CardAddImageState extends State<CardAddImage> {
               width: 75,
               height: 75,
               decoration: BoxDecoration(
-                color: Color(0xffEFECE4),
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: FileImage(_image),
-                  fit: BoxFit.cover
-                )
-              ),
+                  color: Color(0xffEFECE4),
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                      image: FileImage(_image), fit: BoxFit.cover)),
             ),
             Positioned(
               child: Container(

@@ -9,11 +9,14 @@ class MyEventCard extends StatelessWidget {
   final Event event;
   final Widget trailingWidget;
   final VoidCallback trailingAction;
-  MyEventCard({
-    @required this.event,
+  MyEventCard(
+    this.event, {
+    Key key,
     @required this.trailingWidget,
     @required this.trailingAction,
-  });
+  })  : assert(trailingWidget != null),
+        assert(trailingAction != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

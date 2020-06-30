@@ -37,7 +37,6 @@ class AddEvent extends StatelessWidget {
                 ),
                 Container(
                   height: 115.0,
-                  //width: 300.0,
                   child: _buildImageGridEvent(),
                 ),
                 Padding(

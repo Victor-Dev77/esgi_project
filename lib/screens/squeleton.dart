@@ -1,15 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:esgi_project/controllers/add_event_controller.dart';
-import 'package:esgi_project/controllers/search_event_controller.dart';
-import 'package:esgi_project/controllers/user_controller.dart';
-import 'package:esgi_project/utils/constant.dart';
+import 'package:esgi_project/controllers/squeleton_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:esgi_project/utils/constant_color.dart';
-import 'package:esgi_project/screens/home.dart';
-import 'package:esgi_project/screens/settings.dart';
-import 'package:esgi_project/screens/map.dart';
-import 'package:esgi_project/screens/add_event.dart';
-import 'package:get/get.dart';
 
 class AppSqueleton extends StatefulWidget {
   @override
@@ -19,28 +11,15 @@ class AppSqueleton extends StatefulWidget {
 }
 
 class _AppSqueleton extends State<AppSqueleton> with TickerProviderStateMixin {
-  List<Widget> _tabListNotOrga = [Home(), Map(), Settings()];
-
-  List<Widget> _tabListOrga = [Home(), Map(), AddEvent(), Settings()];
-
-  List<String> _tabNameNotOrga = ['Home', 'Map', 'Settings'];
-  List<String> _tabNameOrga = ['Home', 'Map', 'Add', 'Settings'];
 
   TabController _tabController;
-  bool isOrganizer = true;
 
   @override
   void initState() {
     super.initState();
-    print("isOrganizer: ${UserController.to.user.isOrganizer}");
-    isOrganizer = UserController.to.user.isOrganizer;
-    if (UserController.to.user.isOrganizer) {
-      Get.put(AddEventController());
-    }
-    Get.put(SearchEventController());
     _tabController = TabController(
       initialIndex: 0,
-      length: isOrganizer ? _tabListOrga.length : _tabListNotOrga.length,
+      length: SqueletonController.to.tabMenu.length,
       vsync: this,
     );
   }
@@ -53,7 +32,7 @@ class _AppSqueleton extends State<AppSqueleton> with TickerProviderStateMixin {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: TabBarView(
-          children: isOrganizer ? _tabListOrga : _tabListNotOrga,
+          children: SqueletonController.to.tabMenu,
           physics: NeverScrollableScrollPhysics(),
           controller: _tabController,
         ),
@@ -69,12 +48,7 @@ class _AppSqueleton extends State<AppSqueleton> with TickerProviderStateMixin {
       backgroundColor: ConstantColor.white,
       animationCurve: Curves.fastLinearToSlowEaseIn,
       buttonBackgroundColor: ConstantColor.primaryColor,
-      items: <Widget>[
-        Constant.homeIcon,
-        Constant.mapIcon,
-        if (isOrganizer) Constant.addEventIcon,
-        Constant.settingsIcon,
-      ],
+      items: SqueletonController.to.listItemNav,
       onTap: (index) {
         setState(() {
           _tabController.animateTo(index);

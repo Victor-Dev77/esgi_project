@@ -13,6 +13,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
   
   # State management / Dependancies injection / Work without context
   get: ^3.1.0
@@ -22,19 +25,20 @@ dependencies:
   cloud_firestore: ^0.13.6
   firebase_auth: ^0.16.1
   firebase_storage: ^3.1.6
-  curved_navigation_bar: ^0.3.2
+  
 
-  # Image - a ajouter plus tard
+  # Image
   image_picker: ^0.6.7+2             # recup image gallery / camera
   cached_network_image: ^2.2.0       # gestion cache image
   flutter_swiper: ^1.1.6             # Swipe image
   path_provider: ^1.6.8
 
-  # Utils - a ajouter plus tard
+  # Utils
   #auto_size_text: ^2.1.0             # resize auto text
   #connectivity: ^0.4.8+2             # gestion connection internet
-  jiffy: ^3.0.1                      # gestion date
+  jiffy: ^3.0.1                       # gestion date
   font_awesome_flutter: ^8.8.1
+  curved_navigation_bar: ^0.3.2
 
   # Location
   location: ^3.0.2

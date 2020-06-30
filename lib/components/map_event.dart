@@ -10,7 +10,7 @@ import 'package:latlong/latlong.dart';
 
 class MapEvent extends StatefulWidget {
   final List<Event> listEvent;
-  MapEvent(this.listEvent);
+  MapEvent(this.listEvent, {Key key}) : super(key: key);
 
   @override
   _MapEventState createState() => _MapEventState();
@@ -62,7 +62,6 @@ class _MapEventState extends State<MapEvent> {
                           ),
                         ),
                       );
-                    print("index: $index - indexmarker: $_indexMarker");
                     return Marker(
                       width: index == _indexMarker
                           ? 200.0
@@ -201,7 +200,6 @@ class _MapEventState extends State<MapEvent> {
             return CardEventMap(
               widget.listEvent[index],
               onTap: () {
-                print("tap $index");
                 setState(() {
                   _indexMarker = index;
                   _showInfoEvent = true;

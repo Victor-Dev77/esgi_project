@@ -36,7 +36,7 @@ class MyEvents extends StatelessWidget {
         itemCount: controller.myEvents.length,
         itemBuilder: (context, index) {
           return MyEventCard(
-            event: controller.myEvents[index],
+            controller.myEvents[index],
             trailingWidget: CircleAvatar(
               backgroundColor: Colors.redAccent,
               child: Center(

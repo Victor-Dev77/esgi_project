@@ -5,10 +5,13 @@ class DialogListCategory extends StatefulWidget {
   final List<String> listCategorySelected;
   final Function(String) onCategorySelected, onCategoryUnselected;
   DialogListCategory({
+    Key key,
     this.listCategorySelected,
     @required this.onCategorySelected,
     @required this.onCategoryUnselected,
-  });
+  })  : assert(onCategorySelected != null),
+        assert(onCategoryUnselected != null),
+        super(key: key);
 
   @override
   _DialogListCategoryState createState() => _DialogListCategoryState();

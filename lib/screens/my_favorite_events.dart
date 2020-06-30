@@ -35,7 +35,7 @@ class MyFavoriteEvents extends StatelessWidget {
         itemCount: controller.favorites.length,
         itemBuilder: (context, index) {
           return MyEventCard(
-            event: controller.favorites[index],
+            controller.favorites[index],
             trailingWidget: CircleAvatar(
               backgroundColor: Colors.black,
               child: Center(

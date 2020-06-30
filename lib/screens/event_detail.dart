@@ -8,10 +8,8 @@ import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-//TODO: remove glow scroll sur android ??
 
 class EventDetail extends StatefulWidget {
   @override

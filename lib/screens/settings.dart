@@ -16,53 +16,76 @@ class Settings extends StatelessWidget {
       child: Center(
         child: Column(
           children: <Widget>[
-            Container(
-              alignment: Alignment.topLeft,
-              padding: EdgeInsets.all(25),
-              child: Text(
-                Localization.welcomeTitle
-                    .trArgs([UserController.to.user.pseudo]),
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
-            ),
+            _buildWelcomeTitle(),
             SizedBox(height: 20.0),
-            GetBuilder<UserController>(
-              builder: (controller) {
-                return CardSettings(
-                  text: Localization.myFavoriteTitle
-                      .trArgs([controller.favorites.length.toString()]),
-                  onTap: () => Get.toNamed(Router.myFavoriteRoute),
-                );
-              },
-            ),
-            if (UserController.to.user.isOrganizer)
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: GetBuilder<MyEventController>(
-                  init: MyEventController(),
-                  builder: (controller) {
-                    return CardSettings(
-                      text: Localization.myEventsTitle.trArgs([controller.myEvents == null ? "0" : controller.myEvents.length.toString()]),
-                      onTap: () => Get.toNamed(Router.myEventsRoute),
-                    );
-                  },
-                ),
-              ),
+            _buildFavoriteBtn(),
+            _buildMyEventBtn(),
             Spacer(),
-            CardSettings(
-              text: Localization.languageTitle.tr,
-              onTap: _showDialogLanguage,
-            ),
-            SizedBox(height: 20.0),
-            CardSettings(
-              text: Localization.logout.tr,
-              onTap: () {
-                AuthController.to.signOut();
-              },
-            ),
-            SizedBox(height: 20.0),
+            _buildLanguageBtn(),
+            _buildLogoutBtn(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildWelcomeTitle() {
+    return Container(
+      alignment: Alignment.topLeft,
+      padding: EdgeInsets.all(25),
+      child: Text(
+        Localization.welcomeTitle.trArgs([UserController.to.user.pseudo]),
+        style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget _buildFavoriteBtn() {
+    return GetBuilder<UserController>(
+      builder: (controller) {
+        return CardSettings(
+          text: Localization.myFavoriteTitle
+              .trArgs([controller.favorites.length.toString()]),
+          onTap: () => Get.toNamed(Router.myFavoriteRoute),
+        );
+      },
+    );
+  }
+
+  Widget _buildMyEventBtn() {
+    if (UserController.to.user.isOrganizer)
+      return Padding(
+        padding: EdgeInsets.only(top: 20),
+        child: GetBuilder<MyEventController>(
+          init: MyEventController(),
+          builder: (controller) {
+            return CardSettings(
+              text: Localization.myEventsTitle.trArgs([
+                controller.myEvents == null
+                    ? "0"
+                    : controller.myEvents.length.toString()
+              ]),
+              onTap: () => Get.toNamed(Router.myEventsRoute),
+            );
+          },
+        ),
+      );
+    return Container();
+  }
+
+  Widget _buildLanguageBtn() {
+    return CardSettings(
+      text: Localization.languageTitle.tr,
+      onTap: _showDialogLanguage,
+    );
+  }
+
+  Widget _buildLogoutBtn() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 20),
+      child: CardSettings(
+        text: Localization.logout.tr,
+        onTap: () => AuthController.to.signOut(),
       ),
     );
   }

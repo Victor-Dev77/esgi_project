@@ -10,7 +10,9 @@ import 'package:get/get.dart';
 class CardEventMap extends StatelessWidget {
   final Event event;
   final VoidCallback onTap;
-  CardEventMap(this.event, {this.onTap});
+  CardEventMap(this.event, {Key key, @required this.onTap})
+      : assert(onTap != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

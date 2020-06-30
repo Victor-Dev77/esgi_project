@@ -1,3 +1,4 @@
+import 'package:esgi_project/controllers/bindings/squeleton_binding.dart';
 import 'package:esgi_project/screens/event_detail.dart';
 import 'package:esgi_project/screens/login.dart';
 import 'package:esgi_project/screens/my_events.dart';
@@ -24,7 +25,7 @@ class Router {
     GetPage(name: splashRoute, page: () => SplashScreen()),
     GetPage(name: loginRoute, page: () => Login()),
     GetPage(name: signUpRoute, page: () => SignUp()),
-    GetPage(name: squeletonRoute, page: () => AppSqueleton()),
+    GetPage(name: squeletonRoute, page: () => AppSqueleton(), binding: SqueletonBinding()),
     GetPage(name: eventDetailRoute, page: () => EventDetail()),
     GetPage(name: myEventsRoute, page: () => MyEvents()),
     GetPage(name: myFavoriteRoute, page: () => MyFavoriteEvents()),
