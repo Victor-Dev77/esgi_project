@@ -58,6 +58,9 @@ class FrenchLanguage {
 
     Localization.errorMissingParam: "ERREUR: manque paramètre de l'événement",
     Localization.errorAddress: "Addresse invalide: N° Rue, Code postal Ville",
+    Localization.errorEmail: "Adresse email incorrect",
+    Localization.errorPassword: "Le mot de passe doit contenir 6 caractères minimum",
+    Localization.errorPseudo: "Le pseudo doit contenir 3 caractères minimum",
   };
 
 }

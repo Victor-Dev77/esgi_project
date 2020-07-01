@@ -61,6 +61,10 @@ class Localization {
   static const String confirmDeleteEvent = "confirm_delete";
   static const String languageTitle = "language";
 
+
   static const String errorMissingParam = "error_missing_param";
   static const String errorAddress = "error_address";
+  static const String errorEmail = "error_email";
+  static const String errorPassword = "error_password";
+  static const String errorPseudo = "error_pseudo";
 }

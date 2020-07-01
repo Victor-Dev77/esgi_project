@@ -39,6 +39,7 @@ dependencies:
   jiffy: ^3.0.1                       # gestion date
   font_awesome_flutter: ^8.8.1
   curved_navigation_bar: ^0.3.2
+  the_validator: ^1.0.1               # validator textfield
 
   # Location
   location: ^3.0.2

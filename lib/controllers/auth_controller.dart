@@ -3,6 +3,7 @@ import 'package:esgi_project/repositorys/firebase_auth_repository.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:esgi_project/services/location_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/models/user.dart';
@@ -38,24 +39,38 @@ class AuthController extends GetxController {
     });
   }
 
-  //TODO; faire verif de chaque champs
+  final TextEditingController _emailController = TextEditingController();
+  TextEditingController get emailController => this._emailController;
 
-  signIn(String email, String password) async {
-    // TODO: Methode final a appeler quand tt les champs sont Ok.
-    // doit incasseble de l'extérieur --> rendre private.
+  final TextEditingController _pseudoController = TextEditingController();
+  TextEditingController get pseudoController => this._pseudoController;
+
+  final TextEditingController _passwordController = TextEditingController();
+  TextEditingController get passwordController => this._passwordController;
+
+  bool _isOrganizerCheckbox = false;
+  bool get isOrganizerCheckbox => this._isOrganizerCheckbox;
+
+  changeIsOrganizerCheck(bool value) {
+    _isOrganizerCheckbox = value;
+    update(["isOrganizerCheck"]);
+  }
+  
+
+  signIn() async {
     try {
-      await _authRepo.signIn(email, password);
+      await _authRepo.signIn(_emailController.text.trim(), _passwordController.text.trim());
     } catch (err) {
       print("ERROR: AuthController: signin()");
     }
   }
 
-  signUp(String email, String pseudo, String password, bool isOrganizer) async {
+  signUp() async {
     try {
-      var newUser = await _authRepo.signUp(email, password);
+      var newUser = await _authRepo.signUp(_emailController.text.trim(), _passwordController.text.trim());
       if (newUser != null) {
         await _registerUser(
-            newUser.user.uid, email, pseudo, password, isOrganizer);
+            newUser.user.uid, _emailController.text.trim(), _pseudoController.text.trim(), _passwordController.text.trim(), _isOrganizerCheckbox);
       }
     } catch (err) {
       print("ERROR: AuthController: signUp()");

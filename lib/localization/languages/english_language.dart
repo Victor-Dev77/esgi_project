@@ -58,6 +58,9 @@ class EnglishLanguage {
 
     Localization.errorMissingParam: "ERROR: Event parameter missing",
     Localization.errorAddress: "Wrong Address: N° Street, City Postal Code",
+    Localization.errorEmail: "Wrong Email",
+    Localization.errorPassword: "The password must contain at least 6 characters",
+    Localization.errorPseudo: "The pseudo must contain at least 3 characters",
   };
 
 }
