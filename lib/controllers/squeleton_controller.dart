@@ -1,5 +1,4 @@
 import 'package:esgi_project/controllers/add_event_controller.dart';
-import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/screens/add_event.dart';
 import 'package:esgi_project/screens/home.dart';

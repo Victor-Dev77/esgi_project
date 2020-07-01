@@ -1,11 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/routes.dart';
+import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:esgi_project/components/hero_image_network.dart';
+import 'package:esgi_project/components/icon_with_title.dart';
 
 class CardSearchEvent extends StatelessWidget {
   final Event event;
@@ -30,28 +32,10 @@ class CardSearchEvent extends StatelessWidget {
         width: width,
         child: Row(
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.all(7),
+            HeroImageNetwork(
+              tag: "picture-${event.id}",
+              imageUrl: event.pictures[0],
               width: 100,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10)),
-                child: Hero(
-                  tag: "picture-${event.id}",
-                  child: CachedNetworkImage(
-                    imageUrl: event.pictures[0],
-                    fit: BoxFit.cover,
-                    useOldImageOnUrlChange: true,
-                    placeholder: (context, url) => CupertinoActivityIndicator(
-                      radius: 20,
-                    ),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                  ),
-                ),
-              ),
             ),
             Expanded(
               child: Container(
@@ -91,37 +75,15 @@ class CardSearchEvent extends StatelessWidget {
                           ),
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
+                    SizedBox(height: 10),
+                    IconWithTitle(
+                      icon: Constant.dateIcon18,
+                      title: event.dateStart
                     ),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.date_range,
-                          color: Colors.orange,
-                          size: 18,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(event.dateStart),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.location_on,
-                          color: Colors.orange,
-                          size: 18,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text("${event.distanceBW}km"),
-                      ],
+                    SizedBox(height: 3),
+                    IconWithTitle(
+                      icon: Constant.locationOnIcon,
+                      title: "${event.distanceBW}km"
                     ),
                   ],
                 ),
@@ -132,4 +94,5 @@ class CardSearchEvent extends StatelessWidget {
       ),
     );
   }
+  
 }

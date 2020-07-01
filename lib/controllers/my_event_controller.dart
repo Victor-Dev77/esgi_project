@@ -3,6 +3,7 @@ import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
 import 'package:esgi_project/repositorys/firebase_storage_repository.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +28,12 @@ class MyEventController extends GetxController {
   }
 
   Widget _showDialogDeleteEvent(Event event) {
-    //TODO check platform
+    if (GetPlatform.isIOS)
+      return _alertDialogIOS(event);
+    return _alertDialogAndroid(event);
+  }
+
+  Widget _alertDialogAndroid(Event event) {
     return AlertDialog(
       title: Text(Localization.deleteEventTitle.tr),
       content: Text(Localization.confirmDeleteEvent.tr),
@@ -40,6 +46,24 @@ class MyEventController extends GetxController {
           onPressed: () => _confirmDeleteEvent(event),
           child: Text(Localization.yes.tr),
         ),
+      ],
+    );
+  }
+
+  Widget _alertDialogIOS(Event event) {
+    return CupertinoAlertDialog(
+      title: Text(Localization.deleteEventTitle.tr),
+      content: Text(Localization.confirmDeleteEvent.tr),
+      actions: <Widget>[
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          child: Text(Localization.yes.tr),
+          onPressed: () => _confirmDeleteEvent(event),
+        ),
+        CupertinoDialogAction(
+          onPressed: () => Get.back(),
+          child: Text(Localization.no.tr),
+        )
       ],
     );
   }

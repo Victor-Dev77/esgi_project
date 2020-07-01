@@ -1,15 +1,16 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:esgi_project/components/favorite_btn.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/models/event.dart';
+import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get/get.dart';
-
+import 'package:esgi_project/components/hero_image_network.dart';
+import 'package:esgi_project/components/icon_with_title.dart';
 
 class EventDetail extends StatefulWidget {
   @override
@@ -48,49 +49,14 @@ class _EventDetailState extends State<EventDetail> {
   }
 
   Scaffold _buildScreen() {
-    //TODO: rendre code propre - separer dans des fonction ou widget
     return Scaffold(
       body: SafeArea(
           child: Stack(
         children: <Widget>[
           NestedScrollView(
             physics: NeverScrollableScrollPhysics(),
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverAppBar(
-                  leading: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: ConstantColor.white,
-                    ),
-                    onPressed: () => Get.back(),
-                  ),
-                  expandedHeight: MediaQuery.of(context).size.height * 0.65,
-                  floating: false,
-                  pinned: true,
-                  snap: false,
-                  elevation: 50,
-                  backgroundColor: ConstantColor.primaryColor,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: Text(
-                      event.title == ""
-                          ? Localization.noTitleEvent.tr
-                          : event.title,
-                      style: TextStyle(
-                          fontWeight: event.title == ""
-                              ? FontWeight.normal
-                              : FontWeight.bold,
-                          fontStyle: event.title == ""
-                              ? FontStyle.italic
-                              : FontStyle.normal,
-                          fontSize: 16,
-                          color: ConstantColor.white),
-                    ),
-                    background: _buildPictureBloc(),
-                  ),
-                ),
-              ];
+            headerSliverBuilder: (ctx, _) {
+              return _buildSliverAppBar();
             },
             body: SingleChildScrollView(
               physics: NeverScrollableScrollPhysics(),
@@ -99,146 +65,52 @@ class _EventDetailState extends State<EventDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(height: 30),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Icon(Icons.date_range, color: Colors.orange),
-                                  SizedBox(width: 5),
-                                  Text(event.dateStart == ""
-                                      ? Localization.noBeginDateEvent.tr
-                                      : event.dateStart),
-                                ],
-                              ),
-                              SizedBox(height: 5),
-                              Row(
-                                children: <Widget>[
-                                  Icon(Icons.date_range, color: Colors.orange),
-                                  SizedBox(width: 5),
-                                  Text(event.dateEnd == ""
-                                      ? Localization.noEndDateEvent.tr
-                                      : event.dateEnd),
-                                ],
-                              ),
-                            ],
-                          ),
-                          if (event.distanceBW != null)
-                            Row(
-                              children: <Widget>[
-                                Icon(Icons.place, color: Colors.blueAccent),
-                                SizedBox(width: 2),
-                                Text("${event.distanceBW}km"),
-                              ],
-                            ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-                      child: Text(
-                        event.title == ""
-                            ? Localization.noTitleEvent.tr
-                            : event.title,
-                        style: TextStyle(
-                          fontWeight: event.title == ""
-                              ? FontWeight.normal
-                              : FontWeight.bold,
-                          fontStyle: event.title == ""
-                              ? FontStyle.italic
-                              : FontStyle.normal,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-                      child: Text(
-                        event.content == ""
-                            ? Localization.noDescriptionEvent.tr
-                            : event.content,
-                        style: TextStyle(
-                          fontStyle: event.content == ""
-                              ? FontStyle.italic
-                              : FontStyle.normal,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.place, color: Colors.blueAccent),
-                          SizedBox(width: 5),
-                          Text(event.address == ""
-                              ? Localization.noAddressEvent.tr
-                              : event.address),
-                        ],
-                      ),
-                    ),
+                    _buildBlocDateDistance(),
+                    _buildBlocTitle(),
+                    _buildBlocContent(),
+                    _buildBlocAddress(),
                   ],
                 ),
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 100,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.redAccent,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(35),
-                      topRight: Radius.circular(35))),
-              padding: EdgeInsets.all(25),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        Localization.priceTitle.tr,
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        event.price == 0
-                            ? Localization.freeTitle.tr
-                            : "${event.price}€",
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
-                          fontWeight: event.price == 0
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                  //TODO: remplacer par MaterialButton ou Material ou RawButton ou jsais pas...
-                  _buildBtnFavorite(),
-                ],
-              ),
-            ),
-          )
+          _buildBlocOverlayFavorite(),
         ],
       )),
     );
+  }
+
+  List<Widget> _buildSliverAppBar() {
+    return <Widget>[
+      SliverAppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: ConstantColor.white,
+          ),
+          onPressed: () => Get.back(),
+        ),
+        expandedHeight: Get.height * 0.65,
+        floating: false,
+        pinned: true,
+        snap: false,
+        elevation: 50,
+        backgroundColor: ConstantColor.primaryColor,
+        flexibleSpace: FlexibleSpaceBar(
+          title: Text(
+            event.title == "" ? Localization.noTitleEvent.tr : event.title,
+            style: TextStyle(
+                fontWeight:
+                    event.title == "" ? FontWeight.normal : FontWeight.bold,
+                fontStyle:
+                    event.title == "" ? FontStyle.italic : FontStyle.normal,
+                fontSize: 16,
+                color: ConstantColor.white),
+          ),
+          background: _buildPictureBloc(),
+        ),
+      ),
+    ];
   }
 
   Widget _buildPictureBloc() {
@@ -266,17 +138,10 @@ class _EventDetailState extends State<EventDetail> {
       File file = File(event.pictures[index]);
       return Image.file(file, fit: BoxFit.cover);
     }
-    return Hero(
+    return HeroImageNetwork(
       tag: "picture-${event.id}",
-      child: CachedNetworkImage(
-        imageUrl: event.pictures[index],
-        fit: BoxFit.cover,
-        useOldImageOnUrlChange: true,
-        placeholder: (context, url) => CupertinoActivityIndicator(
-          radius: 20,
-        ),
-        errorWidget: (context, url, error) => Icon(Icons.error),
-      ),
+      imageUrl: event.pictures[index],
+      justImage: true,
     );
   }
 
@@ -301,6 +166,126 @@ class _EventDetailState extends State<EventDetail> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBlocDateDistance() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              IconWithTitle(
+                icon: Constant.dateIcon,
+                title: event.dateStart == ""
+                    ? Localization.noBeginDateEvent.tr
+                    : event.dateStart,
+              ),
+              SizedBox(height: 5),
+              IconWithTitle(
+                  icon: Constant.dateIcon,
+                  title: event.dateEnd == ""
+                      ? Localization.noEndDateEvent.tr
+                      : event.dateEnd),
+            ],
+          ),
+          if (event.distanceBW != null)
+            IconWithTitle(
+              icon: Constant.placeIcon,
+              spaceBW: 2,
+              title: "${event.distanceBW}km",
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBlocTitle() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+      child: Text(
+        event.title == "" ? Localization.noTitleEvent.tr : event.title,
+        style: TextStyle(
+          fontWeight: event.title == "" ? FontWeight.normal : FontWeight.bold,
+          fontStyle: event.title == "" ? FontStyle.italic : FontStyle.normal,
+          fontSize: 20,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBlocContent() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+      child: Text(
+        event.content == ""
+            ? Localization.noDescriptionEvent.tr
+            : event.content,
+        style: TextStyle(
+          fontStyle: event.content == "" ? FontStyle.italic : FontStyle.normal,
+          fontSize: 16,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBlocAddress() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+      child: IconWithTitle(
+        icon: Constant.placeIcon,
+        title: event.address == ""
+            ? Localization.noAddressEvent.tr
+            : event.address,
+      ),
+    );
+  }
+
+  Widget _buildBlocOverlayFavorite() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        height: 100,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.redAccent,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(35), topRight: Radius.circular(35))),
+        padding: EdgeInsets.all(25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  Localization.priceTitle.tr,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.9),
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  event.price == 0
+                      ? Localization.freeTitle.tr
+                      : "${event.price}€",
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.9),
+                    fontWeight:
+                        event.price == 0 ? FontWeight.bold : FontWeight.normal,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+            _buildBtnFavorite(),
+          ],
         ),
       ),
     );

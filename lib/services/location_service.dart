@@ -96,7 +96,7 @@ class LocationService {
 
   static Future<Map<String, dynamic>> convertAddressToLocation(String address) async {
     // n° rue, codePostal ville
-    String addr = "36 rue de la manevrette, 77580 Guerard";
+    //String addr = "36 rue de la manevrette, 77580 Guerard";
     try {
       var addresses = await Geocoder.local.findAddressesFromQuery(address);
       var first = addresses.first;

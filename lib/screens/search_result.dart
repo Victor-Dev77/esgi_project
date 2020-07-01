@@ -12,22 +12,26 @@ class SearchResult extends StatelessWidget {
       appBar: AppBar(
         title: Text(Localization.eventTitle.tr),
         actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 5),
-            child: GetBuilder<SearchEventController>(
-              builder: (controller) {
-                return IconButton(
-                  icon: Icon(controller.showMapResult ? Icons.list : Icons.map),
-                  onPressed: () => controller.changeModeResult(),
-                );
-              },
-            ),
-          ),
+          _buildChangeResultModeBtn(),
         ],
       ),
       body: GetBuilder<SearchEventController>(
         builder: (controller) {
           return _buildResult(controller);
+        },
+      ),
+    );
+  }
+
+  Widget _buildChangeResultModeBtn() {
+    return Padding(
+      padding: EdgeInsets.only(right: 5),
+      child: GetBuilder<SearchEventController>(
+        builder: (controller) {
+          return IconButton(
+            icon: Icon(controller.showMapResult ? Icons.list : Icons.map),
+            onPressed: () => controller.changeModeResult(),
+          );
         },
       ),
     );
