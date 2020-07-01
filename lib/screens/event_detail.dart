@@ -12,24 +12,14 @@ import 'package:get/get.dart';
 import 'package:esgi_project/components/hero_image_network.dart';
 import 'package:esgi_project/components/icon_with_title.dart';
 
-class EventDetail extends StatefulWidget {
-  @override
-  _EventDetailState createState() => _EventDetailState();
-}
+class EventDetail extends StatelessWidget {
 
-class _EventDetailState extends State<EventDetail> {
-  Event event;
+  final Event event = Get.arguments as Event;
   bool _error;
 
   @override
-  void initState() {
-    super.initState();
-    event = Get.arguments as Event;
-    _error = (event == null);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    _error = event == null;
     return _checkError();
   }
 

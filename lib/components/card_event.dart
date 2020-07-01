@@ -1,20 +1,28 @@
+import 'package:esgi_project/components/hero_image_network.dart';
+import 'package:esgi_project/components/icon_with_title.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:esgi_project/components/hero_image_network.dart';
-import 'package:esgi_project/components/icon_with_title.dart';
 
-class CardSearchEvent extends StatelessWidget {
+class CardEvent extends StatelessWidget {
   final Event event;
-  final double width, height;
   final VoidCallback onTap;
-  CardSearchEvent(this.event,
-      {this.width: double.infinity, this.height: 100, this.onTap});
+  final EdgeInsetsGeometry margin;
+  final double width, height, widthImage;
+
+  CardEvent(
+    this.event, {
+    Key key,
+    this.onTap,
+    this.margin: EdgeInsets.zero,
+    this.width: double.infinity,
+    this.height: 100,
+    this.widthImage: 100,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +31,7 @@ class CardSearchEvent extends StatelessWidget {
           ? Get.toNamed(Router.eventDetailRoute, arguments: event)
           : onTap(),
       child: Container(
-        margin: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+        margin: margin,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.blueGrey,
@@ -35,7 +43,7 @@ class CardSearchEvent extends StatelessWidget {
             HeroImageNetwork(
               tag: "picture-${event.id}",
               imageUrl: event.pictures[0],
-              width: 100,
+              width: widthImage,
             ),
             Expanded(
               child: Container(
@@ -48,6 +56,7 @@ class CardSearchEvent extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Expanded(
+                          flex: 4,
                           child: Text(
                             event.title,
                             maxLines: 2,
@@ -57,20 +66,21 @@ class CardSearchEvent extends StatelessWidget {
                           ),
                         ),
                         if (event.userId != UserController.to.user.id)
-                          Padding(
-                            padding: EdgeInsets.only(right: 5),
-                            child: GetBuilder<UserController>(
-                              //id: "favorite",
-                              builder: (controller) {
-                                return InkWell(
-                                  onTap: () => controller.addFavorite(event),
-                                  child: Icon(
-                                      controller.isFavorite(event)
-                                          ? FontAwesomeIcons.solidHeart
-                                          : FontAwesomeIcons.heart,
-                                      size: 20),
-                                );
-                              },
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 5),
+                              child: GetBuilder<UserController>(
+                                builder: (controller) {
+                                  return InkWell(
+                                    onTap: () => controller.addFavorite(event),
+                                    child: Icon(
+                                        controller.isFavorite(event)
+                                            ? FontAwesomeIcons.solidHeart
+                                            : FontAwesomeIcons.heart,
+                                        size: 20),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                       ],
@@ -78,12 +88,12 @@ class CardSearchEvent extends StatelessWidget {
                     SizedBox(height: 10),
                     IconWithTitle(
                       icon: Constant.dateIcon18,
-                      title: event.dateStart
+                      title: event.dateStart,
                     ),
                     SizedBox(height: 3),
                     IconWithTitle(
                       icon: Constant.locationOnIcon,
-                      title: "${event.distanceBW}km"
+                      title: "${event.distanceBW}km",
                     ),
                   ],
                 ),
@@ -94,5 +104,4 @@ class CardSearchEvent extends StatelessWidget {
       ),
     );
   }
-  
 }

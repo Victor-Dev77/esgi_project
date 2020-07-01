@@ -1,4 +1,4 @@
-import 'package:esgi_project/components/card_search.dart';
+import 'package:esgi_project/components/card_event.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +71,15 @@ class SearchResult extends StatelessWidget {
       child: ListView.builder(
         itemCount: controller.searchEvent.length,
         itemBuilder: (context, index) {
-          return CardSearchEvent(controller.searchEvent[index]);
+          return CardEvent(
+            controller.searchEvent[index],
+            margin: EdgeInsets.only(
+              top: 10,
+              bottom: 10,
+              left: 20,
+              right: 20,
+            ),
+          );
         },
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:esgi_project/components/card_category.dart';
-import 'package:esgi_project/components/card_search.dart';
+import 'package:esgi_project/components/card_event.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/screens/search.dart';
@@ -9,7 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class Home extends StatelessWidget {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -106,7 +105,15 @@ class Home extends StatelessWidget {
                     return ListView.builder(
                       itemCount: controller.popularEvent.length,
                       itemBuilder: (context, index) {
-                        return CardSearchEvent(controller.popularEvent[index]);
+                        return CardEvent(
+                          controller.popularEvent[index],
+                          margin: EdgeInsets.only(
+                            top: 10,
+                            bottom: 10,
+                            left: 20,
+                            right: 20,
+                          ),
+                        );
                       },
                     );
                   },
@@ -118,5 +125,4 @@ class Home extends StatelessWidget {
       ),
     );
   }
-
 }

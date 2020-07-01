@@ -292,7 +292,6 @@ class AddEventController extends GetxController {
 
   _reinitFields() {
     _validForm = false;
-    //TODO: appeler aussi suppression de image controller (creer un controller pour la gestion des photos de add event)
     List<String> listTmp = List()..addAll(_pictureEvent);
     listTmp.forEach((pic) {
       deletePicture(File(pic));

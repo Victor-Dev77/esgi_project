@@ -1,4 +1,4 @@
-import 'package:esgi_project/components/card_event_map.dart';
+import 'package:esgi_project/components/card_event.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/routes.dart';
@@ -63,9 +63,7 @@ class _MapEventState extends State<MapEvent> {
                         ),
                       );
                     return Marker(
-                      width: index == _indexMarker
-                          ? 200.0
-                          : 45.0,
+                      width: index == _indexMarker ? 200.0 : 45.0,
                       height: index == _indexMarker ? 150.0 : 45.0,
                       point: LatLng(
                         widget.listEvent[index].location["latitude"],
@@ -197,21 +195,26 @@ class _MapEventState extends State<MapEvent> {
           itemCount: widget.listEvent.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return CardEventMap(
-              widget.listEvent[index],
-              onTap: () {
-                setState(() {
-                  _indexMarker = index;
-                  _showInfoEvent = true;
-                  _mapController.move(
-                    LatLng(
-                      widget.listEvent[index].location["latitude"],
-                      widget.listEvent[index].location["longitude"],
-                    ),
-                    13.0,
-                  );
-                });
-              },
+            return Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: CardEvent(
+                widget.listEvent[index],
+                height: 75,
+                width: 275,
+                onTap: () {
+                  setState(() {
+                    _indexMarker = index;
+                    _showInfoEvent = true;
+                    _mapController.move(
+                      LatLng(
+                        widget.listEvent[index].location["latitude"],
+                        widget.listEvent[index].location["longitude"],
+                      ),
+                      13.0,
+                    );
+                  });
+                },
+              ),
             );
           },
         ),
