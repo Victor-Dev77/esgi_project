@@ -27,18 +27,9 @@ class AddEventController extends GetxController {
   bool get validForm => this._validForm;
 
   String _title = "";
-  final TextEditingController _titleController = TextEditingController();
-  TextEditingController get titleController => this._titleController;
-
   String _content = "";
-  final TextEditingController _contentController = TextEditingController();
-  TextEditingController get contentController => this._contentController;
-
   String _address = "";
   Map _location = {};
-  final TextEditingController _addressController = TextEditingController();
-  TextEditingController get addressController => this._addressController;
-
   List<String> _pictureEvent;
 
   int _price = 0;
@@ -72,18 +63,18 @@ class AddEventController extends GetxController {
   }
 
   _validateForm() {
-    bool checked = _checkValidAllFields();
-    if (checked) {
-      _validForm = true;
-    } else {
-      _validForm = false;
-    }
+    _validForm = _checkValidAllFields();
     update();
   }
 
   bool _checkValidAllFields() {
-    //TODO: faire d'autre verifications
-    return _pictureEvent.length > 0 && _address != "";
+    return _pictureEvent.length > 0 &&
+        _address.trim() != "" &&
+        _title.trim() != "" &&
+        _content.trim() != "" &&
+        _categoryController.text.trim() != "" &&
+        _beginDateController.text != "" &&
+        _endDateController.text != "";
   }
 
   String getPicture(int index) {
@@ -243,41 +234,39 @@ class AddEventController extends GetxController {
       Get.dialog(
         AlertDialog(
           title: Text(Localization.confirmAddressEvent.tr),
-          content:
-              Text(Localization.confirmAddressNameEvent.trArgs([location['address']])),
+          content: Text(Localization.confirmAddressNameEvent
+              .trArgs([location['address']])),
           actions: <Widget>[
-                FlatButton(
-                  onPressed: () {
-                    Get.back();
-                    return false;
-                  },
-                  child: Text(Localization.no.tr),
-                ),
-                FlatButton(
-                  onPressed: () {
-                    Get.back();
-                    _address = location['address'];
-                    _location = {
-                      "latitude": location['location'].latitude,
-                      "longitude": location['location'].longitude,
-                    };
-                    return true;
-                  },
-                  child: Text(Localization.yes.tr),
-                ),
-              ],
+            FlatButton(
+              onPressed: () {
+                Get.back();
+                return false;
+              },
+              child: Text(Localization.no.tr),
+            ),
+            FlatButton(
+              onPressed: () {
+                Get.back();
+                _address = location['address'];
+                _location = {
+                  "latitude": location['location'].latitude,
+                  "longitude": location['location'].longitude,
+                };
+                return true;
+              },
+              child: Text(Localization.yes.tr),
+            ),
+          ],
         ),
         barrierDismissible: false,
       );
-    }
-    else
+    } else
       return false;
   }
 
   addEvent() async {
     await _checkAddress();
-    if (_location.isEmpty)
-      return;
+    if (_location.isEmpty) return;
     _validForm = false;
     update();
     _setFieldToEvent();
@@ -319,11 +308,8 @@ class AddEventController extends GetxController {
       preview: true,
     );
     _title = "";
-    _titleController.text = "";
     _content = "";
-    _contentController.text = "";
     _address = "";
-    _addressController.text = "";
     _location = {};
     _price = 0;
     _priceController.text = "";

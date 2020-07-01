@@ -6,22 +6,25 @@ class CustomTextField extends TextFormField {
   final Widget suffixIcon;
   final String hintText;
   final String Function(String) validator;
-  final bool obscureText;
+  final Function(String) onChanged;
+  final VoidCallback onTap;
+  final bool obscureText, readOnly;
 
   CustomTextField({
     Key key,
-    @required this.controller,
+    this.controller,
     this.keyboardType: TextInputType.text,
-    @required this.suffixIcon,
+    this.suffixIcon,
     this.hintText: "",
     this.obscureText: false,
-    @required this.validator,
-  })  : assert(controller != null),
-        assert(suffixIcon != null),
-        assert(validator != null),
-        super(
+    this.readOnly: false,
+    this.validator,
+    this.onChanged,
+    this.onTap,
+  })  : super(
           key: key,
           obscureText: obscureText,
+          readOnly: readOnly,
           keyboardType: keyboardType,
           style: TextStyle(fontWeight: FontWeight.w500),
           decoration: InputDecoration(
@@ -31,5 +34,7 @@ class CustomTextField extends TextFormField {
             labelStyle: TextStyle(fontWeight: FontWeight.w400),
           ),
           validator: validator,
+          onChanged: onChanged,
+          onTap: onTap,
         );
 }
