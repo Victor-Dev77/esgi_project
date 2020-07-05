@@ -53,7 +53,7 @@ class AuthController extends GetxController {
 
   changeIsOrganizerCheck(bool value) {
     _isOrganizerCheckbox = value;
-    update(["isOrganizerCheck"]);
+    update();
   }
   
 
