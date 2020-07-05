@@ -25,7 +25,7 @@ class FirebaseFirestoreAPI {
   }
 
   setUser(Map<String, dynamic> user) async {
-    await _collectionUser.document(user["userId"]).setData(user, merge: true);
+    await _collectionUser.document(user["userId"]).setData(user);
   }
 
   updateUserLocation(String idUser, Map<String, dynamic> location) async {

@@ -38,15 +38,13 @@ class LocationService {
     _locationData = await location.getLocation();
     if (showDialogVerified) showDialogCheckLocation();
     Map<String, dynamic> map = {
-      'location': {
-        'latitude': _locationData.latitude,
-        'longitude': _locationData.longitude,
-      },
+      'latitude': _locationData.latitude,
+      'longitude': _locationData.longitude,
     };
     return map;
   }
 
-  static showDialogCheckLocation() {
+  static showDialogCheckLocation() async {
     Get.dialog(
       Padding(
         padding: EdgeInsets.symmetric(
@@ -80,33 +78,40 @@ class LocationService {
         ),
       ),
     );
-    Future.delayed(Duration(seconds: 2), () {
+    await Future.delayed(Duration(seconds: 2), () {
       if (Get.isDialogOpen) Get.back();
     });
   }
 
-  static updateLocation(String idUser, {bool showDialogVerified: true}) async {
-    Map _location = await getLocation(showDialogVerified: showDialogVerified);
+  static Future<Map<String, dynamic>> updateLocation(String idUser, {bool showDialogVerified: true}) async {
+    Map<String, dynamic> _location = {};
+    Map<String, dynamic> _coord = await getLocation(showDialogVerified: showDialogVerified);
+    _location.addAll({"location": _coord});
     if (_location != null) {
       await _bddRepo.updateUserLocation(idUser, _location);
     } else {
       //TODO: snackbar pour afficher erreur refuser get location
     }
+    return _coord;
   }
 
-  static Future<Map<String, dynamic>> convertAddressToLocation(String address) async {
+  static Future<Map<String, dynamic>> convertAddressToLocation(
+      String address) async {
     // n° rue, codePostal ville
     //String addr = "36 rue de la manevrette, 77580 Guerard";
     try {
       var addresses = await Geocoder.local.findAddressesFromQuery(address);
       var first = addresses.first;
-      print("add: ${first.addressLine} - ${first.adminArea} - ${first.countryCode} - ${first.countryName} - ${first.featureName} - ${first.locality} - ${first.postalCode} - ${first.thoroughfare}");
+      print(
+          "add: ${first.addressLine} - ${first.adminArea} - ${first.countryCode} - ${first.countryName} - ${first.featureName} - ${first.locality} - ${first.postalCode} - ${first.thoroughfare}");
       print(
           "lat: ${first.coordinates.latitude} - lon: ${first.coordinates.longitude}");
-      if (first.locality == null || first.postalCode == null || first.thoroughfare == null)
-        return null;
+      if (first.locality == null ||
+          first.postalCode == null ||
+          first.thoroughfare == null) return null;
       return {
-        "address": "${first.featureName} ${first.thoroughfare}, ${first.postalCode} ${first.locality}",
+        "address":
+            "${first.featureName} ${first.thoroughfare}, ${first.postalCode} ${first.locality}",
         "location": first.coordinates,
       };
     } catch (error) {

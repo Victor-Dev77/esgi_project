@@ -6,7 +6,7 @@ class User {
   final String pseudo;
   final String mail;
   final bool isOrganizer;
-  final Map location;
+  Map location;
 
   User({
     @required this.id,

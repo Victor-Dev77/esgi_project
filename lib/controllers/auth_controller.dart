@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/repositorys/firebase_auth_repository.dart';
 import 'package:esgi_project/repositorys/firebase_firestore_repository.dart';
@@ -12,7 +14,8 @@ class AuthController extends GetxController {
   // sert a acceder a ce controller partout
   static AuthController get to => Get.find();
 
-  Rx<FirebaseUser> _currentUser;
+
+  Stream<FirebaseUser> _onAuthStateChanged;
 
   FirebaseAuthRepository _authRepo = FirebaseAuthRepository.to;
   FirebaseFirestoreRepository _bddRepo = FirebaseFirestoreRepository.to;
@@ -20,15 +23,22 @@ class AuthController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    _currentUser = Rx(await _authRepo.getCurrentUser());
-    _authRepo.onAuthStateChanged.listen((event) async {
+    //_currentUser = Rx(await _authRepo.getCurrentUser());
+    _onAuthStateChanged = _authRepo.onAuthStateChanged;
+    _onAuthStateChanged.listen((event) async {
       if (event == null) {
-        _currentUser.value = null;
+        //_currentUser.value = null;
         Get.offAllNamed(Router.loginRoute);
       } else {
-        _currentUser.value = await _authRepo.getCurrentUser();
-        await LocationService.updateLocation(_currentUser.value.uid);
-        var user = await _bddRepo.getUser(_currentUser.value.uid);
+        FirebaseUser _currentUser = await _authRepo.getCurrentUser();
+        User user = await _bddRepo.getUser(_currentUser.uid);
+        if (user == null) {
+          user = await _registerUser(_currentUser.uid, _emailController.text.trim(), _pseudoController.text.trim(), _passwordController.text.trim(), _isOrganizerCheckbox);
+        }
+        else {
+          var location = await LocationService.updateLocation(_currentUser.uid);
+          user.location = location;
+        }
         if (user != null) {
           UserController.to.initUser(user);
           Get.offAllNamed(Router.squeletonRoute);
@@ -67,13 +77,9 @@ class AuthController extends GetxController {
 
   signUp() async {
     try {
-      var newUser = await _authRepo.signUp(_emailController.text.trim(), _passwordController.text.trim());
-      if (newUser != null) {
-        await _registerUser(
-            newUser.user.uid, _emailController.text.trim(), _pseudoController.text.trim(), _passwordController.text.trim(), _isOrganizerCheckbox);
-      }
+      await _authRepo.signUp(_emailController.text.trim(), _passwordController.text.trim());
     } catch (err) {
-      print("ERROR: AuthController: signUp()");
+      print("ERROR: AuthController: signUp() - $err");
     }
   }
 
@@ -81,7 +87,9 @@ class AuthController extends GetxController {
       String password, bool isOrganizer) async {
     var location = await LocationService.getLocation();
     User user = User(id: id, mail: email, pseudo: pseudo, isOrganizer: isOrganizer, location: location);
+    UserController.to.initUser(user);
     await _bddRepo.setUser(user.toMap());
+    print("user in bdd: $user");
     return user;
   }
 
