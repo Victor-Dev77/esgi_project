@@ -18,8 +18,8 @@ class FirebaseFirestoreAPI {
         return User.fromDocument(doc);
       }
       return null;
-    } catch (_) {
-      print("ERROR: Firebase Firestore API: GetUser()");
+    } catch (err) {
+      print("ERROR: Firebase Firestore API: GetUser() - $err");
       return null;
     }
   }
@@ -49,8 +49,8 @@ class FirebaseFirestoreAPI {
         _listEvent.add(Event.fromDocument(event));
       });
       return _listEvent;
-    } catch (_) {
-      print("ERROR: Firebase Firestore API: getMyEvents()");
+    } catch (err) {
+      print("ERROR: Firebase Firestore API: getMyEvents() - $err");
       return [];
     }
   }
@@ -63,8 +63,8 @@ class FirebaseFirestoreAPI {
         _listEvent.add(Event.fromDocument(event));
       });
       return _listEvent;
-    } catch (_) {
-      print("ERROR: Firebase Firestore API: getPopularEvents()");
+    } catch (err) {
+      print("ERROR: Firebase Firestore API: getPopularEvents() - $err");
       return [];
     }
   }
@@ -79,8 +79,8 @@ class FirebaseFirestoreAPI {
         _listEvent.add(Event.fromDocument(event));
       });
       return _listEvent;
-    } catch (_) {
-      print("ERROR: Firebase Firestore API: getEventsWithCategory()");
+    } catch (err) {
+      print("ERROR: Firebase Firestore API: getEventsWithCategory() - $err");
       return [];
     }
   }
@@ -136,8 +136,8 @@ class FirebaseFirestoreAPI {
       });
       print("list fav: ${_listEvent.length}");
       return _listEvent;
-    } catch (_) {
-      print("ERROR: Firebase Firestore API: getMyFavoritesEvents()");
+    } catch (err) {
+      print("ERROR: Firebase Firestore API: getMyFavoritesEvents() - $err");
       return [];
     }
   }

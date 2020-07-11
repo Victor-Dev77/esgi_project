@@ -19,32 +19,36 @@ class AddEvent extends StatelessWidget {
           child: Container(
             child: Form(
               key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  _buildPreviewBtn(),
-                  _buildTitleScreen(),
-                  Container(
-                    height: 115.0,
-                    child: _buildImageGridEvent(),
-                  ),
-                  _buildTitleField(),
-                  _buildContentField(),
-                  _buildTypeEventField(),
-                  _buildAddressField(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: GetBuilder<AddEventController>(
+                builder: (controller) {
+                  return Column(
                     children: <Widget>[
-                      Expanded(
-                        child: _buildDateBeginField(),
+                      _buildPreviewBtn(),
+                      _buildTitleScreen(),
+                      Container(
+                        height: 115.0,
+                        child: _buildImageGridEvent(controller),
                       ),
-                      Expanded(
-                        child: _buildDateEndField(),
+                      _buildTitleField(controller),
+                      _buildContentField(controller),
+                      _buildTypeEventField(),
+                      _buildAddressField(controller),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Expanded(
+                            child: _buildDateBeginField(controller),
+                          ),
+                          Expanded(
+                            child: _buildDateEndField(controller),
+                          ),
+                        ],
                       ),
+                      _buildPriceField(),
+                      _buildBtnAddEvent(controller),
                     ],
-                  ),
-                  _buildPriceField(),
-                  _buildBtnAddEvent(),
-                ],
+                  );
+                },
               ),
             ),
           ),
@@ -79,46 +83,48 @@ class AddEvent extends StatelessWidget {
     );
   }
 
-  Widget _buildTitleField() {
+  Widget _buildTitleField(AddEventController controller) {
     return Padding(
       padding: EdgeInsets.all(15),
       child: CustomTextField(
+        controller: controller.titleController,
         suffixIcon: Icon(Icons.event_note),
         hintText: Localization.nameEvent.tr,
-        onChanged: (value) => AddEventController.to.changeTitleEvent(value),
+        onChanged: (value) => controller.changeValue(),
       ),
     );
   }
 
-  Widget _buildContentField() {
+  Widget _buildContentField(AddEventController controller) {
     return Padding(
       padding: EdgeInsets.all(15),
       child: CustomTextField(
+        controller: controller.contentController,
         suffixIcon: Icon(Icons.event_note),
         hintText: Localization.descriptionEvent.tr,
-        onChanged: (value) => AddEventController.to.changeContentEvent(value),
+        onChanged: (value) => controller.changeValue(),
       ),
     );
   }
 
   Widget _buildTypeEventField() {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(15),
-          child: CustomTextField(
-            controller: AddEventController.to.categoryController,
-            suffixIcon: Icon(Icons.keyboard_arrow_down),
-            hintText: Localization.typeEvent.tr,
-            readOnly: true,
-            onTap: () => AddEventController.to.setCategoryShow(),
-          ),
-        ),
-        GetBuilder<AddEventController>(
-          id: "category",
-          builder: (controller) {
+    return GetBuilder<AddEventController>(
+      id: "category",
+      builder: (controller) {
+        return Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: CustomTextField(
+                controller: controller.categoryController,
+                suffixIcon: Icon(Icons.keyboard_arrow_down),
+                hintText: Localization.typeEvent.tr,
+                readOnly: true,
+                onTap: () => controller.setCategoryShow(),
+              ),
+            ),
             if (controller.categoryShow)
-              return Container(
+              Container(
                 color: Colors.grey[100],
                 child: ListView.builder(
                   itemCount: Constant.category.length,
@@ -126,69 +132,68 @@ class AddEvent extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return RadioListTile(
-                        value: index,
-                        groupValue: controller.category,
-                        title: Text(
-                          Constant.category[index]["title"],
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        onChanged: (val) => controller.setCategory(val));
+                      value: index,
+                      groupValue: controller.category,
+                      title: Text(
+                        Constant.category[index]["title"],
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onChanged: (val) => controller.setCategory(val),
+                    );
                   },
                 ),
-              );
-            return Container();
-          },
-        ),
-      ],
+              )
+          ],
+        );
+      },
     );
   }
 
-  Widget _buildAddressField() {
+  Widget _buildAddressField(AddEventController controller) {
     return Padding(
       padding: EdgeInsets.all(15),
       child: CustomTextField(
+        controller: controller.addressController,
         suffixIcon: Icon(Icons.pin_drop),
         hintText: Localization.addressEvent.tr,
-        onChanged: (value) => AddEventController.to.changeAddressEvent(value),
+        onChanged: (value) => controller.changeValue(),
       ),
     );
   }
 
-  Widget _buildDateBeginField() {
+  Widget _buildDateBeginField(AddEventController controller) {
     return Padding(
       padding: EdgeInsets.all(15),
       child: CustomTextField(
-        controller: AddEventController.to.beginDateController,
+        controller: controller.beginDateController,
         readOnly: true,
         suffixIcon: Icon(Icons.calendar_today),
         hintText: Localization.beginDateEvent.tr,
-        onTap: () => AddEventController.to
-            .selectDateEvent(AddEventController.to.beginDateController),
+        onTap: () => controller.selectDateEvent(controller.beginDateController),
       ),
     );
   }
 
-  Widget _buildDateEndField() {
+  Widget _buildDateEndField(AddEventController controller) {
     return Padding(
       padding: EdgeInsets.all(15),
       child: CustomTextField(
-        controller: AddEventController.to.endDateController,
+        controller: controller.endDateController,
         readOnly: true,
         suffixIcon: Icon(Icons.calendar_today),
         hintText: Localization.endDateEvent.tr,
-        onTap: () => AddEventController.to
-            .selectDateEvent(AddEventController.to.endDateController),
+        onTap: () => controller.selectDateEvent(controller.endDateController),
       ),
     );
   }
 
   Widget _buildPriceField() {
-    return Padding(
-      padding: EdgeInsets.all(15),
-      child: GetBuilder<AddEventController>(
-        id: "price",
-        builder: (controller) {
-          return Row(
+    return GetBuilder<AddEventController>(
+      id: "price",
+      builder: (controller) {
+        return Padding(
+          padding: EdgeInsets.all(15),
+          child: Row(
             children: <Widget>[
               Text(Localization.priceTitle.tr),
               SizedBox(width: 10),
@@ -220,72 +225,62 @@ class AddEvent extends StatelessWidget {
                 ),
               ),
             ],
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildImageGridEvent() {
-    return GetBuilder<AddEventController>(
-      builder: (controller) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            CardAddImage(
-              image: controller.getPicture(0),
-              imageLoad: (file) => controller.addPicture(file),
-              imageRemove: (file) => controller.deletePicture(file),
-            ),
-            CardAddImage(
-              image: controller.getPicture(1),
-              imageLoad: (file) => controller.addPicture(file),
-              imageRemove: (file) => controller.deletePicture(file),
-            ),
-            CardAddImage(
-              image: controller.getPicture(2),
-              imageLoad: (file) => controller.addPicture(file),
-              imageRemove: (file) => controller.deletePicture(file),
-            ),
-          ],
+          ),
         );
       },
     );
   }
 
-  Widget _buildBtnAddEvent() {
+  Widget _buildImageGridEvent(AddEventController controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        CardAddImage(
+          image: controller.getPicture(0),
+          imageLoad: (file) => controller.addPicture(file),
+          imageRemove: (file) => controller.deletePicture(file),
+        ),
+        CardAddImage(
+          image: controller.getPicture(1),
+          imageLoad: (file) => controller.addPicture(file),
+          imageRemove: (file) => controller.deletePicture(file),
+        ),
+        CardAddImage(
+          image: controller.getPicture(2),
+          imageLoad: (file) => controller.addPicture(file),
+          imageRemove: (file) => controller.deletePicture(file),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBtnAddEvent(AddEventController controller) {
     return Padding(
       padding: EdgeInsets.all(32),
-      child: GetBuilder<AddEventController>(
-        builder: (controller) {
-          return InkWell(
-            onTap: () => controller.validForm ? controller.addEvent() : null,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    controller.validForm ? Colors.blueGrey : Colors.grey,
-                    controller.validForm ? Colors.blue : Colors.grey
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(32),
-              ),
-              width: double.infinity,
-              height: 50,
-              child: Center(
-                child: Text(
-                  Localization.addEvent.tr,
-                  style: TextStyle(
-                      color: controller.validForm
-                          ? Colors.white
-                          : Colors.grey[100],
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20),
-                ),
-              ),
+      child: InkWell(
+        onTap: () => controller.validForm ? controller.addEvent() : null,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: <Color>[
+                controller.validForm ? Colors.blueGrey : Colors.grey,
+                controller.validForm ? Colors.blue : Colors.grey
+              ],
             ),
-          );
-        },
+            borderRadius: BorderRadius.circular(32),
+          ),
+          width: double.infinity,
+          height: 50,
+          child: Center(
+            child: Text(
+              Localization.addEvent.tr,
+              style: TextStyle(
+                  color: controller.validForm ? Colors.white : Colors.grey[100],
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20),
+            ),
+          ),
+        ),
       ),
     );
   }

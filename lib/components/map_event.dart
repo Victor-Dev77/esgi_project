@@ -30,10 +30,7 @@ class _MapEventState extends State<MapEvent> {
           FlutterMap(
             mapController: _mapController,
             options: MapOptions(
-              center: LatLng(
-                UserController.to.user.location["latitude"],
-                UserController.to.user.location["longitude"],
-              ),
+              center: checkLocation(),
               zoom: 11.0,
             ),
             layers: [
@@ -44,9 +41,9 @@ class _MapEventState extends State<MapEvent> {
                   errorImage: AssetImage("assets/logo.png")),
               MarkerLayerOptions(
                 markers: List.generate(
-                  widget.listEvent.length + 1,
+                  UserController.to.user.location != null ? widget.listEvent.length + 1 : widget.listEvent.length,
                   (index) {
-                    if (index == widget.listEvent.length)
+                    if (UserController.to.user.location != null && index == widget.listEvent.length)
                       return Marker(
                         width: 45.0,
                         height: 45.0,
@@ -82,6 +79,18 @@ class _MapEventState extends State<MapEvent> {
           Align(alignment: Alignment.bottomCenter, child: _buildListEvent()),
         ],
       ),
+    );
+  }
+
+  LatLng checkLocation() {
+    if (UserController.to.user.location == null)
+      return LatLng(
+        widget.listEvent[0].location["latitude"],
+        widget.listEvent[0].location["longitude"],
+      );
+    return LatLng(
+      UserController.to.user.location["latitude"],
+      UserController.to.user.location["longitude"],
     );
   }
 

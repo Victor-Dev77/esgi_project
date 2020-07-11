@@ -13,7 +13,7 @@ class MyEventController extends GetxController {
   FirebaseFirestoreRepository _bddRepo = FirebaseFirestoreRepository.to;
   FirebaseStorageRepository _storageRepo = FirebaseStorageRepository.to;
 
-  List<Event> _myEvents;
+  List<Event> _myEvents = [];
   List<Event> get myEvents => this._myEvents;
 
   @override

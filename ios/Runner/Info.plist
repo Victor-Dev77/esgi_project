@@ -48,6 +48,8 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Calculer la distance entre vous et les événements</string>
 	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Calculer la distance entre vous et les événements</string>
 </dict>
 </plist>

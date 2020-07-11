@@ -40,8 +40,8 @@ class Event {
       address: doc['address'],
       location: doc['location'],
       distanceBW: calculateDistance(
-              UserController.to.user.location['latitude'],
-              UserController.to.user.location['longitude'],
+              UserController.to.user.location == null ? doc['location']['latitude'] : UserController.to.user.location['latitude'],
+              UserController.to.user.location == null ? doc['location']['longitude'] : UserController.to.user.location['longitude'],
               doc['location']['latitude'],
               doc['location']['longitude'])
           .round(),

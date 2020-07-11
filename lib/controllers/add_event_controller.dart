@@ -26,9 +26,15 @@ class AddEventController extends GetxController {
   bool _validForm = false;
   bool get validForm => this._validForm;
 
-  String _title = "";
-  String _content = "";
-  String _address = "";
+  final TextEditingController _titleController = TextEditingController();
+  TextEditingController get titleController => this._titleController;
+
+  final TextEditingController _contentController = TextEditingController();
+  TextEditingController get contentController => this._contentController;
+
+  final TextEditingController _addressController = TextEditingController();
+  TextEditingController get addressController => this._addressController;
+
   Map _location = {};
   List<String> _pictureEvent;
 
@@ -69,9 +75,9 @@ class AddEventController extends GetxController {
 
   bool _checkValidAllFields() {
     return _pictureEvent.length > 0 &&
-        _address.trim() != "" &&
-        _title.trim() != "" &&
-        _content.trim() != "" &&
+        _addressController.text.trim() != "" &&
+        _titleController.text.trim() != "" &&
+        _contentController.text.trim() != "" &&
         _categoryController.text.trim() != "" &&
         _beginDateController.text != "" &&
         _endDateController.text != "";
@@ -92,18 +98,7 @@ class AddEventController extends GetxController {
     _validateForm();
   }
 
-  changeTitleEvent(String title) {
-    _title = title;
-    _validateForm();
-  }
-
-  changeContentEvent(String content) {
-    _content = content;
-    _validateForm();
-  }
-
-  changeAddressEvent(String address) async {
-    _address = address;
+  changeValue() {
     _validateForm();
   }
 
@@ -202,9 +197,9 @@ class AddEventController extends GetxController {
   }
 
   _setFieldToEvent() {
-    _event.title = _title;
-    _event.content = _content;
-    _event.address = _address;
+    _event.title = _titleController.text.trim();
+    _event.content = _contentController.text.trim();
+    _event.address = _addressController.text.trim();
     _event.price = _price;
     _event.dateStart = _beginDateController.text;
     _event.dateEnd = _endDateController.text;
@@ -222,9 +217,9 @@ class AddEventController extends GetxController {
 
   Future<bool> _checkAddress() async {
     // checker adresse en convertissant en coord gps => si pas possible alors addresse incorrect
-    print("addresse: $_address");
-    if (_address != "") {
-      var location = await LocationService.convertAddressToLocation(_address);
+    print("addresse: $_addressController");
+    if (_addressController != "") {
+      var location = await LocationService.convertAddressToLocation(_addressController.text.trim());
       if (location == null) {
         //show snackbar
         CustomSnackbar.snackbar(Localization.errorAddress.tr);
@@ -247,7 +242,7 @@ class AddEventController extends GetxController {
             FlatButton(
               onPressed: () {
                 Get.back();
-                _address = location['address'];
+                _addressController.text = location['address'];
                 _location = {
                   "latitude": location['location'].latitude,
                   "longitude": location['location'].longitude,
@@ -306,9 +301,9 @@ class AddEventController extends GetxController {
       price: 0,
       preview: true,
     );
-    _title = "";
-    _content = "";
-    _address = "";
+    _titleController.text = "";
+    _contentController.text = "";
+    _addressController.text = "";
     _location = {};
     _price = 0;
     _priceController.text = "";
@@ -319,5 +314,6 @@ class AddEventController extends GetxController {
     _categoryController.text = "";
     update(["price"]);
     update(["category"]);
+    update();
   }
 }
