@@ -13,11 +13,13 @@ class IconWithTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Wrap(
+      direction: Axis.horizontal,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: <Widget>[
         icon,
         SizedBox(width: spaceBW),
-        Text(title, style: TextStyle(color: color),),
+        Text(title, style: TextStyle(color: color), ),
       ],
     );
   }

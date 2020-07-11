@@ -71,7 +71,7 @@ class AuthController extends GetxController {
     try {
       await _authRepo.signIn(_emailController.text.trim(), _passwordController.text.trim());
     } catch (err) {
-      print("ERROR: AuthController: signin()");
+      print("ERROR: AuthController: signin() - $err");
     }
   }
 

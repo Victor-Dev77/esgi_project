@@ -54,7 +54,7 @@ class Login extends StatelessWidget {
             height: 300
         ),
         Text(
-          "WE\nMOUV",
+          "WEMOUV",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -113,7 +113,7 @@ class Login extends StatelessWidget {
             child: Text(
               Localization.signUpTitle.tr,
               style: TextStyle(
-                color: ConstantColor.primaryColor,
+                color: ConstantColor.white,
                 fontWeight: FontWeight.bold,
               ),
             ),

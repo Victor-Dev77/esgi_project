@@ -11,6 +11,9 @@ class MyEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: ConstantColor.white, //change your color here
+        ),
         backgroundColor: ConstantColor.backgroundColor,
         title: Text(
             Localization.myEventsTitle.trArgs([MyEventController.to.myEvents.length.toString()]),

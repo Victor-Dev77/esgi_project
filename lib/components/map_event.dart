@@ -35,10 +35,14 @@ class _MapEventState extends State<MapEvent> {
             ),
             layers: [
               TileLayerOptions(
-                  urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: ['a', 'b', 'c'],
-                  errorImage: AssetImage("assets/logo.png")),
+                urlTemplate:
+                "https://api.mapbox.com/styles/v1/{style}/tiles/256/{z}/{x}/{y}?access_token={accessToken}",
+                additionalOptions: {
+                  'style': "wemouv/ckc9798x02vgc1ipjusua5lbm",
+                  'accessToken':
+                  'pk.eyJ1Ijoid2Vtb3V2IiwiYSI6ImNqcGgxN21tZjBwYWgzcWxxZ242NHd5NjkifQ.dbudKtF6QmygxeD1osCvbA',
+                },
+              ),
               MarkerLayerOptions(
                 markers: List.generate(
                   UserController.to.user.location != null ? widget.listEvent.length + 1 : widget.listEvent.length,

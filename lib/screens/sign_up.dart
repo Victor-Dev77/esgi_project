@@ -143,7 +143,7 @@ class SignUp extends StatelessWidget {
             child: Text(
               Localization.signInTitle.tr,
               style: TextStyle(
-                color: ConstantColor.primaryColor,
+                color: ConstantColor.white,
                 fontWeight: FontWeight.bold,
               ),
             ),

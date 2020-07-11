@@ -23,6 +23,7 @@ class MyEventCard extends StatelessWidget {
       children: <Widget>[
         CardEvent(
           event,
+          favEnable: false,
           height: 100,
           margin: EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 30),
         ),

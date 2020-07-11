@@ -84,7 +84,7 @@ class Search extends StatelessWidget {
         () => CustomTextField(
           readOnly: true,
           controller: controller.dateController,
-          suffixIcon: Icon(Icons.calendar_today),
+          suffixIcon: Icon(Icons.calendar_today, color: ConstantColor.backgroundColor,),
           hintText: Localization.dateEvent.tr,
           onTap: () => controller.showDate(),
         ),

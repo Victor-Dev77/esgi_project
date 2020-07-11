@@ -14,6 +14,7 @@ class CardEvent extends StatelessWidget {
   final VoidCallback onTap;
   final EdgeInsetsGeometry margin;
   final double width, height, widthImage;
+  final bool favEnable;
 
   CardEvent(
     this.event, {
@@ -23,6 +24,7 @@ class CardEvent extends StatelessWidget {
     this.width: double.infinity,
     this.height: 100,
     this.widthImage: 100,
+        this.favEnable: true
   }) : super(key: key);
 
   @override
@@ -66,7 +68,7 @@ class CardEvent extends StatelessWidget {
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                         ),
-                        if (event.userId != UserController.to.user.id)
+                        if (event.userId != UserController.to.user.id && favEnable)
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.only(right: 5),

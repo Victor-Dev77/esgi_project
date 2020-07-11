@@ -17,11 +17,11 @@ class RoundBtn extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: Text(
           text,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
+          style: TextStyle(color: ConstantColor.backgroundColor, fontWeight: FontWeight.w500),
         ),
       ),
       elevation: 6.0,
-      fillColor: ConstantColor.primaryColor,
+      fillColor: ConstantColor.white,
       shape: StadiumBorder(),
     );
   }

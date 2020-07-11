@@ -10,6 +10,7 @@ class CustomTextField extends TextFormField {
   final Function(String) onChanged;
   final VoidCallback onTap;
   final bool obscureText, readOnly;
+  final Color color;
 
   CustomTextField({
     Key key,
@@ -22,18 +23,19 @@ class CustomTextField extends TextFormField {
     this.validator,
     this.onChanged,
     this.onTap,
+    this.color: const Color(0xffFFF8E1)
   })  : super(
           key: key,
           obscureText: obscureText,
           readOnly: readOnly,
           keyboardType: keyboardType,
-          style: TextStyle(fontWeight: FontWeight.w500, color: ConstantColor.white),
+          style: TextStyle(fontWeight: FontWeight.w500, color: color),
           decoration: InputDecoration(
             suffixIcon: suffixIcon,
             hintText: hintText,
-            hintStyle: TextStyle(color: ConstantColor.primaryColor),
+            hintStyle: TextStyle(color: color),
             labelText: hintText,
-            labelStyle: TextStyle(fontWeight: FontWeight.w400, color: ConstantColor.primaryColor),
+            labelStyle: TextStyle(fontWeight: FontWeight.w400, color: color),
           ),
           validator: validator,
           onChanged: onChanged,
