@@ -8,8 +8,6 @@ import 'package:esgi_project/repositorys/firebase_storage_repository.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/services/location_service.dart';
 import 'package:esgi_project/utils/constant.dart';
-import 'package:esgi_project/utils/constant_color.dart';
-import 'package:esgi_project/utils/functions.dart';
 import 'package:esgi_project/utils/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

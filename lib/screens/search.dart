@@ -1,8 +1,6 @@
 import 'package:esgi_project/components/chip_category.dart';
 import 'package:esgi_project/components/custom_textfield.dart';
 import 'package:esgi_project/components/dialog_list_category.dart';
-import 'package:esgi_project/components/select_date.dart';
-import 'package:esgi_project/controllers/add_event_controller.dart';
 import 'package:esgi_project/controllers/filter_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/utils/constant_color.dart';
