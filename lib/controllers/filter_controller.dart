@@ -1,3 +1,4 @@
+import 'package:esgi_project/components/select_date.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,8 +13,8 @@ class FilterController extends GetxController {
   RxList<String> _listCategory = List<String>().obs;
   List<String> get listCategory => this._listCategory.value;
 
-  final TextEditingController _dateController = TextEditingController();
-  TextEditingController get dateController => this._dateController;
+  final Rx<Object> _dateController = TextEditingController().obs;
+  TextEditingController get dateController => this._dateController.value;
 
 
   addCategory(String category) => _listCategory.add(category);
@@ -21,9 +22,13 @@ class FilterController extends GetxController {
   deleteCategory(String category) => _listCategory.remove(category);
 
   changeDistance(double distance) => _distance.value = distance.round();
+
+  showDate() async {
+    await SelectDate.show(_dateController.value);
+  }
   
   saveSearch() {
-    if (_dateController.text != "")
+    if (dateController.value.text != "")
       _changeValues["date"] = dateController.text;
     _changeValues["category"] = listCategory;
     _changeValues["distance"] = distance;

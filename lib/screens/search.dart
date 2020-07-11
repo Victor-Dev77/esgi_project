@@ -1,5 +1,7 @@
 import 'package:esgi_project/components/chip_category.dart';
+import 'package:esgi_project/components/custom_textfield.dart';
 import 'package:esgi_project/components/dialog_list_category.dart';
+import 'package:esgi_project/components/select_date.dart';
 import 'package:esgi_project/controllers/add_event_controller.dart';
 import 'package:esgi_project/controllers/filter_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
@@ -78,17 +80,15 @@ class Search extends StatelessWidget {
   Widget _buildBlocDate() {
     return Padding(
       padding: EdgeInsets.only(left: 25, right: 25, top: 50, bottom: 20),
-      child: TextField(
+      child: Obx(
+        () => CustomTextField(
           readOnly: true,
-          onTap: () {
-            AddEventController.to.selectDateEvent(controller.dateController);
-          },
           controller: controller.dateController,
-          style: TextStyle(fontWeight: FontWeight.w500),
-          decoration: InputDecoration(
-              suffixIcon: Icon(Icons.calendar_today),
-              hintText: Localization.dateEvent.tr,
-              labelStyle: TextStyle(fontWeight: FontWeight.w400))),
+          suffixIcon: Icon(Icons.calendar_today),
+          hintText: Localization.dateEvent.tr,
+          onTap: () => controller.showDate(),
+        ),
+      ),
     );
   }
 

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:esgi_project/components/select_date.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/models/event.dart';
@@ -127,73 +128,9 @@ class AddEventController extends GetxController {
     _validateForm();
   }
 
-  Future<String> selectDateEvent(
-      TextEditingController editingController) async {
-    if (GetPlatform.isAndroid) {
-      String date = await _selectDateAndroid();
-      if (date != null) {
-        editingController.text = date;
-        _validateForm();
-        return date;
-      }
-    } else if (GetPlatform.isIOS) {
-      String date = await _selectDateIOS(callback: (date) {
-        editingController.text = date;
-        _validateForm();
-        return date;
-      });
-      editingController.text = date;
-      _validateForm();
-      return date;
-    }
-    return null;
-  }
-
-  Future<String> _selectDateAndroid() async {
-    final now = DateTime.now();
-    final DateTime picked = await showDatePicker(
-      context: Get.overlayContext,
-      initialDate: now,
-      firstDate: now,
-      lastDate: DateTime(now.year + 1, now.month, now.day),
-      locale: Locale('fr', 'FR'),
-    );
-    if (picked != null) {
-      TimeOfDay time = await _selectTime();
-      DateTime date = picked
-          .toLocal()
-          .add(Duration(hours: time.hour, minutes: time.minute));
-      return parseDateTime(date.toLocal(), 'dd/MM/yyyy HH:mm');
-    }
-    return null;
-  }
-
-  Future<TimeOfDay> _selectTime() async {
-    TimeOfDay t = await showTimePicker(
-        context: Get.overlayContext, initialTime: TimeOfDay.now());
-    if (t != null) return t;
-    return TimeOfDay.now();
-  }
-
-  Future<String> _selectDateIOS({@required Function(String) callback}) async {
-    final now = DateTime.now();
-    Get.bottomSheet(
-        SizedBox(
-          height: 250,
-          child: CupertinoDatePicker(
-            initialDateTime: now,
-            minimumDate: now,
-            maximumDate: DateTime(now.year + 1, now.month, now.day),
-            use24hFormat: true,
-            backgroundColor: ConstantColor.white,
-            onDateTimeChanged: (date) {
-              // callback();
-              return parseDateTime(date.toLocal(), 'dd/MM/yyyy HH:mm');
-            },
-          ),
-        ),
-        isDismissible: true);
-    return parseDateTime(now.toLocal(), 'dd/MM/yyyy HH:mm');
+  selectDateEvent(TextEditingController editingController) async {
+    await SelectDate.show(editingController);
+    _validateForm();
   }
 
   _setFieldToEvent() {
@@ -219,7 +156,8 @@ class AddEventController extends GetxController {
     // checker adresse en convertissant en coord gps => si pas possible alors addresse incorrect
     print("addresse: $_addressController");
     if (_addressController != "") {
-      var location = await LocationService.convertAddressToLocation(_addressController.text.trim());
+      var location = await LocationService.convertAddressToLocation(
+          _addressController.text.trim());
       if (location == null) {
         //show snackbar
         CustomSnackbar.snackbar(Localization.errorAddress.tr);
