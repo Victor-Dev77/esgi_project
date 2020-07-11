@@ -69,6 +69,7 @@ class Home extends StatelessWidget {
               itemCount: Constant.category.length,
               itemBuilder: (context, index) {
                 Map data = Constant.category[index];
+                print("data categorie: $data");
                 return CardCategory(
                     iconData: data["icon"], title: data["title"]);
               },

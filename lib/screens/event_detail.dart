@@ -13,7 +13,6 @@ import 'package:esgi_project/components/hero_image_network.dart';
 import 'package:esgi_project/components/icon_with_title.dart';
 
 class EventDetail extends StatelessWidget {
-
   final Event event = Get.arguments as Event;
   bool _error;
 
@@ -283,9 +282,13 @@ class EventDetail extends StatelessWidget {
 
   Widget _buildBtnFavorite() {
     if (event.userId != UserController.to.user.id)
-      return FavoriteBtn(
-        event: event,
-        enabled: UserController.to.isFavorite(event),
+      return GetBuilder<UserController>(
+        builder: (controller) {
+          return FavoriteBtn(
+            event: event,
+            enabled: controller.isFavorite(event),
+          );
+        },
       );
     return Container();
   }

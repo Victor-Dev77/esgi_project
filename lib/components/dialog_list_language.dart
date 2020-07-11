@@ -1,3 +1,4 @@
+import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,5 +41,6 @@ class DialogListLanguage extends StatelessWidget {
   _setLanguage(Locale locale) {
     Get.back();
     Get.updateLocale(locale);
+    Constant.updateCategoryTranslation();
   }
 }

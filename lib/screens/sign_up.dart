@@ -53,7 +53,7 @@ class SignUp extends StatelessWidget {
       controller: AuthController.to.emailController,
       suffixIcon: Icon(Icons.email),
       hintText: Localization.yourEmail.tr,
-      validator: FieldValidator.email(message: Localization.errorEmail.tr),
+      validator: FieldValidator.regExp(Constant.regexEmail, Localization.errorEmail.tr),
     );
   }
 
