@@ -1,6 +1,7 @@
 import 'package:esgi_project/components/card_event.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:esgi_project/components/map_event.dart';
@@ -10,7 +11,11 @@ class SearchResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Localization.eventTitle.tr),
+        backgroundColor: ConstantColor.backgroundColor,
+        iconTheme: IconThemeData(
+          color: ConstantColor.white, //change your color here
+        ),
+        title: Text(Localization.eventTitle.tr, style: TextStyle(color: ConstantColor.white),),
         actions: <Widget>[
           _buildChangeResultModeBtn(),
         ],
@@ -29,7 +34,7 @@ class SearchResult extends StatelessWidget {
       child: GetBuilder<SearchEventController>(
         builder: (controller) {
           return IconButton(
-            icon: Icon(controller.showMapResult ? Icons.list : Icons.map),
+            icon: Icon(controller.showMapResult ? Icons.list : Icons.map, color:ConstantColor.white),
             onPressed: () => controller.changeModeResult(),
           );
         },
@@ -44,7 +49,7 @@ class SearchResult extends StatelessWidget {
       );
     if (controller.searchEvent.length == 0)
       return Center(
-        child: Text(Localization.noEventTitle.tr),
+        child: Text(Localization.noEventTitle.tr, style: TextStyle(color: ConstantColor.white),),
       );
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 5),

@@ -181,9 +181,9 @@ class _MapEventState extends State<MapEvent> {
         decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                ConstantColor.primaryColor,
-                Color(0xffbacde0),
                 ConstantColor.white,
+                Color(0xff85847c),
+                ConstantColor.backgroundColor,
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,

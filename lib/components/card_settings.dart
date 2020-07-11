@@ -15,7 +15,11 @@ class CardSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Card(
-        color: ConstantColor.primaryColor,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: ConstantColor.primaryColor, width: 1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        color: ConstantColor.white,
         child: InkWell(
           splashColor: ConstantColor.primaryColor.withAlpha(80),
           onTap: onTap,
@@ -25,7 +29,7 @@ class CardSettings extends StatelessWidget {
             child: Center(
               child: Text(
                 text,
-                style: TextStyle(color: ConstantColor.white),
+                style: TextStyle(color: ConstantColor.backgroundColor, fontWeight: FontWeight.bold),
               ),
             ),
           ),

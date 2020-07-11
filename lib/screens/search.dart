@@ -20,8 +20,8 @@ class Search extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            ConstantColor.primaryColor,
             ConstantColor.white,
+            ConstantColor.backgroundColor,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -109,7 +109,7 @@ class Search extends StatelessWidget {
                   IconButton(
                     icon: Icon(
                       FontAwesomeIcons.plusCircle,
-                      color: Colors.grey[800],
+                      color: ConstantColor.backgroundColor,
                     ),
                     onPressed: _showDialogCategory,
                   )
@@ -183,8 +183,8 @@ class Search extends StatelessWidget {
               value: controller.distance.toDouble(),
               max: 100.0,
               min: 0.0,
-              inactiveColor: Colors.grey,
-              activeColor: Colors.redAccent,
+              inactiveColor: Colors.black38,
+              activeColor: ConstantColor.white,
             ),
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/models/event.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,7 @@ class CardEvent extends StatelessWidget {
         margin: margin,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.blueGrey,
+          color: ConstantColor.white,
         ),
         height: height,
         width: width,
@@ -77,7 +78,7 @@ class CardEvent extends StatelessWidget {
                                         controller.isFavorite(event)
                                             ? FontAwesomeIcons.solidHeart
                                             : FontAwesomeIcons.heart,
-                                        size: 20),
+                                        size: 20, color: Colors.redAccent,),
                                   );
                                 },
                               ),
@@ -89,11 +90,13 @@ class CardEvent extends StatelessWidget {
                     IconWithTitle(
                       icon: Constant.dateIcon18,
                       title: event.dateStart,
+                      color: ConstantColor.backgroundColor,
                     ),
                     SizedBox(height: 3),
                     IconWithTitle(
                       icon: Constant.locationOnIcon,
                       title: "${event.distanceBW}km",
+                      color: ConstantColor.backgroundColor,
                     ),
                   ],
                 ),

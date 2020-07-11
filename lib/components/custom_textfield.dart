@@ -1,3 +1,4 @@
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends TextFormField {
@@ -26,12 +27,13 @@ class CustomTextField extends TextFormField {
           obscureText: obscureText,
           readOnly: readOnly,
           keyboardType: keyboardType,
-          style: TextStyle(fontWeight: FontWeight.w500),
+          style: TextStyle(fontWeight: FontWeight.w500, color: ConstantColor.white),
           decoration: InputDecoration(
             suffixIcon: suffixIcon,
             hintText: hintText,
+            hintStyle: TextStyle(color: ConstantColor.primaryColor),
             labelText: hintText,
-            labelStyle: TextStyle(fontWeight: FontWeight.w400),
+            labelStyle: TextStyle(fontWeight: FontWeight.w400, color: ConstantColor.primaryColor),
           ),
           validator: validator,
           onChanged: onChanged,

@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: ConstantColor.primaryColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        scaffoldBackgroundColor: ConstantColor.white,
+        scaffoldBackgroundColor: ConstantColor.backgroundColor,
       ),
       builder: (context, child) {
         return ScrollConfiguration(

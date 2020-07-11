@@ -75,7 +75,7 @@ class EventDetail extends StatelessWidget {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: ConstantColor.white,
+            color: ConstantColor.backgroundColor,
           ),
           onPressed: () => Get.back(),
         ),
@@ -84,7 +84,7 @@ class EventDetail extends StatelessWidget {
         pinned: true,
         snap: false,
         elevation: 50,
-        backgroundColor: ConstantColor.primaryColor,
+        backgroundColor: ConstantColor.white,
         flexibleSpace: FlexibleSpaceBar(
           title: Text(
             event.title == "" ? Localization.noTitleEvent.tr : event.title,
@@ -148,7 +148,7 @@ class EventDetail extends StatelessWidget {
                 margin: EdgeInsets.only(left: 2, right: 2),
                 decoration: BoxDecoration(
                   color: config.activeIndex == index
-                      ? ConstantColor.primaryColor
+                      ? ConstantColor.white
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -175,13 +175,16 @@ class EventDetail extends StatelessWidget {
                 title: event.dateStart == ""
                     ? Localization.noBeginDateEvent.tr
                     : event.dateStart,
+                color: ConstantColor.white,
               ),
               SizedBox(height: 5),
               IconWithTitle(
                   icon: Constant.dateIcon,
                   title: event.dateEnd == ""
                       ? Localization.noEndDateEvent.tr
-                      : event.dateEnd),
+                      : event.dateEnd,
+                color: ConstantColor.white,
+              )
             ],
           ),
           if (event.distanceBW != null)
@@ -204,6 +207,7 @@ class EventDetail extends StatelessWidget {
           fontWeight: event.title == "" ? FontWeight.normal : FontWeight.bold,
           fontStyle: event.title == "" ? FontStyle.italic : FontStyle.normal,
           fontSize: 20,
+          color: ConstantColor.white
         ),
       ),
     );
@@ -219,6 +223,7 @@ class EventDetail extends StatelessWidget {
         style: TextStyle(
           fontStyle: event.content == "" ? FontStyle.italic : FontStyle.normal,
           fontSize: 16,
+            color: ConstantColor.white
         ),
       ),
     );
@@ -243,7 +248,7 @@ class EventDetail extends StatelessWidget {
         height: 100,
         width: double.infinity,
         decoration: BoxDecoration(
-            color: Colors.redAccent,
+            color: ConstantColor.white,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(35), topRight: Radius.circular(35))),
         padding: EdgeInsets.all(25),
@@ -256,7 +261,7 @@ class EventDetail extends StatelessWidget {
                 Text(
                   Localization.priceTitle.tr,
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
+                    color: ConstantColor.backgroundColor,
                   ),
                 ),
                 SizedBox(height: 5),
@@ -265,7 +270,7 @@ class EventDetail extends StatelessWidget {
                       ? Localization.freeTitle.tr
                       : "${event.price}€",
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
+                    color: ConstantColor.backgroundColor,
                     fontWeight:
                         event.price == 0 ? FontWeight.bold : FontWeight.normal,
                     fontSize: 20,

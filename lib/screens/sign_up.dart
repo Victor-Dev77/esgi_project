@@ -6,6 +6,7 @@ import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:the_validator/the_validator.dart';
 
 
@@ -27,7 +28,7 @@ class SignUp extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Image.asset(Constant.pathLogoImage),
+                    _buildLogo(),
                     _buildEmailField(),
                     SizedBox(height: 10.0),
                     _buildPseudoField(),
@@ -47,11 +48,32 @@ class SignUp extends StatelessWidget {
     );
   }
 
+   Widget _buildLogo(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Lottie.asset(
+          Constant.lottieLogo,
+            width: 150,
+            height: 300
+        ),
+        Text(
+          "WE\nMOUV",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 30
+          )
+        )
+      ],
+    );
+  }
+
   Widget _buildEmailField() {
     return CustomTextField(
       keyboardType: TextInputType.emailAddress,
       controller: AuthController.to.emailController,
-      suffixIcon: Icon(Icons.email),
+      suffixIcon: Icon(Icons.email, color: ConstantColor.white),
       hintText: Localization.yourEmail.tr,
       validator: FieldValidator.regExp(Constant.regexEmail, Localization.errorEmail.tr),
     );
@@ -60,7 +82,7 @@ class SignUp extends StatelessWidget {
   Widget _buildPseudoField() {
     return CustomTextField(
       controller: AuthController.to.pseudoController,
-      suffixIcon: Icon(Icons.person),
+      suffixIcon: Icon(Icons.person, color: ConstantColor.white),
       hintText: Localization.yourNickname.tr,
       validator:
           FieldValidator.minLength(3, message: Localization.errorPseudo.tr),
@@ -71,7 +93,7 @@ class SignUp extends StatelessWidget {
     return CustomTextField(
       obscureText: true,
       controller: AuthController.to.passwordController,
-      suffixIcon: Icon(Icons.lock),
+      suffixIcon: Icon(Icons.lock, color: ConstantColor.white,),
       hintText: Localization.yourPassword.tr,
       validator: FieldValidator.password(
         minLength: 6,
@@ -84,11 +106,15 @@ class SignUp extends StatelessWidget {
     return GetBuilder<AuthController>(
       builder: (controller) {
         return CheckboxListTile(
-          title: Text(Localization.isOrganizerTitle.tr),
+          title: Text(
+            Localization.isOrganizerTitle.tr,
+            style: TextStyle(color: ConstantColor.white),
+          ),
           value: controller.isOrganizerCheckbox,
           onChanged: (newValue) => controller.changeIsOrganizerCheck(newValue),
           controlAffinity: ListTileControlAffinity.leading,
-          activeColor: Colors.purple.shade300,
+          activeColor: ConstantColor.primaryColor,
+          
         );
       },
     );

@@ -3,6 +3,7 @@ import 'package:esgi_project/components/custom_textfield.dart';
 import 'package:esgi_project/controllers/add_event_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/utils/constant.dart';
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,43 +13,46 @@ class AddEvent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: SingleChildScrollView(
-          child: Container(
-            child: Form(
-              key: _formKey,
-              child: GetBuilder<AddEventController>(
-                builder: (controller) {
-                  return Column(
-                    children: <Widget>[
-                      _buildPreviewBtn(),
-                      _buildTitleScreen(),
-                      Container(
-                        height: 115.0,
-                        child: _buildImageGridEvent(controller),
-                      ),
-                      _buildTitleField(controller),
-                      _buildContentField(controller),
-                      _buildTypeEventField(),
-                      _buildAddressField(controller),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(
-                            child: _buildDateBeginField(controller),
-                          ),
-                          Expanded(
-                            child: _buildDateEndField(controller),
-                          ),
-                        ],
-                      ),
-                      _buildPriceField(),
-                      _buildBtnAddEvent(controller),
-                    ],
-                  );
-                },
+    return Container(
+      color: ConstantColor.backgroundColor,
+      child: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: SingleChildScrollView(
+            child: Container(
+              child: Form(
+                key: _formKey,
+                child: GetBuilder<AddEventController>(
+                  builder: (controller) {
+                    return Column(
+                      children: <Widget>[
+                        _buildPreviewBtn(),
+                        _buildTitleScreen(),
+                        Container(
+                          height: 115.0,
+                          child: _buildImageGridEvent(controller),
+                        ),
+                        _buildTitleField(controller),
+                        _buildContentField(controller),
+                        _buildTypeEventField(),
+                        _buildAddressField(controller),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Expanded(
+                              child: _buildDateBeginField(controller),
+                            ),
+                            Expanded(
+                              child: _buildDateEndField(controller),
+                            ),
+                          ],
+                        ),
+                        _buildPriceField(),
+                        _buildBtnAddEvent(controller),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -64,7 +68,7 @@ class AddEvent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           IconButton(
-            icon: Icon(Icons.remove_red_eye),
+            icon: Icon(Icons.remove_red_eye, color: ConstantColor.white,),
             onPressed: () => AddEventController.to.goToPreview(),
           ),
         ],
@@ -78,7 +82,7 @@ class AddEvent extends StatelessWidget {
       child: Text(
         Localization.explainAddEventForm.tr,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: ConstantColor.white),
       ),
     );
   }
@@ -88,7 +92,7 @@ class AddEvent extends StatelessWidget {
       padding: EdgeInsets.all(15),
       child: CustomTextField(
         controller: controller.titleController,
-        suffixIcon: Icon(Icons.event_note),
+        suffixIcon: Icon(Icons.event_note, color: ConstantColor.white),
         hintText: Localization.nameEvent.tr,
         onChanged: (value) => controller.changeValue(),
       ),
@@ -100,7 +104,7 @@ class AddEvent extends StatelessWidget {
       padding: EdgeInsets.all(15),
       child: CustomTextField(
         controller: controller.contentController,
-        suffixIcon: Icon(Icons.event_note),
+        suffixIcon: Icon(Icons.event_note, color: ConstantColor.white),
         hintText: Localization.descriptionEvent.tr,
         onChanged: (value) => controller.changeValue(),
       ),
@@ -117,7 +121,7 @@ class AddEvent extends StatelessWidget {
               padding: EdgeInsets.all(15),
               child: CustomTextField(
                 controller: controller.categoryController,
-                suffixIcon: Icon(Icons.keyboard_arrow_down),
+                suffixIcon: Icon(Icons.keyboard_arrow_down, color: ConstantColor.white),
                 hintText: Localization.typeEvent.tr,
                 readOnly: true,
                 onTap: () => controller.setCategoryShow(),
@@ -125,13 +129,14 @@ class AddEvent extends StatelessWidget {
             ),
             if (controller.categoryShow)
               Container(
-                color: Colors.grey[100],
+                color: ConstantColor.white,
                 child: ListView.builder(
                   itemCount: Constant.category.length,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return RadioListTile(
+                      activeColor: ConstantColor.backgroundColor,
                       value: index,
                       groupValue: controller.category,
                       title: Text(
@@ -154,7 +159,7 @@ class AddEvent extends StatelessWidget {
       padding: EdgeInsets.all(15),
       child: CustomTextField(
         controller: controller.addressController,
-        suffixIcon: Icon(Icons.pin_drop),
+        suffixIcon: Icon(Icons.pin_drop, color: ConstantColor.white),
         hintText: Localization.addressEvent.tr,
         onChanged: (value) => controller.changeValue(),
       ),
@@ -167,7 +172,7 @@ class AddEvent extends StatelessWidget {
       child: CustomTextField(
         controller: controller.beginDateController,
         readOnly: true,
-        suffixIcon: Icon(Icons.calendar_today),
+        suffixIcon: Icon(Icons.calendar_today, color: ConstantColor.white),
         hintText: Localization.beginDateEvent.tr,
         onTap: () => controller.selectDateEvent(controller.beginDateController),
       ),
@@ -180,7 +185,7 @@ class AddEvent extends StatelessWidget {
       child: CustomTextField(
         controller: controller.endDateController,
         readOnly: true,
-        suffixIcon: Icon(Icons.calendar_today),
+        suffixIcon: Icon(Icons.calendar_today, color: ConstantColor.white),
         hintText: Localization.endDateEvent.tr,
         onTap: () => controller.selectDateEvent(controller.endDateController),
       ),
@@ -195,7 +200,7 @@ class AddEvent extends StatelessWidget {
           padding: EdgeInsets.all(15),
           child: Row(
             children: <Widget>[
-              Text(Localization.priceTitle.tr),
+              Text(Localization.priceTitle.tr, style:TextStyle(color: ConstantColor.white)),
               SizedBox(width: 10),
               if (controller.price != 0)
                 Container(
@@ -204,7 +209,7 @@ class AddEvent extends StatelessWidget {
                   child: CustomTextField(
                     controller: controller.priceController,
                     keyboardType: TextInputType.number,
-                    suffixIcon: Icon(Icons.euro_symbol),
+                    suffixIcon: Icon(Icons.euro_symbol, color: ConstantColor.white),
                     onChanged: (value) => controller.changePriceEvent(value),
                   ),
                 ),
@@ -215,7 +220,7 @@ class AddEvent extends StatelessWidget {
                     Text(
                       Localization.freeTitle.tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: ConstantColor.white),
                     ),
                     Checkbox(
                       value: controller.priceIsFree(),

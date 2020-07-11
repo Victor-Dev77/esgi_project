@@ -1,6 +1,7 @@
 import 'package:esgi_project/components/card_my_event.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,8 @@ class MyFavoriteEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Localization.favoriteTitle.tr),
+        backgroundColor: ConstantColor.backgroundColor,
+        title: Text(Localization.favoriteTitle.tr, style: TextStyle(color: ConstantColor.white),),
       ),
       body: GetBuilder<UserController>(
         builder: (controller) {
@@ -27,7 +29,7 @@ class MyFavoriteEvents extends StatelessWidget {
       );
     if (controller.favorites.length == 0)
       return Center(
-        child: Text(Localization.noFavoriteTitle.tr),
+        child: Text(Localization.noFavoriteTitle.tr, style: TextStyle(color: ConstantColor.white),),
       );
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20),
@@ -37,7 +39,7 @@ class MyFavoriteEvents extends StatelessWidget {
           return MyEventCard(
             controller.favorites[index],
             trailingWidget: CircleAvatar(
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.redAccent,
               child: Center(
                 child: Icon(
                   controller.isFavorite(controller.favorites[index])

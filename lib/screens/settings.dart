@@ -5,6 +5,7 @@ import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/routes.dart';
 import 'package:esgi_project/utils/constant.dart';
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:esgi_project/components/card_settings.dart';
 import 'package:get/get.dart';
@@ -12,18 +13,21 @@ import 'package:get/get.dart';
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            _buildWelcomeTitle(),
-            SizedBox(height: 20.0),
-            _buildFavoriteBtn(),
-            _buildMyEventBtn(),
-            Spacer(),
-            _buildLanguageBtn(),
-            _buildLogoutBtn(),
-          ],
+    return Container(
+      color: ConstantColor.backgroundColor,
+      child: SafeArea(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              _buildWelcomeTitle(),
+              SizedBox(height: 20.0),
+              _buildFavoriteBtn(),
+              _buildMyEventBtn(),
+              SizedBox(height: 20.0),
+              _buildLanguageBtn(),
+              _buildLogoutBtn(),
+            ],
+          ),
         ),
       ),
     );
@@ -35,7 +39,7 @@ class Settings extends StatelessWidget {
       padding: EdgeInsets.all(25),
       child: Text(
         Localization.welcomeTitle.trArgs([UserController.to.user.pseudo]),
-        style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: ConstantColor.white),
       ),
     );
   }

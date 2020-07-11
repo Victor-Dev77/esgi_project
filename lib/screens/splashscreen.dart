@@ -1,6 +1,7 @@
 import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
@@ -13,9 +14,10 @@ class SplashScreen extends StatelessWidget {
             Container(
               height: 300,
               width: 300,
-              child: Image.asset(
-                Constant.pathLogoImage,
-                fit: BoxFit.contain,
+              child: Lottie.asset(
+                Constant.lottieLogo,
+                width: 150,
+                height: 300
               ),
             ),
             SizedBox(height: 50),

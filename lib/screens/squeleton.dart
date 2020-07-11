@@ -43,11 +43,11 @@ class _AppSqueleton extends State<AppSqueleton> with TickerProviderStateMixin {
 
   CurvedNavigationBar _buildBottomNavBar() {
     return CurvedNavigationBar(
-      color: ConstantColor.primaryColor,
+      color: ConstantColor.white,
       height: 60,
-      backgroundColor: ConstantColor.white,
+      backgroundColor: ConstantColor.backgroundColor,
       animationCurve: Curves.fastLinearToSlowEaseIn,
-      buttonBackgroundColor: ConstantColor.primaryColor,
+      buttonBackgroundColor: ConstantColor.white,
       items: SqueletonController.to.listItemNav,
       onTap: (index) {
         setState(() {

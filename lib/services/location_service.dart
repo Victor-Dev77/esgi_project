@@ -48,7 +48,7 @@ class LocationService {
     Get.dialog(
       Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: Get.width * .25, vertical: Get.height * .4),
+            horizontal: Get.width * .25, vertical: Get.height * .35),
         child: Container(
           width: 150.0,
           height: 100.0,

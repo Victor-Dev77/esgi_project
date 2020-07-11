@@ -1,6 +1,7 @@
 import 'package:esgi_project/components/card_my_event.dart';
 import 'package:esgi_project/controllers/my_event_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,11 @@ class MyEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Localization.myEventsTitle.trArgs([MyEventController.to.myEvents.length.toString()])),
+        backgroundColor: ConstantColor.backgroundColor,
+        title: Text(
+            Localization.myEventsTitle.trArgs([MyEventController.to.myEvents.length.toString()]),
+          style: TextStyle(color: ConstantColor.white),
+        ),
       ),
       body: GetBuilder<MyEventController>(
         init: MyEventController(),
@@ -28,7 +33,7 @@ class MyEvents extends StatelessWidget {
       );
     if (controller.myEvents.length == 0)
       return Center(
-        child: Text(Localization.noEventTitle.tr),
+        child: Text(Localization.noEventTitle.tr, style: TextStyle(color: ConstantColor.white),),
       );
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20),

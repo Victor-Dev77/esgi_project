@@ -1,4 +1,5 @@
 import 'package:esgi_project/controllers/search_event_controller.dart';
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 
 class CardCategory extends StatelessWidget {
@@ -24,18 +25,18 @@ class CardCategory extends StatelessWidget {
                 width: 60,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.pink[50],
+                  color: Colors.amber[50],
                 ),
                 child: Icon(
                   iconData,
                   size: 30,
-                  color: Colors.pink[400],
+                  color: ConstantColor.backgroundColor,
                 ),
               ),
               SizedBox(height: 5),
               Text(
                 title,
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(fontSize: 14, color: ConstantColor.white),
               )
             ],
           ),

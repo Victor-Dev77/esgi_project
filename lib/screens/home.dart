@@ -4,6 +4,7 @@ import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/screens/search.dart';
 import 'package:esgi_project/utils/constant.dart';
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -17,13 +18,13 @@ class Home extends StatelessWidget {
       key: _scaffoldKey,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: ConstantColor.backgroundColor,
         automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             IconButton(
-              icon: Icon(FontAwesomeIcons.slidersH),
+              icon: Icon(FontAwesomeIcons.slidersH, color: ConstantColor.white,),
               onPressed: () {
                 // N'utilise pas Get car Get.bottomSheet a une hauteur limité et je veux que le bottomsheet ait la hauteur de l'écran
 
@@ -59,7 +60,7 @@ class Home extends StatelessWidget {
           SizedBox(height: 10),
           Text(
             Localization.allEventTitle.tr,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: ConstantColor.white),
           ),
           SizedBox(height: 15),
           Container(
@@ -90,7 +91,7 @@ class Home extends StatelessWidget {
               padding: EdgeInsets.only(left: 25),
               child: Text(
                 Localization.popularEventTitle.tr,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: ConstantColor.white),
               ),
             ),
             SizedBox(height: 10),
@@ -101,7 +102,7 @@ class Home extends StatelessWidget {
                     if (controller.popularEvent == null)
                       return Center(child: CircularProgressIndicator());
                     if (controller.popularEvent.length == 0)
-                      return Center(child: Text(Localization.noEventTitle.tr));
+                      return Center(child: Text(Localization.noEventTitle.tr,style: TextStyle(color: ConstantColor.white),));
                     return ListView.builder(
                       itemCount: controller.popularEvent.length,
                       itemBuilder: (context, index) {

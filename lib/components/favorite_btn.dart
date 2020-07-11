@@ -1,6 +1,7 @@
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/models/event.dart';
+import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -24,8 +25,8 @@ class FavoriteBtn extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(
               color: enabled
-                  ? Colors.black.withOpacity(.85)
-                  : Colors.white.withOpacity(0.85),
+                  ? Colors.redAccent
+                  : ConstantColor.backgroundColor,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
@@ -36,9 +37,7 @@ class FavoriteBtn extends StatelessWidget {
                   child: Text(
                     Localization.favoriteTitle.tr,
                     style: TextStyle(
-                        color: enabled
-                            ? Colors.white.withOpacity(0.85)
-                            : Colors.redAccent,
+                        color: Colors.white.withOpacity(0.85),
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
                   ),
@@ -50,9 +49,7 @@ class FavoriteBtn extends StatelessWidget {
                         ? FontAwesomeIcons.solidHeart
                         : FontAwesomeIcons.heart,
                     size: 20,
-                    color: enabled
-                        ? Colors.white.withOpacity(0.85)
-                        : Colors.redAccent,
+                    color: Colors.white.withOpacity(0.85)
                   ),
                 ),
               ],
