@@ -162,7 +162,7 @@ class AddEventController extends GetxController {
   Future<bool> _checkAddress() async {
     // checker adresse en convertissant en coord gps => si pas possible alors addresse incorrect
     print("addresse: $_addressController");
-    if (_addressController != "") {
+    if (_addressController.text.trim() != "") {
       var location = await LocationService.convertAddressToLocation(
           _addressController.text.trim());
       if (location == null) {
@@ -215,7 +215,6 @@ class AddEventController extends GetxController {
     await _uploadPictures();
     await _bddRepo.addEvent(_event.toMap());
     print("send to bdd");
-    //TODO: check si pas erreur firebase
     _reinitFields();
   }
 

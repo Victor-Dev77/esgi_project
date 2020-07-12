@@ -1,14 +1,13 @@
 import 'package:esgi_project/components/loader.dart';
+import 'package:esgi_project/components/logo.dart';
 import 'package:esgi_project/components/round_btn.dart';
 import 'package:esgi_project/controllers/auth_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/routes.dart';
-import 'package:esgi_project/utils/constant.dart';
 import 'package:esgi_project/utils/constant_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:esgi_project/components/custom_textfield.dart';
-import 'package:lottie/lottie.dart';
 import 'package:the_validator/the_validator.dart';
 
 class Login extends StatelessWidget {
@@ -29,7 +28,7 @@ class Login extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    _buildLogo(),
+                    Logo(),
                     _buildEmailField(),
                     SizedBox(height: 20.0),
                     _buildPasswordField(),
@@ -42,21 +41,6 @@ class Login extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildLogo() {
-    return Row(
-      children: <Widget>[
-        Transform.scale(
-          scale: 1.25,
-          child: Lottie.asset(Constant.lottieLogo, width: 250, height: 300),
-        ),
-        Text(
-          "WE\nMOUV",
-          style: Get.textTheme.headline1,
-        )
-      ],
     );
   }
 

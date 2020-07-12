@@ -89,8 +89,6 @@ class LocationService {
     _location.addAll({"location": _coord});
     if (_location != null) {
       await _bddRepo.updateUserLocation(idUser, _location);
-    } else {
-      //TODO: snackbar pour afficher erreur refuser get location
     }
     return _coord;
   }
