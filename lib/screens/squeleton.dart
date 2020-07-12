@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:esgi_project/controllers/squeleton_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:esgi_project/utils/constant_color.dart';
+import 'package:get/get.dart';
 
 class AppSqueleton extends StatefulWidget {
   @override
@@ -29,8 +30,8 @@ class _AppSqueleton extends State<AppSqueleton> with TickerProviderStateMixin {
     return Scaffold(
       body: Container(
         color: ConstantColor.white,
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        height: Get.height,
+        width: Get.width,
         child: TabBarView(
           children: SqueletonController.to.tabMenu,
           physics: NeverScrollableScrollPhysics(),

@@ -1,5 +1,6 @@
 import 'package:esgi_project/components/card_add_image.dart';
 import 'package:esgi_project/components/custom_textfield.dart';
+import 'package:esgi_project/components/loader.dart';
 import 'package:esgi_project/controllers/add_event_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/utils/constant.dart';
@@ -68,7 +69,10 @@ class AddEvent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           IconButton(
-            icon: Icon(Icons.remove_red_eye, color: ConstantColor.white,),
+            icon: Icon(
+              Icons.remove_red_eye,
+              color: ConstantColor.white,
+            ),
             onPressed: () => AddEventController.to.goToPreview(),
           ),
         ],
@@ -82,7 +86,10 @@ class AddEvent extends StatelessWidget {
       child: Text(
         Localization.explainAddEventForm.tr,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: ConstantColor.white),
+        style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: ConstantColor.white),
       ),
     );
   }
@@ -121,7 +128,8 @@ class AddEvent extends StatelessWidget {
               padding: EdgeInsets.all(15),
               child: CustomTextField(
                 controller: controller.categoryController,
-                suffixIcon: Icon(Icons.keyboard_arrow_down, color: ConstantColor.white),
+                suffixIcon:
+                    Icon(Icons.keyboard_arrow_down, color: ConstantColor.white),
                 hintText: Localization.typeEvent.tr,
                 readOnly: true,
                 onTap: () => controller.setCategoryShow(),
@@ -141,7 +149,7 @@ class AddEvent extends StatelessWidget {
                       groupValue: controller.category,
                       title: Text(
                         Constant.category[index]["title"],
-                        style: TextStyle(fontSize: 16),
+                        style: Get.textTheme.bodyText1,
                       ),
                       onChanged: (val) => controller.setCategory(val),
                     );
@@ -200,7 +208,8 @@ class AddEvent extends StatelessWidget {
           padding: EdgeInsets.all(15),
           child: Row(
             children: <Widget>[
-              Text(Localization.priceTitle.tr, style:TextStyle(color: ConstantColor.white)),
+              Text(Localization.priceTitle.tr,
+                  style: Get.textTheme.bodyText2),
               SizedBox(width: 10),
               if (controller.price != 0)
                 Container(
@@ -209,7 +218,8 @@ class AddEvent extends StatelessWidget {
                   child: CustomTextField(
                     controller: controller.priceController,
                     keyboardType: TextInputType.number,
-                    suffixIcon: Icon(Icons.euro_symbol, color: ConstantColor.white),
+                    suffixIcon:
+                        Icon(Icons.euro_symbol, color: ConstantColor.white),
                     onChanged: (value) => controller.changePriceEvent(value),
                   ),
                 ),
@@ -219,8 +229,10 @@ class AddEvent extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       Localization.freeTitle.tr,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: ConstantColor.white),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: ConstantColor.white),
                     ),
                     Checkbox(
                       value: controller.priceIsFree(),
@@ -277,13 +289,17 @@ class AddEvent extends StatelessWidget {
           width: double.infinity,
           height: 50,
           child: Center(
-            child: Text(
-              Localization.addEvent.tr,
-              style: TextStyle(
-                  color: controller.validForm ? Colors.white : Colors.grey[100],
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20),
-            ),
+            child: controller.isLoading
+                ? Loader()
+                : Text(
+                    Localization.addEvent.tr,
+                    style: TextStyle(
+                        color: controller.validForm
+                            ? Colors.white
+                            : Colors.grey[100],
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20),
+                  ),
           ),
         ),
       ),

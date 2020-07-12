@@ -25,7 +25,7 @@ class DialogListLanguage extends StatelessWidget {
             child: ListTile(
               title: Text(
                 language,
-                style: TextStyle(fontSize: 16),
+                style: Get.textTheme.bodyText1,
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,

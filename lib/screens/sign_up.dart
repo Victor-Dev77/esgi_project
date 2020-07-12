@@ -1,4 +1,5 @@
 import 'package:esgi_project/components/custom_textfield.dart';
+import 'package:esgi_project/components/loader.dart';
 import 'package:esgi_project/components/round_btn.dart';
 import 'package:esgi_project/controllers/auth_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:the_validator/the_validator.dart';
-
 
 class SignUp extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -48,22 +48,16 @@ class SignUp extends StatelessWidget {
     );
   }
 
-   Widget _buildLogo(){
+  Widget _buildLogo() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Lottie.asset(
-          Constant.lottieLogo,
-            width: 150,
-            height: 300
+        Transform.scale(
+          scale: 1.25,
+          child: Lottie.asset(Constant.lottieLogo, width: 250, height: 300),
         ),
         Text(
           "WE\nMOUV",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 30
-          )
+          style: Get.textTheme.headline1,
         )
       ],
     );
@@ -71,12 +65,11 @@ class SignUp extends StatelessWidget {
 
   Widget _buildEmailField() {
     return CustomTextField(
-      keyboardType: TextInputType.emailAddress,
-      controller: AuthController.to.emailController,
-      suffixIcon: Icon(Icons.email, color: ConstantColor.white),
-      hintText: Localization.yourEmail.tr,
-      validator: FieldValidator.regExp(Constant.regexEmail, Localization.errorEmail.tr),
-    );
+        keyboardType: TextInputType.emailAddress,
+        controller: AuthController.to.emailController,
+        suffixIcon: Icon(Icons.email, color: ConstantColor.white),
+        hintText: Localization.yourEmail.tr,
+        validator: AuthController.to.emailValidator());
   }
 
   Widget _buildPseudoField() {
@@ -93,7 +86,10 @@ class SignUp extends StatelessWidget {
     return CustomTextField(
       obscureText: true,
       controller: AuthController.to.passwordController,
-      suffixIcon: Icon(Icons.lock, color: ConstantColor.white,),
+      suffixIcon: Icon(
+        Icons.lock,
+        color: ConstantColor.white,
+      ),
       hintText: Localization.yourPassword.tr,
       validator: FieldValidator.password(
         minLength: 6,
@@ -114,7 +110,6 @@ class SignUp extends StatelessWidget {
           onChanged: (newValue) => controller.changeIsOrganizerCheck(newValue),
           controlAffinity: ListTileControlAffinity.leading,
           activeColor: ConstantColor.primaryColor,
-          
         );
       },
     );
@@ -123,10 +118,24 @@ class SignUp extends StatelessWidget {
   Widget _buildSignUpBtn() {
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
-      child: RoundBtn(
-        text: Localization.signUpTitle.tr,
-        onPressed: () {
-          if (_formKey.currentState.validate()) AuthController.to.signUp();
+      child: GetBuilder<AuthController>(
+        builder: (controller) {
+          return RoundBtn(
+            child: controller.isLoading
+                ? Loader(
+                    width: 25,
+                    height: 25,
+                  )
+                : Text(
+                    Localization.signUpTitle.tr,
+                    style: TextStyle(
+                        color: ConstantColor.backgroundColor,
+                        fontWeight: FontWeight.w500),
+                  ),
+            onPressed: () {
+              if (_formKey.currentState.validate()) AuthController.to.signUp();
+            },
+          );
         },
       ),
     );
@@ -140,17 +149,11 @@ class SignUp extends StatelessWidget {
         child: Container(
           height: 50,
           child: Center(
-            child: Text(
-              Localization.signInTitle.tr,
-              style: TextStyle(
-                color: ConstantColor.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child:
+                Text(Localization.signInTitle.tr, style: Get.textTheme.caption),
           ),
         ),
       ),
     );
   }
-
 }

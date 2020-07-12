@@ -1,5 +1,6 @@
 import 'package:esgi_project/components/card_category.dart';
 import 'package:esgi_project/components/card_event.dart';
+import 'package:esgi_project/components/loader.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/screens/search.dart';
@@ -24,7 +25,10 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             IconButton(
-              icon: Icon(FontAwesomeIcons.slidersH, color: ConstantColor.white,),
+              icon: Icon(
+                FontAwesomeIcons.slidersH,
+                color: ConstantColor.white,
+              ),
               onPressed: () {
                 // N'utilise pas Get car Get.bottomSheet a une hauteur limité et je veux que le bottomsheet ait la hauteur de l'écran
 
@@ -58,10 +62,7 @@ class Home extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 10),
-          Text(
-            Localization.allEventTitle.tr,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: ConstantColor.white),
-          ),
+          Text(Localization.allEventTitle.tr, style: Get.textTheme.headline2),
           SizedBox(height: 15),
           Container(
             height: 100,
@@ -91,7 +92,7 @@ class Home extends StatelessWidget {
               padding: EdgeInsets.only(left: 25),
               child: Text(
                 Localization.popularEventTitle.tr,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: ConstantColor.white),
+                style: Get.textTheme.headline2,
               ),
             ),
             SizedBox(height: 10),
@@ -100,9 +101,14 @@ class Home extends StatelessWidget {
                 child: GetBuilder<SearchEventController>(
                   builder: (controller) {
                     if (controller.popularEvent == null)
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: Loader());
                     if (controller.popularEvent.length == 0)
-                      return Center(child: Text(Localization.noEventTitle.tr,style: TextStyle(color: ConstantColor.white),));
+                      return Center(
+                        child: Text(
+                          Localization.noEventTitle.tr,
+                          style: Get.textTheme.headline2,
+                        ),
+                      );
                     return ListView.builder(
                       itemCount: controller.popularEvent.length,
                       itemBuilder: (context, index) {

@@ -65,7 +65,7 @@ class CardEvent extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
+                                fontWeight: FontWeight.bold, fontSize: 16, color: ConstantColor.backgroundColor),
                           ),
                         ),
                         if (event.userId != UserController.to.user.id && favEnable)

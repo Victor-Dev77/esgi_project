@@ -56,6 +56,7 @@ class FrenchLanguage {
     Localization.confirmDeleteEvent: "Confirmes-tu la suppression ?",
     Localization.languageTitle: "Langue",
 
+    // ERROR LOGIC
     Localization.errorMissingParam: "ERREUR: il manque le paramètre de l'événement",
     Localization.errorAddress: "Adresse invalide: N° Rue, Code postal Ville",
     Localization.errorEmail: "Adresse email incorrect",
@@ -63,6 +64,19 @@ class FrenchLanguage {
     Localization.errorPseudo: "Le pseudo doit contenir 3 caractères minimum",
     Localization.errorDateBeginNoLessThanDateEnd: "La date de début doit être inférieure à la date de fin !",
     Localization.errorDateEndNoHighThanDateBegin: "La date de fin doit être supérieure à la date de début !",
+  
+  
+    // EXCEPTION FIREBASE
+    Localization.errorAPIdefault: "Une erreur est survenue... Veuillez réessayer",
+    Localization.errorAPInetwork: "Erreur réseau. Veuillez vérifier votre connection internet",
+    Localization.errorAPIemailAlreadyUse: "Cette adresse email est déjà utilisée",
+    Localization.errorAPIinvalidEmail: "Adresse email incorrect !",
+    Localization.errorAPIweakPassword: "Mot de passe pas assez complexe",
+    Localization.errorAPIwrongPassword: "Mot de passe erroné",
+    Localization.errorAPIuserNotFound: "Utilisateur introuvable",
+    Localization.errorAPImanyRequests: "Trop de requêtes en cours ! Veuillez réessayer plus tard",
+    Localization.errorAPInoUploadPicture: "Photos non uploadés. Veuillez réessayer",
+
   };
 
 }

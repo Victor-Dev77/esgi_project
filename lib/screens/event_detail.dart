@@ -31,7 +31,7 @@ class EventDetail extends StatelessWidget {
     return Scaffold(
       body: Container(
         child: Center(
-          child: Text(Localization.errorMissingParam.tr),
+          child: Text(Localization.errorMissingParam.tr, style: Get.textTheme.headline2,),
         ),
       ),
     );

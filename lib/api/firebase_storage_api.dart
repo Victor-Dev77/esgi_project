@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'package:esgi_project/localization/localization.dart';
+import 'package:esgi_project/utils/snackbar.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as i;
+import 'package:get/get.dart';
 
 class FirebaseStorageAPI {
   Future<String> uploadPicture(String idUser, String idDoc, String path) async {
@@ -27,6 +30,7 @@ class FirebaseStorageAPI {
       return await storageReference.getDownloadURL();
     }
     print("uploadfile: return null");
+    CustomSnackbar.snackbar(Localization.errorAPInoUploadPicture.tr);
     return null;
   }
 

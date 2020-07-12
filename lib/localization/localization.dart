@@ -61,7 +61,7 @@ class Localization {
   static const String confirmDeleteEvent = "confirm_delete";
   static const String languageTitle = "language";
 
-
+  // ERROR LOGIC
   static const String errorMissingParam = "error_missing_param";
   static const String errorAddress = "error_address";
   static const String errorEmail = "error_email";
@@ -69,4 +69,18 @@ class Localization {
   static const String errorPseudo = "error_pseudo";
   static const String errorDateBeginNoLessThanDateEnd = "error_date_begin_less_date_end";
   static const String errorDateEndNoHighThanDateBegin = "error_date_end_high_date_begin";
+
+
+  // EXCEPTION API
+  static const String errorAPIdefault = "error_api_default";
+  static const String errorAPInetwork = "error_api_network";
+  static const String errorAPIemailAlreadyUse = "error_api_email_already_use";
+  static const String errorAPIinvalidEmail = "error_api_invalid_email";
+  static const String errorAPIweakPassword = "error_api_weak_password";
+  static const String errorAPIwrongPassword = "error_api_wrong_password";
+  static const String errorAPIuserNotFound = "error_api_user_not_found";
+  static const String errorAPImanyRequests = "error_api_many_requests";
+  static const String errorAPInoUploadPicture = "error_api_no_upload_picture";
+
+
 }

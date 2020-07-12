@@ -58,8 +58,8 @@ class Search extends StatelessWidget {
             child: Text(
               Localization.filterTitle.tr,
               style: TextStyle(
-                fontFamily: 'AvenirNextDemiBold',
                 fontSize: 18,
+                color: ConstantColor.backgroundColor
               ),
             ),
           ),
@@ -85,6 +85,7 @@ class Search extends StatelessWidget {
           suffixIcon: Icon(Icons.calendar_today, color: ConstantColor.backgroundColor,),
           hintText: Localization.dateEvent.tr,
           onTap: () => controller.showDate(),
+          color: ConstantColor.backgroundColor,
         ),
       ),
     );
@@ -102,7 +103,7 @@ class Search extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     Localization.typeEvent.tr,
-                    style: TextStyle(fontSize: 16),
+                    style: Get.textTheme.bodyText1,
                   ),
                   IconButton(
                     icon: Icon(
@@ -160,13 +161,13 @@ class Search extends StatelessWidget {
             children: <Widget>[
               Text(
                 Localization.distanceEvent.tr,
-                style: TextStyle(fontSize: 16),
+                style: Get.textTheme.bodyText1,
               ),
               Obx(() {
                 if (controller.distance > 0)
                   return Text(
                     "${controller.distance} km",
-                    style: TextStyle(fontSize: 16),
+                    style: Get.textTheme.bodyText1,
                   );
                 return Container();
               }),

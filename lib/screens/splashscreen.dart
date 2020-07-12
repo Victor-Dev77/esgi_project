@@ -1,3 +1,4 @@
+import 'package:esgi_project/components/loader.dart';
 import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 50),
-            CircularProgressIndicator(),
+            Loader(),
           ],
         ),
       ),

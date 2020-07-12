@@ -56,6 +56,7 @@ class EnglishLanguage {
     Localization.confirmDeleteEvent: "Do you confirm deletion ?",
     Localization.languageTitle: "Language",
 
+    // ERROR LOGIC
     Localization.errorMissingParam: "ERROR: Event parameter missing",
     Localization.errorAddress: "Wrong Address: N° Street, City Postal Code",
     Localization.errorEmail: "Wrong Email",
@@ -63,6 +64,19 @@ class EnglishLanguage {
     Localization.errorPseudo: "The pseudo must contain at least 3 characters",
     Localization.errorDateBeginNoLessThanDateEnd: "The start date must be less than the end date !",
     Localization.errorDateEndNoHighThanDateBegin: "The end date must be greater than the start date !",
+  
+  
+    // EXCEPTION FIREBASE
+    Localization.errorAPIdefault: "An error has been made... Please try again",
+    Localization.errorAPInetwork: "Error network. Please check your internet connection",
+    Localization.errorAPIemailAlreadyUse: "This e-mail address is already in use",
+    Localization.errorAPIinvalidEmail: "Invalid email address !",
+    Localization.errorAPIweakPassword: "Password not complex enough",
+    Localization.errorAPIwrongPassword: "Wrong password",
+    Localization.errorAPIuserNotFound: "User not found",
+    Localization.errorAPImanyRequests: "Too many requests in progress ! Please try again later",
+    Localization.errorAPInoUploadPicture: "Photos not uploaded. Please try again",
+
   };
 
 }

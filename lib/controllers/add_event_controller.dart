@@ -54,6 +54,9 @@ class AddEventController extends GetxController {
   final TextEditingController _categoryController = TextEditingController();
   TextEditingController get categoryController => this._categoryController;
 
+  bool _isLoading = false;
+  bool get isLoading => this._isLoading;
+
   @override
   void onInit() {
     super.onInit();
@@ -205,6 +208,7 @@ class AddEventController extends GetxController {
     await _checkAddress();
     if (_location.isEmpty) return;
     _validForm = false;
+    _isLoading = true;
     update();
     _setFieldToEvent();
     _event.pictures = [];
@@ -235,6 +239,7 @@ class AddEventController extends GetxController {
     });
     listTmp = [];
     _pictureEvent = [];
+    _isLoading = false;
     update();
     _event = Event(
       id: _event.id,

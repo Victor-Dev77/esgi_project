@@ -1,4 +1,5 @@
 import 'package:esgi_project/components/card_my_event.dart';
+import 'package:esgi_project/components/loader.dart';
 import 'package:esgi_project/controllers/user_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/utils/constant_color.dart';
@@ -15,7 +16,7 @@ class MyFavoriteEvents extends StatelessWidget {
           color: ConstantColor.white, //change your color here
         ),
         backgroundColor: ConstantColor.backgroundColor,
-        title: Text(Localization.favoriteTitle.tr, style: TextStyle(color: ConstantColor.white),),
+        title: Text(Localization.favoriteTitle.tr, style: Get.textTheme.headline2,),
       ),
       body: GetBuilder<UserController>(
         builder: (controller) {
@@ -28,11 +29,11 @@ class MyFavoriteEvents extends StatelessWidget {
   Widget _buildListFavoriteEvent(UserController controller) {
     if (controller.favorites == null)
       return Center(
-        child: CircularProgressIndicator(),
+        child: Loader(),
       );
     if (controller.favorites.length == 0)
       return Center(
-        child: Text(Localization.noFavoriteTitle.tr, style: TextStyle(color: ConstantColor.white),),
+        child: Text(Localization.noFavoriteTitle.tr, style: Get.textTheme.headline2,),
       );
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20),

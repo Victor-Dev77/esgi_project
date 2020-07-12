@@ -1,5 +1,6 @@
 import 'package:esgi_project/utils/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DialogListCategory extends StatefulWidget {
   final List<String> listCategorySelected;
@@ -46,7 +47,7 @@ class _DialogListCategoryState extends State<DialogListCategory> {
             value: _mapCategory[category] == true,
             title: Text(
               category,
-              style: TextStyle(fontSize: 16),
+              style: Get.textTheme.bodyText1,
             ),
             onChanged: (value) {
               setState(() {

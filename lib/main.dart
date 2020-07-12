@@ -25,6 +25,21 @@ class MyApp extends StatelessWidget {
         primaryColor: ConstantColor.primaryColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: ConstantColor.backgroundColor,
+        textTheme: TextTheme(
+          headline1: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
+          headline2: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: ConstantColor.white,
+          ),
+          caption: TextStyle(
+            color: ConstantColor.white,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyText1: TextStyle(fontSize: 16),
+          bodyText2: TextStyle(color: ConstantColor.white)
+        ),
       ),
       builder: (context, child) {
         return ScrollConfiguration(

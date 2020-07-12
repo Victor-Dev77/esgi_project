@@ -1,4 +1,5 @@
 import 'package:esgi_project/components/card_event.dart';
+import 'package:esgi_project/components/loader.dart';
 import 'package:esgi_project/controllers/search_event_controller.dart';
 import 'package:esgi_project/localization/localization.dart';
 import 'package:esgi_project/utils/constant_color.dart';
@@ -15,7 +16,7 @@ class SearchResult extends StatelessWidget {
         iconTheme: IconThemeData(
           color: ConstantColor.white, //change your color here
         ),
-        title: Text(Localization.eventTitle.tr, style: TextStyle(color: ConstantColor.white),),
+        title: Text(Localization.eventTitle.tr, style: Get.textTheme.headline2,),
         actions: <Widget>[
           _buildChangeResultModeBtn(),
         ],
@@ -45,11 +46,11 @@ class SearchResult extends StatelessWidget {
   Widget _buildResult(SearchEventController controller) {
     if (controller.searchEvent == null)
       return Center(
-        child: CircularProgressIndicator(),
+        child: Loader(),
       );
     if (controller.searchEvent.length == 0)
       return Center(
-        child: Text(Localization.noEventTitle.tr, style: TextStyle(color: ConstantColor.white),),
+        child: Text(Localization.noEventTitle.tr, style: Get.textTheme.headline2,),
       );
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 5),
@@ -102,7 +103,7 @@ class SearchResult extends StatelessWidget {
             icon: Icon(Icons.filter_list),
             iconSize: 24,
             elevation: 16,
-            style: TextStyle(color: ConstantColor.white),
+            style: Get.textTheme.bodyText2,
             underline: Container(
               height: 2,
               color: ConstantColor.white,
@@ -112,7 +113,7 @@ class SearchResult extends StatelessWidget {
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value, style: TextStyle(color: ConstantColor.white),),
+                child: Text(value, style: Get.textTheme.bodyText2,),
               );
             }).toList(),
           ),

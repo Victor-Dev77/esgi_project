@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class RoundBtn extends StatelessWidget {
   final VoidCallback onPressed;
-  final String text;
-  RoundBtn({Key key, @required this.onPressed, @required this.text})
+  final Widget child;
+  RoundBtn({Key key, @required this.onPressed, @required this.child})
       : assert(onPressed != null),
-        assert(text != null),
+        assert(child != null),
         super(key: key);
 
   @override
@@ -15,10 +15,7 @@ class RoundBtn extends StatelessWidget {
       onPressed: onPressed,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Text(
-          text,
-          style: TextStyle(color: ConstantColor.backgroundColor, fontWeight: FontWeight.w500),
-        ),
+        child: child,
       ),
       elevation: 6.0,
       fillColor: ConstantColor.white,
