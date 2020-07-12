@@ -13,7 +13,7 @@ class EnglishLanguage {
     Localization.museumCategory: "Museum",
     Localization.noCategory: "No Category",
     Localization.locationCheckTitle: "Location Check",
-    Localization.welcomeTitle: "You're back, %s 😉",
+    Localization.welcomeTitle: "Welcome back, %s 😉",
     Localization.myBookingsTitle: "My bookings",
     Localization.myFavoriteTitle: "My favorites - %s",
     Localization.favoriteTitle: "Favorites",

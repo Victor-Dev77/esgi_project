@@ -13,7 +13,7 @@ class FrenchLanguage {
     Localization.museumCategory: "Musée",
     Localization.noCategory: "Aucune Categorie",
     Localization.locationCheckTitle: "Localisation vérifiée",
-    Localization.welcomeTitle: "Vous-revoilà, %s 😉",
+    Localization.welcomeTitle: "Vous revoilà, %s 😉",
     Localization.myBookingsTitle: "Mes réservations",
     Localization.myFavoriteTitle: "Mes favoris - %s",
     Localization.favoriteTitle: "Favoris",
@@ -57,7 +57,7 @@ class FrenchLanguage {
     Localization.languageTitle: "Langue",
 
     Localization.errorMissingParam: "ERREUR: il manque le paramètre de l'événement",
-    Localization.errorAddress: "Addresse invalide: N° Rue, Code postal Ville",
+    Localization.errorAddress: "Adresse invalide: N° Rue, Code postal Ville",
     Localization.errorEmail: "Adresse email incorrect",
     Localization.errorPassword: "Le mot de passe doit contenir 6 caractères minimum",
     Localization.errorPseudo: "Le pseudo doit contenir 3 caractères minimum",
