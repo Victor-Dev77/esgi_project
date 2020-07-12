@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:611764057156:android:7fc02b627a0020ed9cb811",
         "android_client_info": {
-          "package_name": "com.example.esgi_project"
+          "package_name": "fr.esgi.wemouvflutter"
         }
       },
       "oauth_client": [

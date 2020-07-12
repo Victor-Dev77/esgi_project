@@ -54,9 +54,17 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.4
+  flutter_rename_app: ^1.0.0
 
-  #device_preview: ^0.4.4             # preview app sur different tel / tablette pour responsivite
-  #flutter_launcher_icons: ^0.7.4     # ajouter icon app
+
+flutter_rename_app:
+  application_name: WemouvFlutter
+  dart_package_name: esgi_project
+  application_id: fr.esgi.wemouvflutter
+  bundle_id: fr.esgi.wemouvflutter
+  android_package_name: fr.esgi.wemouvflutter
+
   
 flutter_icons:
   android: "launcher_icon" 

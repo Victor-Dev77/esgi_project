@@ -47,6 +47,7 @@ class HeroImageNetwork extends StatelessWidget {
     return Container(
       margin: margin,
       width: width,
+      height: double.infinity,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: ClipRRect(
         borderRadius: borderEnabled

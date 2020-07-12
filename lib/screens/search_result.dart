@@ -97,21 +97,22 @@ class SearchResult extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(right: 25),
           child: DropdownButton<String>(
+            dropdownColor: ConstantColor.primaryColor,
             value: controller.filter,
             icon: Icon(Icons.filter_list),
             iconSize: 24,
             elevation: 16,
-            style: TextStyle(color: Colors.deepPurple),
+            style: TextStyle(color: ConstantColor.white),
             underline: Container(
               height: 2,
-              color: Colors.deepPurpleAccent,
+              color: ConstantColor.white,
             ),
             onChanged: (String filter) => controller.changeFilter(filter),
             items: controller.listFilter
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value),
+                child: Text(value, style: TextStyle(color: ConstantColor.white),),
               );
             }).toList(),
           ),
