@@ -174,7 +174,7 @@ class AddEvent extends StatelessWidget {
         readOnly: true,
         suffixIcon: Icon(Icons.calendar_today, color: ConstantColor.white),
         hintText: Localization.beginDateEvent.tr,
-        onTap: () => controller.selectDateEvent(controller.beginDateController),
+        onTap: () => controller.selectBeginDate(),
       ),
     );
   }
@@ -187,7 +187,7 @@ class AddEvent extends StatelessWidget {
         readOnly: true,
         suffixIcon: Icon(Icons.calendar_today, color: ConstantColor.white),
         hintText: Localization.endDateEvent.tr,
-        onTap: () => controller.selectDateEvent(controller.endDateController),
+        onTap: () => controller.selectEndDate(),
       ),
     );
   }

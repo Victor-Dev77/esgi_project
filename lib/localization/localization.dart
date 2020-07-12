@@ -67,4 +67,6 @@ class Localization {
   static const String errorEmail = "error_email";
   static const String errorPassword = "error_password";
   static const String errorPseudo = "error_pseudo";
+  static const String errorDateBeginNoLessThanDateEnd = "error_date_begin_less_date_end";
+  static const String errorDateEndNoHighThanDateBegin = "error_date_end_high_date_begin";
 }

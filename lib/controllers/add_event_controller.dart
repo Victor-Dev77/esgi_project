@@ -126,8 +126,14 @@ class AddEventController extends GetxController {
     _validateForm();
   }
 
-  selectDateEvent(TextEditingController editingController) async {
-    await SelectDate.show(editingController);
+
+  selectBeginDate() async {
+    await SelectDate.show(_beginDateController, endDate: _endDateController.text);
+    _validateForm();
+  }
+
+  selectEndDate() async {
+    await SelectDate.show(_endDateController, beginDate: _beginDateController.text);
     _validateForm();
   }
 

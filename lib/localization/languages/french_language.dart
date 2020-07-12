@@ -61,6 +61,8 @@ class FrenchLanguage {
     Localization.errorEmail: "Adresse email incorrect",
     Localization.errorPassword: "Le mot de passe doit contenir 6 caractères minimum",
     Localization.errorPseudo: "Le pseudo doit contenir 3 caractères minimum",
+    Localization.errorDateBeginNoLessThanDateEnd: "La date de début doit être inférieure à la date de fin !",
+    Localization.errorDateEndNoHighThanDateBegin: "La date de fin doit être supérieure à la date de début !",
   };
 
 }

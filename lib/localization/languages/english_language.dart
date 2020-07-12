@@ -61,6 +61,8 @@ class EnglishLanguage {
     Localization.errorEmail: "Wrong Email",
     Localization.errorPassword: "The password must contain at least 6 characters",
     Localization.errorPseudo: "The pseudo must contain at least 3 characters",
+    Localization.errorDateBeginNoLessThanDateEnd: "The start date must be less than the end date !",
+    Localization.errorDateEndNoHighThanDateBegin: "The end date must be greater than the start date !",
   };
 
 }
