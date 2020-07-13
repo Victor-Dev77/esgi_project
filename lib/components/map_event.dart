@@ -36,18 +36,21 @@ class _MapEventState extends State<MapEvent> {
             layers: [
               TileLayerOptions(
                 urlTemplate:
-                "https://api.mapbox.com/styles/v1/{style}/tiles/256/{z}/{x}/{y}?access_token={accessToken}",
+                    "https://api.mapbox.com/styles/v1/{style}/tiles/256/{z}/{x}/{y}?access_token={accessToken}",
                 additionalOptions: {
                   'style': "wemouv/ckc9798x02vgc1ipjusua5lbm",
                   'accessToken':
-                  'pk.eyJ1Ijoid2Vtb3V2IiwiYSI6ImNqcGgxN21tZjBwYWgzcWxxZ242NHd5NjkifQ.dbudKtF6QmygxeD1osCvbA',
+                      'pk.eyJ1Ijoid2Vtb3V2IiwiYSI6ImNqcGgxN21tZjBwYWgzcWxxZ242NHd5NjkifQ.dbudKtF6QmygxeD1osCvbA',
                 },
               ),
               MarkerLayerOptions(
                 markers: List.generate(
-                  UserController.to.user.location != null ? widget.listEvent.length + 1 : widget.listEvent.length,
+                  UserController.to.user.location != null
+                      ? widget.listEvent.length + 1
+                      : widget.listEvent.length,
                   (index) {
-                    if (UserController.to.user.location != null && index == widget.listEvent.length)
+                    if (UserController.to.user.location != null &&
+                        index == widget.listEvent.length)
                       return Marker(
                         width: 45.0,
                         height: 45.0,
@@ -106,9 +109,8 @@ class _MapEventState extends State<MapEvent> {
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.location_on),
-              color: _indexMarker == index
-                  ? Colors.greenAccent[400]
-                  : Colors.deepPurpleAccent,
+              color:
+                  _indexMarker == index ? ConstantColor.white : Colors.orange,
               iconSize: 45.0,
               onPressed: () {
                 setState(() {
@@ -120,7 +122,7 @@ class _MapEventState extends State<MapEvent> {
               width: 200,
               height: 50,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: ConstantColor.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
@@ -132,7 +134,9 @@ class _MapEventState extends State<MapEvent> {
                         widget.listEvent[index].title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: ConstantColor.backgroundColor),
                       ),
                     ),
                   ),
@@ -150,9 +154,7 @@ class _MapEventState extends State<MapEvent> {
       else
         return IconButton(
           icon: Icon(Icons.location_on),
-          color: _indexMarker == index
-              ? Colors.greenAccent[400]
-              : Colors.deepPurpleAccent,
+          color: _indexMarker == index ? ConstantColor.white : Colors.orange,
           iconSize: 45.0,
           onPressed: () {
             setState(() {
@@ -163,9 +165,7 @@ class _MapEventState extends State<MapEvent> {
     }
     return IconButton(
       icon: Icon(Icons.location_on),
-      color: _indexMarker == index
-          ? Colors.greenAccent[400]
-          : Colors.deepPurpleAccent,
+      color: _indexMarker == index ? ConstantColor.white : Colors.orange,
       iconSize: 45.0,
       onPressed: () {
         setState(() {
